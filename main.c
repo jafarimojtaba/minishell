@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/09 17:50:05 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/09 19:42:28 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,23 @@ char *command_buff;
 
 int main(void)
 {
-	char *argVec[] = {"echo", "hi how?", NULL};
+	// argc = 0;
+	int fdd = 0;
+	// argv = NULL;
+	char *buff;
+	
+	buff = (char *)malloc(6 * sizeof(char));
+	char *argVec[] = {"echo", "ehsan", NULL};
 	char *enVec[] = {NULL};
+	// ft_env(env);
 	// while (1)
 	// {
 		command_buff = readline("minishell>");
-		argVec[1] = command_buff;
+		// argVec[1] = command_buff;
+		dup(fdd, STDOUT_FILENO);
 		execve("/bin/echo" , argVec, enVec);
+		read(fdd, buff, 5);
+		printf("%s",buff);
 	// }
 
 	// command_buff = readline("minishell: ");

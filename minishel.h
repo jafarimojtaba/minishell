@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/09 17:20:07 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/09 19:36:56 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
+# include "./libft/libft.h"
+# include <fcntl.h>
+
+void ft_env(char **env);
 
 
 
