@@ -6,13 +6,13 @@
 #    By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/09 17:02:12 by mjafari           #+#    #+#              #
-#    Updated: 2022/07/09 17:28:38 by mjafari          ###   ########.fr        #
+#    Updated: 2022/07/10 12:49:18 by mjafari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= minishell
 
-SRC		= main.c ./builtins/*.c 
+SRC		= main.c parser.c ft_free.c ./builtins/*.c 
 
 FLAG	= -Wall -Werror -Wextra -lreadline
 

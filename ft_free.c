@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 15:59:47 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/10 17:02:32 by mjafari          ###   ########.fr       */
+/*   Created: 2022/07/10 12:47:07 by mjafari           #+#    #+#             */
+/*   Updated: 2022/07/10 12:51:20 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishel.h"
+#include "minishel.h"
 
-void ft_env(char **env, int fd)
+void	free_splitted(char **splitted)
 {
 	int	i;
 
 	i = 0;
-	while (env[i])
+	while (splitted[i])
 	{
-		ft_putstr_fd(env[i], fd);
-		ft_putchar_fd('\n', fd);
+		free(splitted[i]);
 		i++;
 	}
+	free(splitted);
 }

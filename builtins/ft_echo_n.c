@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_eco.c                                           :+:      :+:    :+:   */
+/*   ft_echo_n.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:42:46 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/09 18:52:19 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/10 19:51:37 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishel.h"
 
-void ft_echo_n(char *str, int fd)
+void ft_echo_n(t_com *cmd, int fd)
 {
-	ft_putstr_fd(str,fd);
+	// ft_putstr_fd(str,fd);
 }
