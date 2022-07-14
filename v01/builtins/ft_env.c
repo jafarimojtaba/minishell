@@ -6,11 +6,11 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:59:47 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/10 17:02:32 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/12 18:29:25 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishel.h"
+#include "../minishell.h"
 
 void ft_env(char **env, int fd)
 {

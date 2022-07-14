@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/10 12:47:07 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/12 18:29:31 by mjafari          ###   ########.fr       */
+/*   Created: 2021/05/14 06:56:35 by mjafari           #+#    #+#             */
+/*   Updated: 2021/06/12 15:55:19 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	free_splitted(char **splitted)
+void	*ft_memset(void *str, int c, size_t n)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (splitted[i])
-	{
-		free(splitted[i]);
-		i++;
-	}
-	free(splitted);
+	while (i < n)
+		((unsigned char *)str)[i++] = (unsigned char)c;
+	return (str);
 }

@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/10 12:47:07 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/12 18:29:31 by mjafari          ###   ########.fr       */
+/*   Created: 2021/05/21 14:38:07 by mjafari           #+#    #+#             */
+/*   Updated: 2021/06/03 18:22:35 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	free_splitted(char **splitted)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	int	i;
+	size_t			i;
+	unsigned char	*s11;
+	unsigned char	*s22;
 
 	i = 0;
-	while (splitted[i])
+	s11 = (unsigned char *)s1;
+	s22 = (unsigned char *)s2;
+	if (n == 0)
+		return (0);
+	while (i < n && s11[i] == s22[i])
 	{
-		free(splitted[i]);
 		i++;
 	}
-	free(splitted);
+	if (i == n)
+		i--;
+	return ((int)(s11[i] - s22[i]));
 }

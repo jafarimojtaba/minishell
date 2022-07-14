@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/10 12:47:07 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/12 18:29:31 by mjafari          ###   ########.fr       */
+/*   Created: 2021/05/29 19:22:13 by mjafari           #+#    #+#             */
+/*   Updated: 2021/05/29 19:30:36 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	free_splitted(char **splitted)
+t_list	*ft_lstlast(t_list *lst)
 {
-	int	i;
+	t_list	*last;
 
-	i = 0;
-	while (splitted[i])
+	if (!lst)
+		return (NULL);
+	while (lst->next)
 	{
-		free(splitted[i]);
-		i++;
+		lst = lst->next;
 	}
-	free(splitted);
+	last = lst;
+	return (last);
 }

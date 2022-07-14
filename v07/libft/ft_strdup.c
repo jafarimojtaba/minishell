@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/10 12:47:07 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/12 18:29:31 by mjafari          ###   ########.fr       */
+/*   Created: 2021/05/24 18:01:59 by mjafari           #+#    #+#             */
+/*   Updated: 2021/05/30 13:09:35 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	free_splitted(char **splitted)
+char	*ft_strdup(const char *s)
 {
-	int	i;
+	char	*str;
+	int		i;
 
-	i = 0;
-	while (splitted[i])
-	{
-		free(splitted[i]);
-		i++;
-	}
-	free(splitted);
+	i = ft_strlen(s);
+	if (!s)
+		return (0);
+	str = malloc((i + 1) * sizeof(char));
+	if (!str)
+		return (0);
+	ft_strlcpy(str, s, i + 1);
+	return (str);
 }

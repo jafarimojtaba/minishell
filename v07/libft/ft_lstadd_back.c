@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/10 12:47:07 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/12 18:29:31 by mjafari          ###   ########.fr       */
+/*   Created: 2021/05/29 19:33:19 by mjafari           #+#    #+#             */
+/*   Updated: 2021/05/29 19:46:06 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	free_splitted(char **splitted)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	int	i;
+	t_list	*tmp;
 
-	i = 0;
-	while (splitted[i])
+	if (lst)
 	{
-		free(splitted[i]);
-		i++;
+		if (*lst == NULL)
+			*lst = new;
+		else
+		{
+			tmp = ft_lstlast(*(lst));
+			tmp->next = new;
+		}
 	}
-	free(splitted);
 }

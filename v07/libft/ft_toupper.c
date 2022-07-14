@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/10 12:47:07 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/12 18:29:31 by mjafari          ###   ########.fr       */
+/*   Created: 2021/05/19 15:37:12 by mjafari           #+#    #+#             */
+/*   Updated: 2021/06/01 10:50:04 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	free_splitted(char **splitted)
+static int	ft_islower(int c)
 {
-	int	i;
+	return (c >= 'a' && c <= 'z');
+}
 
-	i = 0;
-	while (splitted[i])
+int	ft_toupper(int c)
+{
+	if (ft_islower(c))
 	{
-		free(splitted[i]);
-		i++;
+		c -= 32;
 	}
-	free(splitted);
+	return (c);
 }

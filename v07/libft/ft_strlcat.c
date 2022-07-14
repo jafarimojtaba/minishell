@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/10 12:47:07 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/12 18:29:31 by mjafari          ###   ########.fr       */
+/*   Created: 2021/05/21 18:15:02 by mjafari           #+#    #+#             */
+/*   Updated: 2021/06/08 18:16:06 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	free_splitted(char **splitted)
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	int	i;
+	size_t	i;
+	size_t	j;
+	size_t	c;
 
-	i = 0;
-	while (splitted[i])
+	i = ft_strlen(dest);
+	j = ft_strlen(src);
+	if (size < i || size == 0)
 	{
-		free(splitted[i]);
-		i++;
+		return (j + size);
 	}
-	free(splitted);
+	c = i + j;
+	j = 0;
+	while (i < size - 1 && src[j])
+	{
+		dest[i++] = src[j++];
+	}
+	dest[i] = '\0';
+	return (c);
 }

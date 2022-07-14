@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/12 21:25:34 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/14 22:13:12 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@
 # include "./libft/libft.h"
 # include <fcntl.h>
 
-typedef struct	s_com
+typedef struct	s_cmd
 {
 	int			id;
-	int			id_last_created;
 	int			pr;
 	char		*c_pre_parse;
 	int			pipe_flag_before;
@@ -34,12 +33,10 @@ typedef struct	s_com
 	char		**op;
 	int			fd_in;
 	int			fd_out;
-} 				t_com;
+} 				t_cmd;
 
-void	ft_env(char **env, int fd);
-char	**parser(char *commandbuff);
-void	free_splitted(char **splitted);
-int		pipe_counter(char **splitted);
-void	create_commands(char **splitted, int n_pipes);
+char **split_command(char *cb);
+int cmd_num(char *cmd);
+void cmd_fill(t_cmd *cmd_s, char *cmd);
 
 #endif

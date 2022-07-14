@@ -6,22 +6,36 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:23:38 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/11 22:31:34 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/14 21:00:03 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int check_end_before_pipe(char *cb, int i, char q)
+int check_end_before_end(char *cb, int i, char q)
 {
 	i++;
-	while (cb[i] && cb[i] != q && cb[i] != '|')
+	while (cb[i] && cb[i] != q)
 	{
-		i++;
-		if (cb[i] == '\0' || cb[i] == '|')
+		if (cb[i] == '\0')
 			return (0);
 		if (cb[i] == q)
 			return (i);
+		i++;
+	}
+	return (i);
+}
+
+int check_end_before_pipe(char *cb, int i, char q)
+{
+	i++;
+	while (cb[i] && cb[i] != q)
+	{
+		if (cb[i] == '\0' || (cb[i] == '|' && cb[i + 1] != '|'))
+			return (0);
+		if (cb[i] == q)
+			return (i);
+		i++;
 	}
 	return (i);
 }
@@ -33,21 +47,26 @@ int check_end_before_space_or_pipe(char *cb, int i)
 		i++;
 	return (i);
 }
-
+void	make_command_str(char *begin, char *end, char **splitted)
+{
+	
+}
 char **pre_parser(char *commandbuff)
 {
-	int i;
-	int end;
-	char **splitted;
+	int		i;
+	int		end;
+	char	**splitted;
+	int		s;
 
 	i = 0;
+	s = 0;
 	while(commandbuff[i])
 	{
-		if (commandbuff[i] == ' ')
+
 			i++;
 		else if (commandbuff[i] == '\'')
 		{
-			end = check_end_before_pipe(commandbuff, i, '\'');
+			end = check_end_before_end(commandbuff, i, '\'');
 			if (end)
 			{
 				make_command_str(commandbuff[i], commandbuff[end], splitted);

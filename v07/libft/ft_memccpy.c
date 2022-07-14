@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/10 12:47:07 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/12 18:29:31 by mjafari          ###   ########.fr       */
+/*   Created: 2021/05/19 18:27:32 by mjafari           #+#    #+#             */
+/*   Updated: 2021/06/12 15:56:11 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	free_splitted(char **splitted)
+void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 {
-	int	i;
+	size_t			i;
+	unsigned char	*src2;
+	unsigned char	*dest2;
+	unsigned char	c2;
 
+	src2 = (unsigned char *)src;
+	dest2 = (unsigned char *)dest;
+	c2 = (unsigned char)c;
 	i = 0;
-	while (splitted[i])
+	while (i < n)
 	{
-		free(splitted[i]);
+		dest2 = (unsigned char *)ft_memcpy(dest2, src2, 1);
+		if (*src2 == c2)
+			return ((void *)(++dest2));
+		dest2++;
+		src2++;
 		i++;
 	}
-	free(splitted);
+	return (0);
 }

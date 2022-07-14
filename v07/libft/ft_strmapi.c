@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/10 12:47:07 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/12 18:29:31 by mjafari          ###   ########.fr       */
+/*   Created: 2021/05/28 20:26:41 by mjafari           #+#    #+#             */
+/*   Updated: 2021/05/31 19:58:19 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	free_splitted(char **splitted)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int	i;
+	unsigned int	i;
+	char			*str;
 
+	if (!s || !f)
+		return (0);
+	i = ft_strlen(s);
+	str = malloc((i + 1) * sizeof(char));
+	if (!str)
+		return (0);
+	str[i] = '\0';
 	i = 0;
-	while (splitted[i])
+	while (s[i])
 	{
-		free(splitted[i]);
+		str[i] = f(i, s[i]);
 		i++;
 	}
-	free(splitted);
+	return (str);
 }

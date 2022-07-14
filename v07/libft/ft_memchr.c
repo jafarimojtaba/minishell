@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/10 12:47:07 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/12 18:29:31 by mjafari          ###   ########.fr       */
+/*   Created: 2021/05/21 12:39:23 by mjafari           #+#    #+#             */
+/*   Updated: 2021/06/12 15:57:01 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	free_splitted(char **splitted)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int	i;
+	size_t			i;
+	unsigned char	*str;
 
 	i = 0;
-	while (splitted[i])
-	{
-		free(splitted[i]);
+	str = (unsigned char *)s;
+	while (str[i] != (unsigned char)c && i < n && str[i])
 		i++;
-	}
-	free(splitted);
+	if (str[i] == (unsigned char)c && i < n)
+		return ((void *)(&str[i]));
+	else
+		return (NULL);
 }
