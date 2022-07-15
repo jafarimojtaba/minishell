@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/14 22:12:52 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/15 19:46:35 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void print_split(char **sp)
 	}
 }
 
-
 int main(void)
 {
 	t_cmd	*commands;
@@ -44,6 +43,8 @@ int main(void)
 		cmd_n = cmd_num(command_buff);
 		commands = (t_cmd *)malloc(cmd_n * sizeof(t_cmd));
 		cmd_fill(commands, command_buff);
+		cmd_init(commands, cmd_n);
+		// cmd_c(commands,cmd_n);
 		printf("ac = %d\n", cmd_num(command_buff));
 		// splitted = split_command(command_buff);
 		// print_split(splitted);

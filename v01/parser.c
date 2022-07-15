@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:23:38 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/14 21:00:03 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/15 19:20:08 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char **pre_parser(char *commandbuff)
 	{
 
 			i++;
-		else if (commandbuff[i] == '\'')
+		if (commandbuff[i] == '\'')
 		{
 			end = check_end_before_end(commandbuff, i, '\'');
 			if (end)
@@ -73,7 +73,7 @@ char **pre_parser(char *commandbuff)
 				i = end;
 			}
 			else
-				return(error_of_not_closing_quotes);
+				return("error_of_not_closing_quotes");
 		}
 		else if (commandbuff[i] == '"')
 		{
@@ -84,7 +84,7 @@ char **pre_parser(char *commandbuff)
 				i = end;
 			}
 			else
-				return(error_of_not_closing_quotes);
+				return("error_of_not_closing_quotes");
 		}
 		else
 		{

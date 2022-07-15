@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/14 22:13:12 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/15 19:00:17 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ typedef struct	s_cmd
 char **split_command(char *cb);
 int cmd_num(char *cmd);
 void cmd_fill(t_cmd *cmd_s, char *cmd);
+void cmd_init(t_cmd *cmd, int n);
 
 #endif
