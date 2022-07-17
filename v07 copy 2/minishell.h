@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/17 16:22:08 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/17 18:42:19 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_cmd
 {
 	int			id;
 	int			end_of_c;
+	int			cmd_n;
 	char		*c_pre_parse;
 	int			pipe_flag_before;
 	int			pipe_flag_after;

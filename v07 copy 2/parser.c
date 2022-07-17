@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:23:38 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/17 09:18:48 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/17 18:56:00 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void cmd_init(t_cmd *cmd, int n)
 		cmd[i].pipe_flag_after = 0;
 		cmd[i].fd_in = 0;
 		cmd[i].fd_out = 1;
+		cmd[i].cmd_n = n;
 		i++;
 	}
+	// printf("n == %d\n", n);
 }
 
 void cmd_c(t_cmd *cmd, int n)
