@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/15 19:46:35 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/16 20:21:58 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int main(void)
 {
 	t_cmd	*commands;
 
-	char **splitted;
+	// char **splitted;
 	int i;
 	int cmd_n;
 	
 	while (1)
 	{
-		command_buff = readline("minishell>");
+		command_buff = readline("MiniShell$");
 		if (ft_strlen(command_buff) > 0)
 			add_history(command_buff);
 		// i = access("/bin/echo", R_OK);
@@ -44,7 +44,7 @@ int main(void)
 		commands = (t_cmd *)malloc(cmd_n * sizeof(t_cmd));
 		cmd_fill(commands, command_buff);
 		cmd_init(commands, cmd_n);
-		// cmd_c(commands,cmd_n);
+		cmd_c(commands,cmd_n);
 		printf("ac = %d\n", cmd_num(command_buff));
 		// splitted = split_command(command_buff);
 		// print_split(splitted);
