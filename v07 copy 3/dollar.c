@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 20:37:12 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/18 21:01:17 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/18 21:11:04 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,27 +91,38 @@ void ft_dollar_replace(t_cmd *cmd)
 						// printf("first_str=%s, j = %d#\n", first_str, j);
 						start = j + 1;
 						while (cmd[i].c_pre_parse[j] != '"' && cmd[i].c_pre_parse[j] != ' ' && cmd[i].c_pre_parse[j])
-							j++;
-						if (cmd[i].c_pre_parse[j] != '\0')
 						{
-							end = j - 1;
-							dollar_str = getenv(ft_substr(cmd[i].c_pre_parse, start, end - start + 1));
-							// printf("dollar_str=%s, j = %d#\n", dollar_str, j);
-							temp1 = ft_strjoin(first_str, dollar_str);
-							temp2 = ft_strjoin(temp1, &cmd[i].c_pre_parse[end + 1]);
-							// printf("command = %s\n", cmd[i].c_pre_parse);
-							cmd[i].c_pre_parse = temp2;
-							// break;
+							j++;
+							end = j;
+							// printf("getenv= %s\n", ft_substr(cmd[i].c_pre_parse, start, end - start + 1));
+							if (getenv(ft_substr(cmd[i].c_pre_parse, start, end - start + 1)))
+							{
+								dollar_str = getenv(ft_substr(cmd[i].c_pre_parse, start, end - start + 1));
+								// printf("dollar_str=%s, j = %d#\n", dollar_str, j);
+								temp1 = ft_strjoin(first_str, dollar_str);
+								temp2 = ft_strjoin(temp1, &cmd[i].c_pre_parse[end + 1]);
+								// printf("command = %s\n", cmd[i].c_pre_parse);
+								cmd[i].c_pre_parse = temp2;
+								break;
+							}
 						}
-						else
-							break;
+						// j++;
+						// if (cmd[i].c_pre_parse[j] == ' ' || cmd[i].c_pre_parse[j] == '"')
+						// {
+						// 	end = j - 1;
+						// 	dollar_str = getenv(ft_substr(cmd[i].c_pre_parse, start, end - start + 1));
+						// 	// printf("dollar_str=%s, j = %d#\n", dollar_str, j);
+						// 	temp1 = ft_strjoin(first_str, dollar_str);
+						// 	temp2 = ft_strjoin(temp1, &cmd[i].c_pre_parse[end + 1]);
+						// 	// printf("command = %s\n", cmd[i].c_pre_parse);
+						// 	cmd[i].c_pre_parse = temp2;
+						// 	// break;
+						// }
+						// else
+						// 	break;
 					}
 					j++;
 				}
-				// j = 0;
-				// printf("command = %s\n", cmd[i].c_pre_parse);
-				// continue;
-				// j++;
 			}
 			j++;
 		}
