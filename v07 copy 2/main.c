@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/17 18:07:15 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/18 20:41:12 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,17 @@ int main(void)
 		commands = (t_cmd *)malloc(cmd_n * sizeof(t_cmd));
 		cmd_init(commands, cmd_n);
 		ft_lexer(commands, command_buff);
+		ft_dollar_replace(commands);
 		i = 0;
 		while (i < cmd_n)
 		{
-			printf("PIPE_before = %d, PP_CMD : %s PIPE_after = %d$\n",commands[i].pipe_flag_before, commands[i].c_pre_parse, commands[i].pipe_flag_after);
+			// printf("PIPE_before = %d, PIPE_after = %d PP_CMD : %s$\n",commands[i].pipe_flag_before, commands[i].pipe_flag_after, commands[i].c_pre_parse);
+			printf("PP_CMD : %s#\n", commands[i].c_pre_parse);
 			i++;
 		}
 		
 		// cmd_c(commands,cmd_n);
-		printf("ac = %d\n", cmd_n);
+		// printf("ac = %d\n", cmd_n);
 		// splitted = split_command(command_buff);
 		// print_split(splitted);
 	}

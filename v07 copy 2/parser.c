@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:23:38 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/17 18:56:00 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/18 16:44:53 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void cmd_c(t_cmd *cmd, int n)
 	while (i < n)
 	{
 		j = 0;
-		while (cmd[i].c_pre_parse[j] == ' ')
-		{
-			j++;
-			start++;
-		}
+		// while (cmd[i].c_pre_parse[j] == ' ')
+		// {
+		// 	j++;
+		// 	start++;
+		// }
 		if (cmd[i].c_pre_parse[0] != '\'' && cmd[i].c_pre_parse[0] != '"')
 		{
 			while (cmd[i].c_pre_parse[j] != ' ' && cmd[i].c_pre_parse[j])

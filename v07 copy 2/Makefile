@@ -6,13 +6,13 @@
 #    By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/09 17:02:12 by mjafari           #+#    #+#              #
-#    Updated: 2022/07/17 16:07:50 by mjafari          ###   ########.fr        #
+#    Updated: 2022/07/18 17:20:51 by mjafari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= minishell
 
-SRC		= main.c parser.c lexer.c
+SRC		= main.c parser.c lexer.c dollar.c
 
 FLAG	= -lreadline
 
