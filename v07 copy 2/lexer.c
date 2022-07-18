@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:06:47 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/17 18:55:46 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/17 19:13:09 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void ft_lexer(t_cmd *t_cmd, char *cmd)
 		}
 		i++;
 	}
-    end = i;
+	end = i;
 	if (j < t_cmd[0].cmd_n)
 	{
 		t_cmd[j].c_pre_parse = ft_substr(cmd, start, end - start);
@@ -110,5 +110,4 @@ void ft_lexer(t_cmd *t_cmd, char *cmd)
 		if (j > 0)
 			t_cmd[j].pipe_flag_before = 1;
 	}
-    	
 }
