@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/18 17:18:54 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/19 17:40:37 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ void cmd_c(t_cmd *cmd, int n);
 int cmd_count(char *cmd);
 void ft_lexer(t_cmd *t_cmd, char *cmd);
 void ft_dollar_replace(t_cmd *cmd);
+void ft_dollar_no_q(t_cmd *cmd);
+void ft_input_replace(t_cmd *cmd);
 
 #endif

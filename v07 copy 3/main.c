@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/18 20:41:12 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/19 19:29:56 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ int main(void)
 		commands = (t_cmd *)malloc(cmd_n * sizeof(t_cmd));
 		cmd_init(commands, cmd_n);
 		ft_lexer(commands, command_buff);
+
+		ft_input_replace(commands);
 		ft_dollar_replace(commands);
+		ft_dollar_no_q(commands);
+		
 		i = 0;
 		while (i < cmd_n)
 		{
@@ -53,7 +57,7 @@ int main(void)
 			printf("PP_CMD : %s#\n", commands[i].c_pre_parse);
 			i++;
 		}
-		
+
 		// cmd_c(commands,cmd_n);
 		// printf("ac = %d\n", cmd_n);
 		// splitted = split_command(command_buff);
