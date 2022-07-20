@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 20:37:12 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/20 08:32:46 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/20 21:43:53 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ char *ft_new_read(char *dlm)
 {
 	char *dl;
 	char *bf;
-	char *ret ="";
+	char *ret = "";
 	dl = ft_strjoin(dlm, "hi");
 	// printf("%s#\n", dlm);
 	while (ft_strncmp(dlm, dl, ft_strlen(dl) + 1) != 0)
 	{
 		bf = ret;
 		dl = readline(">");
-		if(ft_strncmp(dlm, dl, ft_strlen(dl) + 1) != 0)
+		if (ft_strncmp(dlm, dl, ft_strlen(dl) + 1) != 0)
 		{
 			ret = ft_strjoin(bf, dl);
 			ret = ft_strjoin(ret, "\n");
@@ -169,7 +169,7 @@ void ft_dollar_no_q(t_cmd *cmd)
 				first_str = ft_substr(cmd[i].c_pre_parse, 0, j - 1);
 				// printf("first_str=%s, j = %d#\n", first_str, j);
 				start = j;
-				while (cmd[i].c_pre_parse[j] != ' ' && cmd[i].c_pre_parse[j])
+				while (cmd[i].c_pre_parse[j] != ' ' && cmd[i].c_pre_parse[j] && cmd[i].c_pre_parse[j] != '$')
 				{
 					j++;
 					end = j;
@@ -184,6 +184,14 @@ void ft_dollar_no_q(t_cmd *cmd)
 						cmd[i].c_pre_parse = temp2;
 						// break;
 					}
+				}
+				if (!dollar_str)
+				{
+					dollar_str = "";
+					temp1 = ft_strjoin(first_str, dollar_str);
+					temp2 = ft_strjoin(temp1, &cmd[i].c_pre_parse[end]);
+					// printf("command = %s\n", cmd[i].c_pre_parse);
+					cmd[i].c_pre_parse = temp2;
 				}
 			}
 			j++;
@@ -232,7 +240,8 @@ void ft_dollar_replace(t_cmd *cmd)
 						first_str = ft_substr(cmd[i].c_pre_parse, 0, j);
 						// printf("first_str=%s, j = %d#\n", first_str, j);
 						start = j + 1;
-						while (cmd[i].c_pre_parse[j] != '"' && cmd[i].c_pre_parse[j] != ' ' && cmd[i].c_pre_parse[j])
+						j++;
+						while (cmd[i].c_pre_parse[j] != '"' && cmd[i].c_pre_parse[j] != ' ' && cmd[i].c_pre_parse[j] && cmd[i].c_pre_parse[j] != '$')
 						{
 							j++;
 							end = j;
@@ -247,6 +256,14 @@ void ft_dollar_replace(t_cmd *cmd)
 								cmd[i].c_pre_parse = temp2;
 								break;
 							}
+						}
+						if (!dollar_str)
+						{
+							dollar_str = "";
+							temp1 = ft_strjoin(first_str, dollar_str);
+							temp2 = ft_strjoin(temp1, &cmd[i].c_pre_parse[end]);
+							// printf("command = %s\n", cmd[i].c_pre_parse);
+							cmd[i].c_pre_parse = temp2;
 						}
 						// j++;
 						// if (cmd[i].c_pre_parse[j] == ' ' || cmd[i].c_pre_parse[j] == '"')
