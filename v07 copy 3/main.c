@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/20 08:37:27 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/20 09:25:57 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int main(void)
 		commands = (t_cmd *)malloc(cmd_n * sizeof(t_cmd));
 		cmd_init(commands, cmd_n);
 		ft_lexer(commands, command_buff);
-
 		ft_input_replace(commands);
 		ft_dollar_replace(commands);
 		ft_dollar_no_q(commands);
