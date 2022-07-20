@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/19 19:29:56 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/20 08:37:27 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,16 @@ int main(void)
 		ft_input_replace(commands);
 		ft_dollar_replace(commands);
 		ft_dollar_no_q(commands);
-		
-		i = 0;
-		while (i < cmd_n)
-		{
-			// printf("PIPE_before = %d, PIPE_after = %d PP_CMD : %s$\n",commands[i].pipe_flag_before, commands[i].pipe_flag_after, commands[i].c_pre_parse);
-			printf("PP_CMD : %s#\n", commands[i].c_pre_parse);
-			i++;
-		}
 
-		// cmd_c(commands,cmd_n);
+		// i = 0;
+		// while (i < cmd_n)
+		// {
+		// 	// printf("PIPE_before = %d, PIPE_after = %d PP_CMD : %s$\n",commands[i].pipe_flag_before, commands[i].pipe_flag_after, commands[i].c_pre_parse);
+		// 	printf("PP_CMD : %s#\n", commands[i].c_pre_parse);
+		// 	i++;
+		// }
+
+		cmd_c(commands,cmd_n);
 		// printf("ac = %d\n", cmd_n);
 		// splitted = split_command(command_buff);
 		// print_split(splitted);

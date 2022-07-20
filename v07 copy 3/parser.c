@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:23:38 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/18 16:44:53 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/20 08:56:01 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,35 +36,53 @@ void cmd_c(t_cmd *cmd, int n)
 	int j;
 	int start;
 	char *op;
+	char c;
 
 	i = 0;
 	start = 0;
 	while (i < n)
 	{
 		j = 0;
-		// while (cmd[i].c_pre_parse[j] == ' ')
-		// {
-		// 	j++;
-		// 	start++;
-		// }
-		if (cmd[i].c_pre_parse[0] != '\'' && cmd[i].c_pre_parse[0] != '"')
+		while (cmd[i].c_pre_parse[j] == ' ')
+		{
+			j++;
+			start++;
+		}
+		if (cmd[i].c_pre_parse[j] == '\'' || cmd[i].c_pre_parse[j] == '"')
+			{
+				c = cmd[i].c_pre_parse[j];
+				j++;
+				while (cmd[i].c_pre_parse[j] != c && cmd[i].c_pre_parse[j])
+				{
+					if (!cmd[i].c_pre_parse[j])
+					{
+						printf("not closing quotes dollar\n");
+						break;
+					}
+					j++;
+				}
+				cmd[i].c = ft_substr(cmd[i].c_pre_parse, start + 1, j - start - 1);
+				j++;
+				// puts("Hi if");
+			}
+		else if (cmd[i].c_pre_parse[0] != '\'' && cmd[i].c_pre_parse[0] != '"')
 		{
 			while (cmd[i].c_pre_parse[j] != ' ' && cmd[i].c_pre_parse[j])
 				j++;
 			cmd[i].c = ft_substr(cmd[i].c_pre_parse, start, j);
 		}
-		else
-		{
-			while (cmd[i].c_pre_parse[j] != cmd[i].c_pre_parse[0])
-				j++;
-			cmd[i].c = ft_substr(cmd[i].c_pre_parse, start, j);
-		}
+		// else
+		// {
+		// 	while (cmd[i].c_pre_parse[j] != cmd[i].c_pre_parse[0])
+		// 		j++;
+		// 	cmd[i].c = ft_substr(cmd[i].c_pre_parse, start, j);
+		// }
 		while (cmd[i].c_pre_parse[j] == ' ')
 			j++;
 		cmd[i].end_of_c = j;
-		printf("command c = %s\n", cmd[i].c);
+		printf("command c = %s#\n", cmd[i].c);
 		op = ft_substr(cmd[i].c_pre_parse, j, ft_strlen(cmd[i].c_pre_parse) - j);
-		printf("option c = %s\n", op);
+		printf("option c = %s#\n", op);
 		i++;
 	}
 }

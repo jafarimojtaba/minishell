@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 20:37:12 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/19 20:45:38 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/20 08:32:46 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char *ft_new_read(char *dlm)
 	char *bf;
 	char *ret ="";
 	dl = ft_strjoin(dlm, "hi");
-	printf("%s#\n", dlm);
+	// printf("%s#\n", dlm);
 	while (ft_strncmp(dlm, dl, ft_strlen(dl) + 1) != 0)
 	{
 		bf = ret;
@@ -31,7 +31,7 @@ char *ft_new_read(char *dlm)
 			ret = ft_strjoin(ret, "\n");
 		}
 	}
-	printf("ret=%s", ret);
+	// printf("ret=%s", ret);
 	return (ret);
 }
 
@@ -63,12 +63,12 @@ void ft_input_replace(t_cmd *cmd)
 				j++;
 				while (cmd[i].c_pre_parse[j] != c && cmd[i].c_pre_parse[j])
 				{
-					j++;
 					if (!cmd[i].c_pre_parse[j])
 					{
 						printf("not closing quotes dollar\n");
 						break;
 					}
+					j++;
 				}
 
 				// puts("Hi if");
@@ -113,7 +113,7 @@ void ft_input_replace(t_cmd *cmd)
 				{
 					while (cmd[i].c_pre_parse[j] != ' ' && cmd[i].c_pre_parse[j])
 						j++;
-					input_dlm = ft_substr(cmd[i].c_pre_parse, start, j - start + 1);
+					input_dlm = ft_substr(cmd[i].c_pre_parse, start, j - start);
 					temp1 = ft_new_read(input_dlm);
 					temp1 = ft_strjoin(temp1, "\"");
 					temp1 = ft_strjoin("\"", temp1);
