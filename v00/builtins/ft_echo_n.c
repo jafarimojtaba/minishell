@@ -6,11 +6,11 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:42:46 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/10 19:51:37 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/21 18:49:40 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishel.h"
+#include "../minishell.h"
 
 void ft_echo_n(t_com *cmd, int fd)
 {

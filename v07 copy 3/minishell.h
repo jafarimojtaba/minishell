@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/19 17:40:37 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/21 18:22:08 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct	s_cmd
 	int			pipe_flag_after;
 	char		*c;
 	char		**op;
+	char		**re;
 	int			fd_in;
 	int			fd_out;
 } 				t_cmd;
