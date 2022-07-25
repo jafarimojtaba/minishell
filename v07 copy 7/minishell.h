@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/25 20:04:26 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/25 21:55:57 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void cmd_c(t_cmd *cmd, int n);
 int cmd_count(char *c, int i, int count);
 void pipe_splitter(t_cmd *t_cmd, char *cmd, int i, int j);
 void dollar_with_q(t_cmd *cmd, int i, int j, int start);
-void dollar_no_q(t_cmd *cmd);
+void dollar_no_q(t_cmd *cmd, int i, int j, int start);
 void heredoc_input(t_cmd *cmd, int i, int j, int start);
 void ft_redirection(t_cmd *cmd, int i);
 char *find_file_name(char *c, int *j);
@@ -75,5 +75,7 @@ void free_cmd(t_cmd *cmd, int i);
 int	is_heredoc(char *c, int j);
 int	heredoc_str(t_cmd *cmd, char *first_str, int start, int j);
 char	*ft_new_read(char *dlm, char *ret, int l);
+int	dollar_str_env(t_cmd *cmd, int start, int *j, char *first_str);
+void	no_dollar_var(t_cmd *cmd, int j, char *first_str);
 
 #endif

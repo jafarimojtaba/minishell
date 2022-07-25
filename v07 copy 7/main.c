@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/25 20:03:46 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/25 21:37:02 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int main(void)
 		pipe_splitter(cmd, cmd_buff, 0, 0);
 		heredoc_input(cmd, 0, 0, 0);
 		dollar_with_q(cmd, 0, 0, 0);
-		dollar_no_q(cmd);
-		// ft_redirection(cmd, 0);
+		dollar_no_q(cmd, 0, 0, 0);
+		ft_redirection(cmd, 0);
 		cmd_c(cmd, cmd_n);
 		// args_selector(cmd, cmd_n);
 		i = 0;

@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 19:59:33 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/25 20:04:06 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/25 21:29:51 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ void	no_dollar_var(t_cmd *cmd, int j, char *first_str)
 
 int	is_not_space_or_dollar(t_cmd *cmd, int j)
 {
-	if (cmd->c_pre_parse[j] != '"' && cmd->c_pre_parse[j] != ' '
-		&& cmd->c_pre_parse[j] && cmd->c_pre_parse[j] != '$')
+	if (cmd->c_pre_parse[j] && !ft_strchr("$ '\"", cmd->c_pre_parse[j]))
 		return (1);
 	return (0);
 }
@@ -69,8 +68,8 @@ void	dollar_in_next_dq(t_cmd *cmd, int start, int *j, char *first_str)
 		if (cmd->c_pre_parse[*j] == '$')
 		{
 			first_str = ft_substr(cmd->c_pre_parse, 0, *j);
-			start = *j + 1;
 			(*j)++;
+			start = *j;
 			while (is_not_space_or_dollar(cmd, *j))
 			{
 				dollar_check = dollar_str_env(cmd, start, j, first_str);
@@ -94,7 +93,11 @@ void	dollar_with_q(t_cmd *cmd, int i, int j, int start)
 		while (cmd[i].c_pre_parse[j])
 		{
 			if (cmd[i].c_pre_parse[j] == '\'')
+			{
 				j = find_next_q(cmd[i].c_pre_parse, cmd[i].c_pre_parse[j], j);
+				if (!j)
+					break ;
+			}
 			else if (cmd[i].c_pre_parse[j] == '"')
 			{
 				j++;
