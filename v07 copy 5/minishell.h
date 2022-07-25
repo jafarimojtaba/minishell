@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/23 22:53:55 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/24 11:09:39 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 # include <string.h>
 # include "./libft/libft.h"
 # include <fcntl.h>
+
+enum redirection_input_output_type{
+	e_input = 0,
+	e_output = 1,
+};
 
 typedef struct s_red
 {

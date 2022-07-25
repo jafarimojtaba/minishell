@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/23 23:15:35 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/24 11:13:23 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,24 @@ void print_split(char **sp)
 
 int main(void)
 {
-	t_cmd *commands;
-
-	int i = 0;
-	int cmd_n;
+	t_cmd	*cmd;
+	char	*command_buff;
+	int		cmd_n;
+	int		i;
 
 	while (1)
 	{
 		command_buff = readline("MiniShell$ ");
 		if (ft_strlen(command_buff) > 0)
 			add_history(command_buff);
-		// i = access("/bin/echo", R_OK);
-		// cmd_n = cmd_num(command_buff);
-		// not_closed_q(command_buff);
-		
 		cmd_n = cmd_count(command_buff);
-		commands = (t_cmd *)malloc(cmd_n * sizeof(t_cmd));
-		cmd_init(commands, cmd_n);
-		ft_lexer(commands, command_buff);
-		ft_input_replace(commands);
-		ft_dollar_replace(commands);
-		ft_dollar_no_q(commands);
-		ft_redirection(commands, 0);
+		cmd = (t_cmd *)malloc(cmd_n * sizeof(t_cmd));
+		cmd_init(cmd, cmd_n);
+		ft_lexer(cmd, command_buff);
+		ft_input_replace(cmd);
+		ft_dollar_replace(cmd);
+		ft_dollar_no_q(cmd);
+		ft_redirection(cmd, 0);
 		// ft_lexer2(commands, commands->c_pre_parse);
 		// i = 0;
 		// while (i < cmd_n)
@@ -59,13 +55,13 @@ int main(void)
 		// 	// printf("CMD_re:%s#\n", commands[i].c);
 		// 	i++;
 		// }
-		cmd_c(commands,cmd_n);
-		args_selector(commands, cmd_n);
+		cmd_c(cmd,cmd_n);
+		args_selector(cmd, cmd_n);
 		i = 0;
 		while (i < cmd_n)
 		{
 			// printf("PIPE_before = %d, PIPE_after = %d PP_CMD : %s$\n",commands[i].pipe_flag_before, commands[i].pipe_flag_after, commands[i].c_pre_parse);
-			printf("PP_CMD:%s#\n", commands[i].c_pre_parse);
+			printf("PP_CMD:%s#\n", cmd[i].c_pre_parse);
 			// printf("CMD:%s#\n", commands[i].c);
 			i++;
 		}
