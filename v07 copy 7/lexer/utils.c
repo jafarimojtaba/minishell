@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 11:18:25 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/25 12:33:35 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/26 12:05:12 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void free_cmd(t_cmd *cmd, int i)
 {
 	while (i < cmd[0].cmd_n)
 	{
-		// if(cmd[i].c)
-		// 	free(cmd[i].c);
+		if(cmd[i].c)
+			free(cmd[i].c);
 		// if(cmd[i].c_buf)
 		// 	free(cmd[i].c_buf);
 		if(cmd[i].c_pre_parse)

@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 17:22:41 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/25 17:23:58 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/26 12:03:04 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ int	heredoc_str(t_cmd *cmd, char *first_str, int start, int j)
 	temp0 = ft_substr(cmd->c_pre_parse, start, j - start);
 	temp1 = ft_new_read(temp0, "", 0);
 	free(temp0);
-	temp0 = ft_strjoin(temp1, "\"");
+	temp0 = ft_strjoin(temp1, "'");
 	free(temp1);
-	temp1 = ft_strjoin("\"", temp0);
+	temp1 = ft_strjoin("'", temp0);
 	free(temp0);
 	temp0 = ft_strjoin(first_str, temp1);
 	free(temp1);

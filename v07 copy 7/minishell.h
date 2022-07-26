@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/25 21:55:57 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/26 12:40:26 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,8 @@ int	heredoc_str(t_cmd *cmd, char *first_str, int start, int j);
 char	*ft_new_read(char *dlm, char *ret, int l);
 int	dollar_str_env(t_cmd *cmd, int start, int *j, char *first_str);
 void	no_dollar_var(t_cmd *cmd, int j, char *first_str);
+int read_n_re(t_cmd *cmd, int j, int count);
+int is_in_or_out_re(char *c, int j);
+int is_output_append(char *c, int j);
 
 #endif

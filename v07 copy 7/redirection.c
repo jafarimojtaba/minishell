@@ -6,133 +6,72 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 19:57:21 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/24 16:57:33 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/26 12:44:00 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int read_n_re(t_cmd *cmd, int j, int count)
+char	*find_file_name(char *c, int *j)
 {
-	char *c;
-
-	c = cmd->c_pre_parse;
-	while (c[j])
-	{
-		if (c[j] == '\'' || c[j] == '"')
-		{
-			j = find_next_q(c, c[j], j) + 1;
-			continue;
-		}
-		else if ((c[j] == '>' && c[j + 1] == '>' && !ft_strchr("<>", c[j + 2]) && !ft_strchr("<>", c[j - 1]) && j) ||
-				 (c[j] == '>' && c[j + 1] == '>' && !ft_strchr("<>", c[j + 2]) && !j))
-		{
-			j += 2;
-			count++;
-			continue;
-		}
-		else if (((c[j] == '<' || c[j] == '>') && !ft_strchr("<>", c[j + 1]) && !ft_strchr("<>", c[j - 1]) && j) ||
-				 ((c[j] == '<' || c[j] == '>') && !ft_strchr("<>", c[j + 1]) && !j))
-			count++;
-		j++;
-	}
-	return (count);
-}
-
-char *find_file_name(char *c, int *j)
-{
-	int start;
-	int end;
+	int	start;
+	int	end;
 
 	while (c[*j] == ' ')
 		(*j)++;
-	// printf("ffn=%s\n", &c[*j]);
-	// if (c[*j] == '\'' || c[*j] == '"')
-	// {
-	// 	// puts("hi");
-	// 	start = *j + 1;
-	// 	end = find_next_q(c, c[*j], *j);
-	// 	// (*j)++;
-	// 	return (ft_substr(c, start, end - start));
-	// }
-	// else
-	// {
-		start = *j;
-
-		while (c[*j] != ' ' && c[*j] != '<' && c[*j] != '>' && c[*j] != '|' && c[*j])
-			(*j)++;
-		end = *j;
-		// printf("end=%s\n", &c[*j]);
-		return (ft_substr(c, start, end - start));
-	// }
+	start = *j;
+	while (c[*j] && !ft_strchr("< >|", c[*j]))
+		(*j)++;
+	end = *j;
+	return (ft_substr(c, start, end - start));
 }
 
-
-//<f1 <f1 cat >f2 >f3
-// cat <f1 <f1 >f2 >f3
-
-void init_cmd_re(t_cmd *cmd, int i, int j)
+void	update_append_re_vars(t_cmd *cmd, int *id, int *j, int start)
 {
-	char *c;
-	int id;
-	int start;
+	cmd->re[*id].id = *id;
+	cmd->re[*id].type = 1;
+	cmd->re[*id].is_apnd = 1;
+	cmd->re[*id].f_name = find_file_name(cmd->c_pre_parse, j);
+	cmd->c_pre_parse = remove_f_cmd_pre(cmd->c_pre_parse, start, *j - 1);
+	(*id)++;
+	*j = -1;
+}
 
-	c = cmd->c_pre_parse;
-	// printf("cmd1=%s\n", &c[j]);
+void	update_in_out_re_vars(t_cmd *cmd, int *id, int *j, int start)
+{
+	cmd->re[*id].id = *id;
+	cmd->re[*id].type = 1;
+	if (cmd->c_pre_parse[*j - 1] == '<')
+		cmd->re[*id].type = 0;
+	cmd->re[*id].is_apnd = 0;
+	cmd->re[*id].f_name = find_file_name(cmd->c_pre_parse, j);
+	cmd->c_pre_parse = remove_f_cmd_pre(cmd->c_pre_parse, start, *j - 1);
+	(*id)++;
+	*j = -1;
+}
+
+void	init_cmd_re(t_cmd *cmd, int i, int j, int id)
+{
+	int	start;
 
 	while (i < cmd->re_n)
 	{
 		id = 0;
-		while (c[j])
+		while (cmd->c_pre_parse[j])
 		{
-			// c = cmd->c_pre_parse;
-			// printf("cw=%s\n", c);
-			if (c[j] == '\'' || c[j] == '"')
+			if (cmd->c_pre_parse[j] == '\'' || cmd->c_pre_parse[j] == '"')
+				j = find_next_q(cmd->c_pre_parse, cmd->c_pre_parse[j], j);
+			else if (is_output_append(cmd->c_pre_parse, j))
 			{
-				// puts("if1");
-				j = find_next_q(c, c[j], j);
-				j++;
-				continue;
-			}
-			else if ((c[j] == '>' && c[j + 1] == '>' && !ft_strchr("<>", c[j + 2]) && !ft_strchr("<>", c[j - 1]) && j) ||
-					 (c[j] == '>' && c[j + 1] == '>' && !ft_strchr("<>", c[j + 2]) && !j))
-			{
-				// puts("if2");
 				start = j - 1;
 				j += 2;
-				// printf("j+2 =%d\n", j);
-				cmd->re[id].id = id;
-				cmd->re[id].type = 1;
-				cmd->re[id].is_apnd = 1;
-				cmd->re[id].f_name = find_file_name(c, &j);
-				// printf("j of end =%d\n", j);
-				// printf("filename= %s",cmd->re[i].f_name);
-				c = remove_f_cmd_pre(cmd->c_pre_parse, start, j - 1);
-				cmd->c_pre_parse = c;
-				id++;
-				j = 0;
-				continue;
+				update_append_re_vars(cmd, &id, &j, start);
 			}
-			else if (((c[j] == '<' || c[j] == '>') && !ft_strchr("<>", c[j + 1]) && !ft_strchr("<>", c[j - 1]) && j) ||
-					 ((c[j] == '<' || c[j] == '>') && !ft_strchr("<>", c[j + 1]) && !j))
+			else if (is_in_or_out_re(cmd->c_pre_parse, j))
 			{
-				// puts("if3");
 				start = j - 1;
 				j++;
-				// printf("j+1 =%s\n", &c[j]);
-				cmd->re[id].id = id;
-				cmd->re[id].type = 1;
-				if (c[j - 1] == '<')
-					cmd->re[id].type = 0;
-				cmd->re[id].is_apnd = 0;
-				cmd->re[id].f_name = find_file_name(c, &j);
-				// printf("j of end =%s\n", &c[j]);
-				// printf("filename= %s", cmd->re[i].f_name);
-				c = remove_f_cmd_pre(cmd->c_pre_parse, start, j - 1);
-				cmd->c_pre_parse = c;
-				id++;
-				j = 0;
-				continue;
+				update_in_out_re_vars(cmd, &id, &j, start);
 			}
 			j++;
 		}
@@ -140,19 +79,18 @@ void init_cmd_re(t_cmd *cmd, int i, int j)
 	}
 }
 
-void ft_redirection(t_cmd *cmd, int i)
+void	ft_redirection(t_cmd *cmd, int i)
 {
-	while (i < cmd->cmd_n)
+	while (i < cmd[0].cmd_n)
 	{
 		cmd[i].re_n = read_n_re(&cmd[i], 0, 0);
-		// printf("number of redirection=%d\n", cmd[i].re_n);
 		cmd[i].re = (t_red *)malloc(cmd[i].re_n * sizeof(t_red));
-		init_cmd_re(&cmd[i], 0, 0);
-		for (size_t j = 0; j < cmd[i].re_n; j++)
-		{
-			printf("id = %d type = %d is_append = %d, file_name= %s\n",
-				   cmd[i].re[j].id, cmd[i].re[j].type, cmd[i].re[j].is_apnd, cmd[i].re[j].f_name);
-		}
-		i++;
+		init_cmd_re(&cmd[i], 0, 0, 0);
+		// for (size_t j = 0; j < cmd[i].re_n; j++)
+		// {
+		// 	printf("id = %d type = %d is_append = %d, file_name= %s\n",
+		// 		   cmd[i].re[j].id, cmd[i].re[j].type, cmd[i].re[j].is_apnd, cmd[i].re[j].f_name);
+		// }
+		// i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 19:57:21 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/23 20:28:08 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/26 11:33:51 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,24 @@ char *find_file_name(char *c, int *j)
 	while (c[*j] == ' ')
 		(*j)++;
 	// printf("ffn=%s\n", &c[*j]);
-	if (c[*j] == '\'' || c[*j] == '"')
-	{
-		puts("hi");
-		start = *j + 1;
-		end = find_next_q(c, c[*j], *j);
-		// (*j)++;
-		return (ft_substr(c, start, end - start));
-	}
-	else
-	{
+	// if (c[*j] == '\'' || c[*j] == '"')
+	// {
+	// 	puts("hi");
+	// 	start = *j + 1;
+	// 	end = find_next_q(c, c[*j], *j);
+	// 	// (*j)++;
+	// 	return (ft_substr(c, start, end - start));
+	// }
+	// else
+	// {
 		start = *j;
 
-		while (c[*j] != ' ' && c[*j] != '<' && c[*j] != '>' && c[*j] != '|' && c[*j])
+		while (c[*j] && !ft_strchr("< >|", c[*j]))
 			(*j)++;
 		end = *j;
 		// printf("end=%s\n", &c[*j]);
 		return (ft_substr(c, start, end - start));
-	}
+	// }
 }
 void remove_f_cmd_pre(char *cmd, int start, int end)
 {

@@ -6,13 +6,13 @@
 #    By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/09 17:02:12 by mjafari           #+#    #+#              #
-#    Updated: 2022/07/25 20:05:39 by mjafari          ###   ########.fr        #
+#    Updated: 2022/07/26 12:41:09 by mjafari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= minishell
 
-SRC		= main.c parser.c pipe_splitter.c redirection.c \
+SRC		= main.c parser.c pipe_splitter.c redirection.c redirection_utils.c\
 		heredoc_input.c heredoc_utils.c dollar_with_q.c dollar_no_q.c\
 		./lexer/*.c
 
