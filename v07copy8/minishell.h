@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/27 20:00:44 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/27 22:09:42 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void dollar_no_q(t_cmd *cmd, int i, int j, int start);
 void heredoc_input(t_cmd *cmd, int i, int j, int start);
 void redirection(t_cmd *cmd, int i);
 char *find_file_name(char *c, int *j);
-void args_selector(t_cmd *cmd, int n, int i);
+void ft_args_selector(t_cmd *cmd, int n, int i);
 int find_next_q(char *c, int q, int i);
 int is_q_closed(char *c, int i);
 char *remove_f_cmd_pre(char *cmd, int start, int end);

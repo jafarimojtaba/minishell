@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 19:57:21 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/26 20:00:19 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/27 22:34:09 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,11 @@ void	redirection(t_cmd *cmd, int i)
 		cmd[i].re_n = read_n_re(&cmd[i], 0, 0);
 		cmd[i].re = (t_red *)malloc(cmd[i].re_n * sizeof(t_red));
 		init_cmd_re(&cmd[i], 0, 0, 0);
-		for (size_t j = 0; j < cmd[i].re_n; j++)
-		{
-			printf("id =%d\ttype =%d\tfile_name=%s\tstr=%s\n",
-				   cmd[i].re[j].id, cmd[i].re[j].type, cmd[i].re[j].f_name, cmd[i].re[j].str);
-		}
+		// for (size_t j = 0; j < cmd[i].re_n; j++)
+		// {
+		// 	printf("id =%d\ttype =%d\tfile_name=%s\tstr=%s\n",
+		// 		   cmd[i].re[j].id, cmd[i].re[j].type, cmd[i].re[j].f_name, cmd[i].re[j].str);
+		// }
 		i++;
 	}
 }

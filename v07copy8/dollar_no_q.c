@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 20:37:12 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/25 22:14:55 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/27 22:34:59 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	dollar_no_q(t_cmd *cmd, int i, int j, int start)
 {
 	char	*first_str;
 
+	first_str = NULL;
 	while (i < cmd[0].cmd_n)
 	{
 		j = 0;

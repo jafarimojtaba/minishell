@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/27 21:02:50 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/27 23:21:53 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ int main(void)
 	char *cmd_buff;
 	int cmd_n;
 	int i;
-	int j;
+	// int j;
+	// char *temp = "0123456789";
+
+	// printf(ft_substr(temp, 0, 3));
 
 	while (1)
 	{
@@ -51,21 +54,21 @@ int main(void)
 		}
 		cmd_n = cmd_count(cmd_buff, 0, 1);
 		// printf("ac = %d\n", cmd_n);
-		cmd = (t_cmd *)malloc(cmd_n * sizeof(t_cmd));
+		cmd = (t_cmd *)calloc(cmd_n, sizeof(t_cmd));
 		cmd_init(cmd, cmd_buff, cmd_n);
 		pipe_splitter(cmd, cmd_buff, 0, 0);
 		dollar_with_q(cmd, 0, 0, 0);
 		dollar_no_q(cmd, 0, 0, 0);
 		redirection(cmd, 0);
 		cmd_c(cmd, cmd_n, 0, 0);
-		args_selector(cmd, cmd_n, 0);
+		ft_args_selector(cmd, cmd_n, 0);
 		i = 0;
-	
+
 		while (i < cmd_n)
 		{
 			// printf("PIPE_before = %d, PIPE_after = %d PP_CMD : %s$\n",commands[i].pipe_flag_before, commands[i].pipe_flag_after, commands[i].c_pre_parse);
 			printf("CMD:%s#\n", cmd[i].c);
-			// printf("CMD_PP:%s#\n", cmd[i].c_pre_parse);
+			printf("CMD_PP:%s#\n", cmd[i].c_pre_parse);
 			// j = 0;
 			// while (cmd[i].op[j])
 			// {
@@ -74,14 +77,13 @@ int main(void)
 			// }
 			i++;
 		}
-	
+
 		// splitted = split_command(cmd_buff);
 		// print_split(splitted);
 		// if (cmd)
 		// {
 		// 	free_cmd(cmd, 0);
 		// 	free(cmd);
-		// }
 	}
 	return (0);
 }

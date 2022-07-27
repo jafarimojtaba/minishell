@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 19:57:21 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/26 12:46:12 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/27 22:29:53 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	redirection(t_cmd *cmd, int i)
 	while (i < cmd[0].cmd_n)
 	{
 		cmd[i].re_n = read_n_re(&cmd[i], 0, 0);
-		cmd[i].re = (t_red *)malloc(cmd[i].re_n * sizeof(t_red));
+		cmd[i].re = (t_red *)calloc(cmd[i].re_n, sizeof(t_red));
 		init_cmd_re(&cmd[i], 0, 0, 0);
 		// for (size_t j = 0; j < cmd[i].re_n; j++)
 		// {
