@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/26 19:59:31 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/27 20:00:44 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,18 @@ typedef struct s_red
 typedef struct s_cmd
 {
 	int id;
-	int end_of_c;
-	int cmd_n;
-	int re_n;
+	char *c_buf;
 	char *c_pre_parse;
+	int cmd_n;
 	int pipe_flag_before;
 	int pipe_flag_after;
 	char *c;
 	char **op;
-	char *c_buf;
-	// char		**re;
+	int	op_n;
 	int fd_in;
 	int fd_out;
 	t_red *re;
+	int re_n;
 	int heredoc_id;
 } t_cmd;
 
@@ -63,7 +62,7 @@ char **split_command(char *cb);
 int cmd_num(char *cmd);
 void cmd_fill(t_cmd *cmd_s, char *cmd);
 void cmd_init(t_cmd *cmd, char *cmd_buff, int n);
-void cmd_c(t_cmd *cmd, int n);
+void cmd_c(t_cmd *cmd, int n, int i, int j);
 int cmd_count(char *c, int i, int count);
 void pipe_splitter(t_cmd *t_cmd, char *cmd, int i, int j);
 void dollar_with_q(t_cmd *cmd, int i, int j, int start);
@@ -71,7 +70,7 @@ void dollar_no_q(t_cmd *cmd, int i, int j, int start);
 void heredoc_input(t_cmd *cmd, int i, int j, int start);
 void redirection(t_cmd *cmd, int i);
 char *find_file_name(char *c, int *j);
-void args_selector(t_cmd *cmd, int n);
+void args_selector(t_cmd *cmd, int n, int i);
 int find_next_q(char *c, int q, int i);
 int is_q_closed(char *c, int i);
 char *remove_f_cmd_pre(char *cmd, int start, int end);

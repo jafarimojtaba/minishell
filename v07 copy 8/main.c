@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/27 05:41:51 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/27 20:02:32 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int main(void)
 	char *cmd_buff;
 	int cmd_n;
 	int i;
+	int j;
 
 	while (1)
 	{
@@ -56,15 +57,21 @@ int main(void)
 		dollar_with_q(cmd, 0, 0, 0);
 		dollar_no_q(cmd, 0, 0, 0);
 		redirection(cmd, 0);
-		cmd_c(cmd, cmd_n);
-		// args_selector(cmd, cmd_n);
+		cmd_c(cmd, cmd_n, 0, 0);
+		args_selector(cmd, cmd_n, 0);
 		i = 0;
 	
 		while (i < cmd_n)
 		{
 			// printf("PIPE_before = %d, PIPE_after = %d PP_CMD : %s$\n",commands[i].pipe_flag_before, commands[i].pipe_flag_after, commands[i].c_pre_parse);
 			printf("CMD:%s#\n", cmd[i].c);
-			printf("PP_CMD:%s#\n", cmd[i].c_pre_parse);
+			j = 0;
+			printf("op_n:%d#\n", cmd[i].op_n);
+			while (j < cmd[i].op_n)
+			{
+				printf("op %d=%s#\n",j , cmd[i].op[j]);
+				j++;
+			}
 			i++;
 		}
 	
@@ -78,6 +85,7 @@ int main(void)
 	}
 	return (0);
 }
+
 //<f0 echo hi >f1 how >f2 >f3 are you >f4
 // echo hi  how   are you
 //  echo hi  how   are you
@@ -88,3 +96,4 @@ int main(void)
 // // "hi from test"|'|"'
 // echo hi | grep how | <<mj cat "$USERj"| also $PAT"$PATH"
 // echo hi >f1"how$USER"
+// echo "$USER" hi"$USER"       nhj | sdf dfgh

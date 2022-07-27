@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 11:16:20 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/24 17:42:33 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/27 20:04:27 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int is_q_closed(char *c, int i)
 
 int	cmd_count(char *c, int i, int count)
 {
-	printf("size = %zu, c in counter=%s\n", ft_strlen(c), &c[i]);
+	// printf("size = %zu, c in counter=%s\n", ft_strlen(c), &c[i]);
 	while (c[i])
 	{
 		if (c[i] == '\'' || c[i] == '"')
