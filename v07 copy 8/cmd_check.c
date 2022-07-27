@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:57:38 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/26 21:05:50 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/27 06:49:24 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int is_builtin(char *str)
 
 int is_cmd(char *str)
 {
+	// return (1);
 	if (is_builtin(str))
 	{
 		// printf("cmd is from builtins\n");
@@ -45,6 +46,7 @@ void cmd_c(t_cmd *cmd, int n)
 	while (i < n)
 	{
 		j = 0;
+		start = 0;
 		// printf("cmd_c_first=%s#\n",cmd[i].c_pre_parse);
 		while (cmd[i].c_pre_parse[j] == ' ')
 		{
@@ -55,31 +57,36 @@ void cmd_c(t_cmd *cmd, int n)
 		{
 			if (cmd[i].c_pre_parse[j] == '\'' || cmd[i].c_pre_parse[j] == '"')
 			{
-				start = j;
+				start = j + 1;
 				j = find_next_q(cmd[i].c_pre_parse, cmd[i].c_pre_parse[j], j);
-				end = j;
-				str = ft_substr(cmd[i].c_pre_parse, start, j - start + 1);
+				end = j - 1;
+				str = ft_substr(cmd[i].c_pre_parse, start, j - start);
+				// j++;
+				
+				cmd[i].c = str;
 				// if (is_cmd(str))
 				// {
 				// 	cmd[i].c = str;
-				// 	break;
+					break;
 				// }
 				// else
 				// 	free(str);
-				j++;
+				// j++;
 			}
-			else if (cmd[i].c_pre_parse[0] != '\'' && cmd[i].c_pre_parse[0] != '"')
+			else if (cmd[i].c_pre_parse[j] != '\'' && cmd[i].c_pre_parse[j] != '"')
 			{
 				while (cmd[i].c_pre_parse[j] != ' ' && cmd[i].c_pre_parse[j])
 					j++;
 				str = ft_substr(cmd[i].c_pre_parse, start, j);
 				// if (is_cmd(str))
 				// {
-				// 	cmd[i].c = str;
-				// 	break;
+					cmd[i].c = str;
+					break;
 				// }
 				// else
 				// 	free(str);
+				// cmd[i].c = str;
+				
 			}
 			j++;
 		}
@@ -93,8 +100,8 @@ void cmd_c(t_cmd *cmd, int n)
 		while (cmd[i].c_pre_parse[j] == ' ')
 			j++;
 		cmd[i].end_of_c = j;
-		cmd[i].c = ft_strjoin(cmd[i].c, "\"");
-		cmd[i].c = ft_strjoin("\"", cmd[i].c);
+		// cmd[i].c = ft_strjoin(cmd[i].c, "\"");
+		// cmd[i].c = ft_strjoin("\"", cmd[i].c);
 		// printf("command c =%s#\n", cmd[i].c);
 		cmd[i].c_pre_parse = &cmd[i].c_pre_parse[j];
 		// op = ft_substr(cmd[i].c_pre_parse, j, ft_strlen(cmd[i].c_pre_parse) - j);
