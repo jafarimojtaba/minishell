@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/27 20:02:32 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/27 21:02:50 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ int main(void)
 		{
 			// printf("PIPE_before = %d, PIPE_after = %d PP_CMD : %s$\n",commands[i].pipe_flag_before, commands[i].pipe_flag_after, commands[i].c_pre_parse);
 			printf("CMD:%s#\n", cmd[i].c);
-			j = 0;
-			printf("op_n:%d#\n", cmd[i].op_n);
-			while (j < cmd[i].op_n)
-			{
-				printf("op %d=%s#\n",j , cmd[i].op[j]);
-				j++;
-			}
+			// printf("CMD_PP:%s#\n", cmd[i].c_pre_parse);
+			// j = 0;
+			// while (cmd[i].op[j])
+			// {
+			// 	printf("op %d=%s#\n",j , cmd[i].op[j]);
+			// 	j++;
+			// }
 			i++;
 		}
 	

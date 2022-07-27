@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:23:38 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/27 19:58:46 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/27 21:23:22 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void cmd_init(t_cmd *cmd, char *cmd_buff, int n)
 	}
 }
 
-void op_count(t_cmd *cmd, int start, int j, int count)
+void op_count(t_cmd *cmd, int j, int count)
 {
 	char *c;
 
@@ -43,41 +43,49 @@ void op_count(t_cmd *cmd, int start, int j, int count)
 		while (c[j] == ' ')
 			j++;
 		if (c[j] == '\'' || c[j] == '"')
-		{
-			start = j;
 			j = find_next_q(c, c[j], j);
-		}
-		while (c[j] != ' ' && c[j])
-			j++;
+		else
+			while (c[j] != ' ' && c[j])
+				j++;
 		count++;
 		j++;
 	}
 	cmd->op_n = count;
+	// printf("count = %d\n", count);
 }
 
 void op_split(t_cmd *cmd, int i, int j, int start)
 {
 	char *c;
+	char *temp;
 
 	c = cmd->c_pre_parse;
-	cmd->op = (char **)malloc(cmd->op_n * sizeof(char *));
-	while (c[j] && i < cmd->op_n)
+	// printf("size =%zu\n", ft_strlen(c));
+	cmd->op = (char **)malloc((cmd->op_n) * sizeof(char *));
+	while (c[j] && i < (cmd->op_n))
 	{
-		while (c[j] == ' ' && c[j])
+		while (c[j] == ' ')
+		{
 			j++;
-		start = j;
+			start++;
+		}
 		if (c[j] == '\'' || c[j] == '"')
 		{
 			j = find_next_q(c, c[j], j);
-			cmd->op[i++] = ft_substr(c, start + 1, j - start - 1);
+			temp = cmd->op[i] = ft_substr(c, start + 1, j - start - 1);
+			printf("op %d form %d =%s#\n", i, cmd->op_n, cmd->op[i]);
+			i++;
 		}
 		else
 		{
 			while (c[j] != ' ' && c[j])
 				j++;
-			cmd->op[i++] = ft_substr(c, start, j - start);
+			temp = cmd->op[i] = ft_substr(c, start, j - start);
+			printf("op %d form %d =%s#\n", i, cmd->op_n, cmd->op[i]);
+			i++;
 		}
 		j++;
+		start = j;
 	}
 }
 
@@ -85,7 +93,8 @@ void args_selector(t_cmd *cmd, int n, int i)
 {
 	while (i < n)
 	{
-		op_count(&cmd[i], 0, 0, 0);
+		// cmd[i].op = ft_split(cmd[i].c_pre_parse, ' ');
+		op_count(&cmd[i], 0, 0);
 		op_split(&cmd[i], 0, 0, 0);
 		i++;
 	}
