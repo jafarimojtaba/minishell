@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 11:42:56 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/28 12:35:02 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/28 20:31:29 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int is_builtin(char *str)
 {
-	if (!ft_strncmp(str, "cd", ft_strlen(str)) ||
+	if (!ft_strncmp(str, "cd", ft_strlen(str)) || !ft_strncmp(str, "echo", ft_strlen(str)) ||
 		!ft_strncmp(str, "pwd", ft_strlen(str)) ||
 		!ft_strncmp(str, "export", ft_strlen(str)) || !ft_strncmp(str, "unset", ft_strlen(str)) || !ft_strncmp(str, "env", ft_strlen(str)) ||
 		!ft_strncmp(str, "exit", ft_strlen(str)))
@@ -72,8 +72,15 @@ void exe_sys(t_cmd *cmd)
 		printf("error in execve");
 }
 
-void exe_cmd(t_cmd *cmd, int i)
+int exe_cmd(t_cmd *cmd, int i, char *cmd_buff, pid_t pid)
 {
+	if(!ft_strncmp("exit", cmd_buff, ft_strlen(cmd_buff)))
+	{
+		printf("%d", pid);
+		kill(pid, 0);
+		return(0);
+	}
+	else
 	while (i < cmd[0].cmd_n)
 	{
 		if (is_builtin(cmd[i].c))
@@ -84,4 +91,5 @@ void exe_cmd(t_cmd *cmd, int i)
 			printf("\"%s\" is not a command\n", cmd[i].c);
 		i++;
 	}
+	return(1);
 }

@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/28 12:19:38 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/28 19:21:17 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <string.h>
 #include "./libft/libft.h"
 #include <fcntl.h>
+#include <signal.h>
 
 enum redirection_input_output_type
 {
@@ -85,6 +86,6 @@ int read_n_re(t_cmd *cmd, int j, int count);
 int is_in_or_out_re(char *c, int j);
 int is_output_append(char *c, int j);
 int	is_heredoc(char *c, int j);
-void exe_cmd(t_cmd *cmd, int i);
+int exe_cmd(t_cmd *cmd, int i, char *cmd_buff, pid_t pid);
 
 #endif
