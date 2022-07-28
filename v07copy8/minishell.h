@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/27 22:09:42 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/28 12:19:38 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_cmd
 	int pipe_flag_before;
 	int pipe_flag_after;
 	char *c;
+	char *c_path;
 	char **op;
 	int	op_n;
 	int fd_in;
@@ -84,5 +85,6 @@ int read_n_re(t_cmd *cmd, int j, int count);
 int is_in_or_out_re(char *c, int j);
 int is_output_append(char *c, int j);
 int	is_heredoc(char *c, int j);
+void exe_cmd(t_cmd *cmd, int i);
 
 #endif

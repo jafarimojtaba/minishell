@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:23:38 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/28 09:52:59 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/28 12:32:49 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void op_split(t_cmd *cmd, int i, int j, int start)
 
 	c = cmd->c_pre_parse;
 	// printf("size =%zu\n", ft_strlen(c));
-	cmd->op = (char **)malloc((cmd->op_n) * sizeof(char *));
+	cmd->op = (char **)calloc((cmd->op_n) + 1 , sizeof(char *));
 	while (c[j] && i < (cmd->op_n))
 	{
 		while (c[j] == ' ')
