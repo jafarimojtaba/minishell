@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:38:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/26 18:46:23 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/28 10:17:15 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	is_output_append(char *c, int j)
 {
 	if ((c[j] == '>' && c[j + 1] == '>' && !ft_strchr("<>", c[j + 2]) \
-		&& !ft_strchr("<>", c[j - 1]) && j) || (c[j] == '>' && c[j + 1] == '>' \
+		&& j && !ft_strchr("<>", c[j - 1])) || (c[j] == '>' && c[j + 1] == '>' \
 		&& !ft_strchr("<>", c[j + 2]) && !j))
 		return (1);
 	return (0);
@@ -24,7 +24,7 @@ int	is_output_append(char *c, int j)
 int	is_in_or_out_re(char *c, int j)
 {
 	if (((c[j] == '<' || c[j] == '>') && !ft_strchr("<>", c[j + 1]) \
-	&& !ft_strchr("<>", c[j - 1]) && j) || ((c[j] == '<' || c[j] == '>') \
+	&& j && !ft_strchr("<>", c[j - 1])) || ((c[j] == '<' || c[j] == '>') \
 	&& !ft_strchr("<>", c[j + 1]) && !j))
 		return (1);
 	else

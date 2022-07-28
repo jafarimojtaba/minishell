@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/27 23:21:53 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/28 11:08:57 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int main(void)
 	char *cmd_buff;
 	int cmd_n;
 	int i;
-	// int j;
+	int j;
 	// char *temp = "0123456789";
 
 	// printf(ft_substr(temp, 0, 3));
@@ -67,14 +67,24 @@ int main(void)
 		while (i < cmd_n)
 		{
 			// printf("PIPE_before = %d, PIPE_after = %d PP_CMD : %s$\n",commands[i].pipe_flag_before, commands[i].pipe_flag_after, commands[i].c_pre_parse);
-			printf("CMD:%s#\n", cmd[i].c);
+			puts("------------------------------------------------");
 			printf("CMD_PP:%s#\n", cmd[i].c_pre_parse);
-			// j = 0;
-			// while (cmd[i].op[j])
-			// {
-			// 	printf("op %d=%s#\n",j , cmd[i].op[j]);
-			// 	j++;
-			// }
+			printf("CMD:%s#\n", cmd[i].c);
+			puts("");
+			j = 0;
+			while (j < cmd[i].op_n)
+			{
+				printf("op %d=%s#\n",j , cmd[i].op[j]);
+				j++;
+			}
+			puts("");
+			j = 0;
+			while (j < cmd[i].re_n)
+			{
+				printf("re %d=\ttype=%d\tfname=%s\tstr=%s#\n",cmd[i].re[j].id, cmd[i].re[j].type, cmd[i].re[j].f_name, cmd[i].re[j].str);
+				j++;
+			}
+			puts("");
 			i++;
 		}
 
@@ -88,14 +98,14 @@ int main(void)
 	return (0);
 }
 
-//<f0 echo hi >f1 how >f2 >f3 are you >f4
+// <f0 echo hi >f1 how >f2 >f3 are you >f4
 // echo hi  how   are you
 //  echo hi  how   are you
 //   echo hi  how   are you
 // <f0 echo hi >f1 how >f2 >f3 are you >f4 |>f7 >f8 grep hi <f9
 // echo hi how are you|grep hi
-//<f0 echo hi >f1 how >f2 >f3 are you  >f4 |>f7 >f8 grep hi <f9 "hh$USER" << mj to
-// // "hi from test"|'|"'
+// <f0 echo hi >f1 how >f2 >f3 are you  >f4 |>f7 >f8 grep hi <f9 "hh$USER" << mj to
+// "hi from test"|'|"'
 // echo hi | grep how | <<mj cat "$USERj"| also $PAT"$PATH"
 // echo hi >f1"how$USER"
 // echo "$USER" hi"$USER"       nhj | sdf dfgh

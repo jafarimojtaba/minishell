@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 19:59:33 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/27 23:31:52 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/28 10:28:31 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	dollar_str_env(t_cmd *cmd, int start, int *j, char *first_str)
 	char	*dollar_str;
 
 	(*j)++;
-	dollar_str = ft_substr(cmd->c_pre_parse, start, *j - start);
+	dollar_str = ft_substr(cmd->c_pre_parse, start, *j - start + 1);
 	// printf("dollarstr=%s#\n",dollar_str);
 	temp1 = dollar_str;
 	dollar_str = getenv(dollar_str);
@@ -68,7 +68,7 @@ void	dollar_in_next_dq(t_cmd *cmd, int start, int *j, char *first_str)
 	{
 		if (cmd->c_pre_parse[*j] == '$')
 		{
-			first_str = ft_substr(cmd->c_pre_parse, 0, *j - 1);
+			first_str = ft_substr(cmd->c_pre_parse, 0, *j);
 			(*j)++;
 			start = *j;
 			while (is_not_space_or_dollar(cmd, *j))

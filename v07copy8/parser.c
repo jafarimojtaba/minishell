@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:23:38 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/27 23:32:45 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/28 09:52:59 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void  op_count(t_cmd *cmd, int j, int count)
 {
 	char *c;
 
+	c= NULL;
 	c = cmd->c_pre_parse;
 	while (c[j])
 	{
@@ -57,7 +58,6 @@ void  op_count(t_cmd *cmd, int j, int count)
 void op_split(t_cmd *cmd, int i, int j, int start)
 {
 	char *c;
-	char *temp;
 
 	c = cmd->c_pre_parse;
 	// printf("size =%zu\n", ft_strlen(c));
@@ -72,16 +72,16 @@ void op_split(t_cmd *cmd, int i, int j, int start)
 		if (c[j] == '\'' || c[j] == '"')
 		{
 			j = find_next_q(c, c[j], j);
-			temp = cmd->op[i] = ft_substr(c, start + 1, j - start - 1);
-			printf("op %d form %d =%s#\n", i, cmd->op_n, cmd->op[i]);
+			cmd->op[i] = ft_substr(c, start + 1, j - start - 1);
+			// printf("op %d form %d =%s#\n", i, cmd->op_n, cmd->op[i]);
 			i++;
 		}
 		else
 		{
 			while (c[j] != ' ' && c[j])
 				j++;
-			temp = cmd->op[i] = ft_substr(c, start, j - start);
-			printf("op %d form %d =%s#\n", i, cmd->op_n, cmd->op[i]);
+			cmd->op[i] = ft_substr(c, start, j - start);
+			// printf("op %d form %d =%s#\n", i, cmd->op_n, cmd->op[i]);
 			i++;
 		}
 		j++;
@@ -91,6 +91,7 @@ void op_split(t_cmd *cmd, int i, int j, int start)
 
 void ft_args_selector(t_cmd *cmd, int n, int i)
 {
+	i = 0;
 	while (i < n)
 	{
 		// cmd[i].op = ft_split(cmd[i].c_pre_parse, ' ');

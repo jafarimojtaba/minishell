@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 11:18:25 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/26 20:02:08 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/28 10:34:37 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char *remove_f_cmd_pre(char *cmd, int start, int end)
 	char *tmp1;
 
 	tmp = ft_substr(cmd, 0, start + 1);
-	tmp1 = ft_substr(cmd, end + 1, ft_strlen(cmd));
+	tmp1 = ft_substr(cmd, end + 1, ft_strlen(cmd) + 1);
 	free(cmd);
 	cmd = ft_strjoin(tmp, tmp1);
 	free(tmp);
@@ -38,7 +38,7 @@ char *remove_f_cmd_pre(char *cmd, int start, int end)
 	start = 0;
 	while (cmd[start] == ' ')
 		start++;
-	tmp = ft_substr(cmd, start, ft_strlen(cmd));
+	tmp = ft_substr(cmd, start, ft_strlen(cmd) + 1);
 	free(cmd);
 	return (tmp);
 }
