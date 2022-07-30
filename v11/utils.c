@@ -6,15 +6,32 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 11:18:25 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/28 10:34:37 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/30 19:44:47 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 int find_next_q(char *c, int q, int i)
 {
-	// printf("str=%s, c=%c, i=%d]\n", c, q, i);
+	i++;
+	while (c[i] != q && c[i])
+		i++;
+	if (c[i + 1] && ft_strchr("'\"", c[i + 1]))
+	{
+		q = c[i + 1];
+		i += 2;
+		while (c[i] != q && c[i])
+			i++;
+	}
+	if (c[i] == q)
+		return (i);
+	else
+		return (0);
+}
+
+int find_next_near_q(char *c, int q, int i)
+{
 	i++;
 	while (c[i] != q && c[i])
 		i++;

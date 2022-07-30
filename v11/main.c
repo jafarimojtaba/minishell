@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/29 21:07:22 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/30 18:57:41 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,12 @@ void print_split(char **sp)
 	}
 }
 
-void minishell(char *cmd_buff, t_cmd *cmd)
-{
-	int cmd_n;
-	int pid;
-
-	cmd_n = cmd_count(cmd_buff, 0, 1);
-	cmd = (t_cmd *)calloc(cmd_n, sizeof(t_cmd));
-	cmd_init(cmd, cmd_buff, cmd_n);
-	pipe_splitter(cmd, cmd_buff, 0, 0);
-	dollar_with_q(cmd, 0, 0, 0);
-	dollar_no_q(cmd, 0, 0, 0);
-	redirection(cmd, 0);
-	cmd_c(cmd, cmd_n, 0, 0);
-	ft_args_selector(cmd, cmd_n, 0);
-	exe_cmd(cmd, 0, cmd_buff, getpid());
-	// pid = fork();
-	// if (pid == 0)
-	// 	if(!exe_cmd(cmd, 0, cmd_buff, getpid()))
-	// 		exit(0);
-	// waitpid(pid, NULL, 0);
-}
-
-void print_cmd(t_cmd *cmd)
+void print_cmd(t_cmd *cmd, int n)
 {
 	int i = 0;
 	int j;
-	while (i < cmd[0].cmd_n)
+	printf("in print cmd%d", n);
+	while (i < n)
 	{
 		// printf("PIPE_before = %d, PIPE_after = %d PP_CMD : %s$\n",commands[i].pipe_flag_before, commands[i].pipe_flag_after, commands[i].c_pre_parse);
 		puts("------------------------------------------------");
@@ -77,11 +56,34 @@ void print_cmd(t_cmd *cmd)
 	}
 }
 
+void minishell(char *cmd_buff, t_cmd *cmd)
+{
+	int cmd_n;
+	int pid;
+
+	cmd_n = cmd_count(cmd_buff, 0, 1);
+	cmd = (t_cmd *)calloc(cmd_n, sizeof(t_cmd));
+	cmd_init(cmd, cmd_buff, cmd_n);
+	pipe_splitter(cmd, cmd_buff, 0, 0);
+	dollar_with_q(cmd, 0, 0, 0);
+	dollar_no_q(cmd, 0, 0, 0);
+	redirection(cmd, 0);
+	cmd_c(cmd, cmd_n, 0, 0);
+	ft_args_selector(cmd, cmd_n, 0, 0);
+	exe_cmd(cmd, 0, cmd_buff);
+	print_cmd(cmd, cmd_n);
+
+	// pid = fork();
+	// if (pid == 0)
+	// 	if(!exe_cmd(cmd, 0, cmd_buff, getpid()))
+	// 		exit(0);
+	// waitpid(pid, NULL, 0);
+}
+
 int main(void)
 {
 	t_cmd *cmd;
 	char *cmd_buff;
-	int cmd_n;
 	int i;
 	int j;
 	// int fd[2];
@@ -109,7 +111,6 @@ int main(void)
 		}
 		puts("hi");
 		minishell(cmd_buff, cmd);
-		print_cmd(cmd);
 
 		// if (cmd)
 		// {
