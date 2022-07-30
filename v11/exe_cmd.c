@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 11:42:56 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/30 19:40:55 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/30 20:22:01 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,31 @@ void exe_builtin(t_cmd *cmd)
 void exe_sys(t_cmd *cmd)
 {
 	printf("\"%s\" is a sys command\n", cmd->c);
-	if (execve(cmd->c_path, cmd->op, NULL) == -1)
-		printf("error in execve");
+	pid_t pid = fork();
+	if (pid == 0)
+	{
+		execve(cmd->c_path, cmd->op, NULL);
+	}
+	else if(pid != -1)
+		printf("in parent\n");
+	return;
+	// if (execve(cmd->c_path, cmd->op, NULL) == -1)
+	// 	printf("error in execve");
 }
 
 int exe_cmd(t_cmd *cmd, int i, char *cmd_buff)
 {
-	while (i < cmd[0].cmd_n)
-	{
-		if (is_builtin(cmd[i].c))
-			exe_builtin(&cmd[i]);
-		else if (is_sys(&cmd[i]))
-			exe_sys(&cmd[i]);
-		else
-			printf("\"%s\" is not a command\n", cmd[i].c);
-		i++;
-	}
-	return(1);
+	int x;
+
+		while (i < cmd[0].cmd_n)
+		{
+			if (is_builtin(cmd[i].c))
+				exe_builtin(&cmd[i]);
+			else if (is_sys(&cmd[i]))
+				exe_sys(&cmd[i]);
+			else
+				printf("\"%s\" is not a command\n", cmd[i].c);
+			i++;
+		}
+	return(x);
 }
