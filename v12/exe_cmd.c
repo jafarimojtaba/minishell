@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 11:42:56 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/31 21:50:03 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/31 23:39:25 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int handel_fd(t_cmd *cmd, int i)
 			}
 			else
 			{
-				puts("is available");
+				// puts("is available");
 				// if (cmd->fd_in != 0)
 				// 	close(cmd->fd_in);
 				cmd->fd_in = open(red[i].f_name, O_RDONLY, 0777);
@@ -94,12 +94,24 @@ int handel_fd(t_cmd *cmd, int i)
 				// 	close(cmd->fd_out);
 				cmd->fd_out = open(red[i].f_name, O_RDWR | O_APPEND | O_CREAT, 0777);
 		}
-		printf("filename:%s, type= %d, last fd=%d\n", red[i].f_name, red[i].type, cmd->fd_out);
+		else if (red[i].type == heredoc_redirection && i == cmd->re_n - 1)
+		{
+			cmd->fd_in = open(red[i].f_name, O_RDWR | O_CREAT | O_TRUNC , 0777);
+			write(cmd->fd_in, red[i].str, ft_strlen(red[i].str));
+			cmd->fd_in = open(red[i].f_name, O_RDONLY, 0777);
+		}
+		// printf("filename:%s, type= %d, fd_out=%d, fd_in=%d\n", red[i].f_name, red[i].type, cmd->fd_out, cmd->fd_in);
 		
 		i++;
 	}
+	dup2(cmd->fd_in, STDIN_FILENO);
 	dup2(cmd->fd_out, STDOUT_FILENO);
-	
+	global_fd_in = cmd->fd_in;
+	global_fd_out = cmd->fd_out;
+	// if(cmd->pipe_flag_before)
+	// {
+	// 	cmd->fd_in = 
+	// }
 	return 1;
 }
 
@@ -135,6 +147,7 @@ void exe_cmd(t_cmd *cmd, int i, char *cmd_buff)
 				exe_sys(&cmd[i]);
 			else
 				printf("\"%s\" is not a command\n", cmd[i].c);
+			// printf("cmd input:%d, cmd output:%d\n", global_fd_in, global_fd_out);
 			i++;
 		}
 }

@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/31 21:18:06 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/31 23:28:03 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int main(void)
 			printf("Please check your input for closed Quotes!\n");
 			continue;
 		}
-		if (!ft_strncmp("exit", cmd_buff, ft_strlen(cmd_buff)))
+		if (!ft_strncmp("exit", cmd_buff, ft_strlen(cmd_buff) + 5))
 		{
 			free(cmd_buff);
 			break;

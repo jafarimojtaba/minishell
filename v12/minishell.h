@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/31 16:27:51 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/31 23:27:57 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <sys/wait.h>
+
+static int global_fd_in;
+static int global_fd_out;
 
 enum redirection_input_output_type
 {

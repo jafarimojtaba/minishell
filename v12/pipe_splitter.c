@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:06:47 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/28 09:56:41 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/31 23:44:10 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	pipe_splitter_p2(t_cmd *cmd, int *i, int *start, int *end)
 		while (cmd->c_buf[*end] == ' ')
 			(*end)--;
 		cmd->c_pre_parse = ft_substr(cmd->c_buf, *start, *end - *start + 2);
-		printf("prepars=%s#\n",cmd->c_pre_parse);
+		// printf("prepars=%s#\n",cmd->c_pre_parse);
 		cmd->pipe_flag_after = 1;
 		*start = *i + 1;
 		return (1);
