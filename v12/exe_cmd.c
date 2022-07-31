@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 11:42:56 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/31 20:21:29 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/31 21:50:03 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +60,6 @@ int is_sys(t_cmd *cmd)
 	return (0);
 }
 
-void exe_builtin(t_cmd *cmd)
-{
-	printf("\"%s\" is a builtin command\n", cmd->c);
-}
-
-void exe_sys(t_cmd *cmd)
-{
-	// printf("\"%s\" is a sys command\n", cmd->c);
-	pid_t pid = fork();
-	if (pid == 0)
-		execve(cmd->c_path, cmd->op, NULL);
-	waitpid(pid, NULL, 0);
-	return;
-	// if (execve(cmd->c_path, cmd->op, NULL) == -1)
-	// 	printf("error in execve");
-}
-
 int handel_fd(t_cmd *cmd, int i)
 {
 	t_red *red;
@@ -86,29 +69,66 @@ int handel_fd(t_cmd *cmd, int i)
 	{
 		if (red[i].type == input_redirection)
 		{
-			if (access(red->f_name, F_OK))
+			if (access(red[i].f_name, F_OK))
 			{
-				printf("%s: No such file or directory", red->f_name);
+				printf("%s: No such file or directory", red[i].f_name);
 				return (0);
 			}
 			else
 			{
-				if (cmd->fd_in)
-					close(cmd->fd_in);
-				cmd->fd_in = open(red->f_name, O_RDONLY, 0777);
+				puts("is available");
+				// if (cmd->fd_in != 0)
+				// 	close(cmd->fd_in);
+				cmd->fd_in = open(red[i].f_name, O_RDONLY, 0777);
 			}
 		}
+		else if (red[i].type == output_redirection)
+		{
+				// if (cmd->fd_out != 1)
+				// 	close(cmd->fd_out);
+				cmd->fd_out = open(red[i].f_name, O_RDWR | O_CREAT | O_TRUNC, 0777);
+		}
+		else if (red[i].type == append_redirection)
+		{
+				// if (cmd->fd_out != 1)
+				// 	close(cmd->fd_out);
+				cmd->fd_out = open(red[i].f_name, O_RDWR | O_APPEND | O_CREAT, 0777);
+		}
+		printf("filename:%s, type= %d, last fd=%d\n", red[i].f_name, red[i].type, cmd->fd_out);
+		
 		i++;
 	}
+	dup2(cmd->fd_out, STDOUT_FILENO);
+	
 	return 1;
+}
+
+void exe_builtin(t_cmd *cmd)
+{
+	printf("\"%s\" is a builtin command\n", cmd->c);
+}
+
+void exe_sys(t_cmd *cmd)
+{
+	// printf("\"%s\" is a sys command\n", cmd->c);
+	pid_t pid = fork();
+	if (pid == 0){
+		handel_fd(cmd, 0);
+		execve(cmd->c_path, cmd->op, NULL);		
+	}
+		
+	waitpid(pid, NULL, 0);
+	return;
+	// if (execve(cmd->c_path, cmd->op, NULL) == -1)
+	// 	printf("error in execve");
 }
 
 void exe_cmd(t_cmd *cmd, int i, char *cmd_buff)
 {
 		while (i < cmd[0].cmd_n)
 		{
-			if (!handel_fd(&cmd[i], 0))
-				return ;
+			// if (!handel_fd(&cmd[i], 0))
+			// 	return ;
 			/*if (is_builtin(cmd[i].c))
 				exe_builtin(&cmd[i]);
 			else */if (is_sys(&cmd[i]))
