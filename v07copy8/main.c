@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/28 20:44:01 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/29 18:50:14 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,3 +132,4 @@ int main(void)
 // echo hi | grep how | <<mj cat "$USERj"| also $PAT"$PATH"
 // echo hi >f1"how$USER"
 // echo "$USER" hi"$USER"       nhj | sdf dfgh
+// echo hi > f1 | <f3 cat >f2 | wc -c

@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 11:42:56 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/28 20:31:29 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/29 20:39:55 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ void exe_sys(t_cmd *cmd)
 
 int exe_cmd(t_cmd *cmd, int i, char *cmd_buff, pid_t pid)
 {
-	if(!ft_strncmp("exit", cmd_buff, ft_strlen(cmd_buff)))
-	{
-		printf("%d", pid);
-		kill(pid, 0);
-		return(0);
-	}
-	else
+	// if(!ft_strncmp("exit", cmd_buff, ft_strlen(cmd_buff)))
+	// {
+	// 	printf("%d", pid);
+	// 	kill(pid, 0);
+	// 	return(0);
+	// }
+	// else
 	while (i < cmd[0].cmd_n)
 	{
 		if (is_builtin(cmd[i].c))
