@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/29 18:50:14 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/30 17:08:38 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ int main(void)
 
 		minishell(cmd_buff, cmd);
 
-		int fdo= open("outfile", O_WRONLY);
-		close(fd[0]);
-		dup2(0, fd[1]);
-		char *str;
-		close(fd[1]);
-		read(fd[0], str, 100);
-		close(fd[0]);
-		write(fdo, str, 100);
+		// int fdo= open("outfile", O_WRONLY);
+		// close(fd[0]);
+		// dup2(0, fd[1]);
+		// char *str;
+		// close(fd[1]);
+		// read(fd[0], str, 100);
+		// close(fd[0]);
+		// write(fdo, str, 100);
 		i = 0;
 		while (i < cmd_n)
 		{

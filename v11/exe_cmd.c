@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 11:42:56 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/30 11:41:32 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/31 15:19:58 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int is_builtin(char *str)
 {
-	if (!ft_strncmp(str, "cd", ft_strlen(str)) || !ft_strncmp(str, "echo", ft_strlen(str)) ||
+	if (!ft_strncmp(str, "cd", ft_strlen(str)) ||
 		!ft_strncmp(str, "pwd", ft_strlen(str)) ||
 		!ft_strncmp(str, "export", ft_strlen(str)) || !ft_strncmp(str, "unset", ft_strlen(str)) || !ft_strncmp(str, "env", ft_strlen(str)) ||
 		!ft_strncmp(str, "exit", ft_strlen(str)))
@@ -67,29 +67,26 @@ void exe_builtin(t_cmd *cmd)
 
 void exe_sys(t_cmd *cmd)
 {
-	printf("\"%s\" is a sys command\n", cmd->c);
-	if (execve(cmd->c_path, cmd->op, NULL) == -1)
-		printf("error in execve");
+	// printf("\"%s\" is a sys command\n", cmd->c);
+	pid_t pid = fork();
+	if (pid == 0)
+		execve(cmd->c_path, cmd->op, NULL);
+	waitpid(pid, NULL, 0);
+	return;
+	// if (execve(cmd->c_path, cmd->op, NULL) == -1)
+	// 	printf("error in execve");
 }
 
-int exe_cmd(t_cmd *cmd, int i, char *cmd_buff, pid_t pid)
+void exe_cmd(t_cmd *cmd, int i, char *cmd_buff)
 {
-	// if(!ft_strncmp("exit", cmd_buff, ft_strlen(cmd_buff)))
-	// {
-	// 	printf("%d", pid);
-	// 	kill(pid, 0);
-	// 	return(0);
-	// }
-	// else
-	while (i < cmd[0].cmd_n)
-	{
-		if (is_builtin(cmd[i].c))
-			exe_builtin(&cmd[i]);
-		else if (is_sys(&cmd[i]))
-			exe_sys(&cmd[i]);
-		else
-			printf("\"%s\" is not a command\n", cmd[i].c);
-		i++;
-	}
-	return(1);
+		while (i < cmd[0].cmd_n)
+		{
+			/*if (is_builtin(cmd[i].c))
+				exe_builtin(&cmd[i]);
+			else */if (is_sys(&cmd[i]))
+				exe_sys(&cmd[i]);
+			else
+				printf("\"%s\" is not a command\n", cmd[i].c);
+			i++;
+		}
 }

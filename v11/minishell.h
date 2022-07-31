@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/28 19:21:17 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/07/31 15:13:41 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "./libft/libft.h"
 #include <fcntl.h>
 #include <signal.h>
+#include <sys/wait.h>
 
 enum redirection_input_output_type
 {
@@ -72,7 +73,7 @@ void dollar_no_q(t_cmd *cmd, int i, int j, int start);
 void heredoc_input(t_cmd *cmd, int i, int j, int start);
 void redirection(t_cmd *cmd, int i);
 char *find_file_name(char *c, int *j);
-void ft_args_selector(t_cmd *cmd, int n, int i);
+void ft_args_selector(t_cmd *cmd, int n, int i, int j);
 int find_next_q(char *c, int q, int i);
 int is_q_closed(char *c, int i);
 char *remove_f_cmd_pre(char *cmd, int start, int end);
@@ -86,6 +87,7 @@ int read_n_re(t_cmd *cmd, int j, int count);
 int is_in_or_out_re(char *c, int j);
 int is_output_append(char *c, int j);
 int	is_heredoc(char *c, int j);
-int exe_cmd(t_cmd *cmd, int i, char *cmd_buff, pid_t pid);
+void exe_cmd(t_cmd *cmd, int i, char *cmd_buff);
+int find_next_near_q(char *c, int q, int i);
 
 #endif
