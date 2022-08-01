@@ -6,32 +6,11 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:23:38 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/01 01:43:37 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/01 09:51:36 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void cmd_init(t_cmd *cmd, char *cmd_buff, int n)
-{
-	int i;
-
-	i = 0;
-	while (i < n)
-	{
-		cmd[i].id = i;
-		cmd[i].heredoc_id = -1;
-		cmd[i].pipe_flag_before = -1;
-		cmd[i].pipe_flag_after = -1;
-		cmd[i].fd_in = 0;
-		cmd[i].fd_out = 1;
-		cmd[i].cmd_n = n;
-		cmd[i].c_buf = cmd_buff;
-		cmd[i].op_n = 0;
-		cmd[i].re_n = 0;
-		i++;
-	}
-}
 
 void  op_count(t_cmd *cmd, int j, int count)
 {
@@ -54,8 +33,12 @@ void  op_count(t_cmd *cmd, int j, int count)
 			}
 		}
 		else
+		{
 			while (c[j] != ' ' && c[j])
 				j++;
+			while (c[j] == ' ')
+			j++;
+		}
 		count++;
 		j++;
 	}
@@ -94,7 +77,7 @@ void op_split(t_cmd *cmd, int i, int j, int start)
 		}
 		else
 		{
-			while (c[j] != ' ' && c[j])
+			while (c[j] != ' ' && c[j] && c[j] != '|')
 				j++;
 			cmd->op[i] = ft_substr(c, start, j - start);
 			// printf("op %d form %d =%s#\n", i, cmd->op_n, cmd->op[i]);
