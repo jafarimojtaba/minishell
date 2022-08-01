@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 11:42:56 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/01 10:03:04 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/01 11:17:54 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,10 @@ void exe_sys(t_cmd *cmd)
 	pid_t pid = fork();
 	if (pid == 0){
 		if (!ft_strncmp(cmd->c, "make", 5))
+		{
 			close(1);
+			close(2);
+		}
 		else
 		{
 			handel_fd(cmd, 0);
