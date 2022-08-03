@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/03 17:56:10 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/03 23:05:41 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ int main(int argc, char **argv, char **env)
 	
 	data = calloc(1, sizeof(t_data));
 	data->last_exit_status = 0;
+	data->path_str = getcwd(data->path, 500);
+	// printf("path str:%s , path:%s\n", data->path_str, data->path);
 	// sa.sa_sigaction = sigintHandler;
 	// sa.sa_flags = SA_SIGINFO;
 	// sigaction(SIGINT, &sa, NULL);
@@ -114,7 +116,8 @@ int main(int argc, char **argv, char **env)
 		// 	puts("hi");
 		// 	continue;
 		// }
-		exe_remove();
+		// printf("path str:%s , path:%s\n", data->path_str, data->path);
+		// exe_remove(data);
 		cmd_buff = readline("MiniShell$ ");
 		if (ft_strlen(cmd_buff) > 0)
 			add_history(cmd_buff);

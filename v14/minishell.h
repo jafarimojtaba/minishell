@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/03 17:52:36 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/03 21:38:55 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,14 @@ typedef struct s_red
 	char *str;
 } t_red;
 
-struct s_data;
+typedef struct s_data
+{
+	char	path[500];
+	char    *path_str;
+	char	*prev_dir;
+	int 	last_exit_status;
+}t_data;
+
 typedef struct s_cmd
 {
 	int id;
@@ -71,13 +78,6 @@ typedef struct s_cmd
 	int exit_status;
 	struct s_data *data;
 } t_cmd;
-
-typedef struct s_data
-{
-	char	path[500];
-	char	prev_dir[500];
-	int 	last_exit_status;
-}t_data;
 
 // first read number of redirections and malloc for the size of s_red pointer;
 char **split_command(char *cb);
@@ -108,7 +108,7 @@ int is_output_append(char *c, int j);
 int is_heredoc(char *c, int j);
 void exe_cmd(t_cmd *cmd, int i, char *cmd_buff, char **env);
 int find_next_near_q(char *c, int q, int i);
-void exe_remove(void);
+void exe_remove(t_data *data);
 
 void ft_echo(t_cmd *cmd, int i);
 int handel_fd(t_cmd *cmd, int i);

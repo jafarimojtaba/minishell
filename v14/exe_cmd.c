@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 11:42:56 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/03 18:18:53 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/03 23:03:20 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int handel_fd(t_cmd *cmd, int i)
 	{
 		if (red[i].type == input_redirection)
 		{
-			if (access(red[i].f_name, F_OK))
+			if (access(ft_strjoin(cmd->data->prev_dir, red[i].f_name), F_OK))
 			{
 				printf("%s: No such file or directory", red[i].f_name);
 				return (0);
@@ -82,26 +82,32 @@ int handel_fd(t_cmd *cmd, int i)
 				// puts("is available");
 				// if (cmd->fd_in != 0)
 				// 	close(cmd->fd_in);
-				cmd->fd_in = open(red[i].f_name, O_RDONLY, 0777);
+				printf("dir2:%s\n", ft_strjoin(cmd->data->prev_dir, red[i].f_name));
+				
+				cmd->fd_in = open(ft_strjoin(cmd->data->prev_dir, red[i].f_name), O_RDONLY, 0777);
+				printf("fd=%d\n", cmd->fd_in);
 			}
 		}
 		else if (red[i].type == output_redirection)
 		{
 				// if (cmd->fd_out != 1)
 				// 	close(cmd->fd_out);
-				cmd->fd_out = open(red[i].f_name, O_RDWR | O_CREAT | O_TRUNC, 0777);
+				printf("dir2:%s\n", ft_strjoin(cmd->data->prev_dir, red[i].f_name));
+				cmd->fd_out = open(ft_strjoin(cmd->data->prev_dir, red[i].f_name), O_RDWR | O_CREAT | O_TRUNC, 0777);
+				printf("fd=%d\n", cmd->fd_out);
+				
 		}
 		else if (red[i].type == append_redirection)
 		{
 				// if (cmd->fd_out != 1)
 				// 	close(cmd->fd_out);
-				cmd->fd_out = open(red[i].f_name, O_RDWR | O_APPEND | O_CREAT, 0777);
+				cmd->fd_out = open(ft_strjoin(cmd->data->prev_dir, red[i].f_name), O_RDWR | O_APPEND | O_CREAT, 0777);
 		}
 		else if (red[i].type == heredoc_redirection)
 		{
-			cmd->fd_in = open(red[i].f_name, O_RDWR | O_CREAT | O_TRUNC , 0777);
+			cmd->fd_in = open(ft_strjoin(cmd->data->prev_dir, red[i].f_name), O_RDWR | O_CREAT | O_TRUNC , 0777);
 			write(cmd->fd_in, red[i].str, ft_strlen(red[i].str));
-			cmd->fd_in = open(red[i].f_name, O_RDONLY, 0777);
+			cmd->fd_in = open(ft_strjoin(cmd->data->prev_dir, red[i].f_name), O_RDONLY, 0777);
 		}
 		// printf("filename:%s, type= %d, fd_out=%d, fd_in=%d\n", red[i].f_name, red[i].type, cmd->fd_out, cmd->fd_in);
 		
@@ -128,19 +134,19 @@ void exe_builtin(t_cmd *cmd, char **env)
 	pid_t pid;
 	
 	ft_exit(cmd);
-	pid = fork();
-	if (pid == 0)
-	{
+	// pid = fork();
+	// if (pid == 0)
+	// {
 		handel_fd(cmd, 0);
 		handel_pipe(cmd, 0);
 		ft_echo(cmd, 1);
 		ft_env(cmd, env);
 		ft_pwd(cmd);
 		ft_cd(cmd);
-		exit(0);
-	}
+		// exit(0);
+	// }
 	cmd->data->last_exit_status = 0;
-	waitpid(pid, NULL, 0);
+	// waitpid(pid, NULL, 0);
 	return;
 
 	// printf("\"%s\" is a builtin command\n", cmd->c);
@@ -153,7 +159,7 @@ void handel_pipe(t_cmd *cmd, int i)
 	fd1 = 0;
 	if (cmd->pipe_flag_after != -1 && cmd->fd_out == 1)
 	{
-		fd1 = open(cmd->pipe_f_name, O_RDWR | O_CREAT | O_TRUNC, 0777);
+		fd1 = open(ft_strjoin(cmd->data->prev_dir, cmd->pipe_f_name), O_RDWR | O_CREAT | O_TRUNC, 0777);
 		cmd->pipe_fd = fd1;
 		// dup2(fd1, STDOUT_FILENO);
 		cmd->fd_out = fd1;
@@ -163,10 +169,10 @@ void handel_pipe(t_cmd *cmd, int i)
 	{
 		// printf("%s\n", cmd[-1].pipe_f_name);
 		// close(cmd[-1].pipe_fd);
-		if(!access(cmd[-1].pipe_f_name, F_OK))
-			fd2 = open(cmd[-1].pipe_f_name, O_RDWR, 0777);
+		if(!access(ft_strjoin(cmd->data->prev_dir, cmd[-1].pipe_f_name), F_OK))
+			fd2 = open(ft_strjoin(cmd->data->prev_dir, cmd[-1].pipe_f_name), O_RDWR, 0777);
 		else
-			fd2 = open(cmd[-1].pipe_f_name, O_RDWR | O_CREAT | O_TRUNC, 0777);
+			fd2 = open(ft_strjoin(cmd->data->prev_dir, cmd[-1].pipe_f_name), O_RDWR | O_CREAT | O_TRUNC, 0777);
 
 			// dup2(fd2, STDIN_FILENO);
 			cmd->fd_in = fd2;
@@ -178,7 +184,7 @@ void handel_pipe(t_cmd *cmd, int i)
 }
 void exe_sys(t_cmd *cmd)
 {
-	// printf("\"%s\" is a sys command\n", cmd->c);
+	// printf("dir:%s\n", cmd->data->prev_dir);
 	pid_t pid = fork();
 	if (pid == 0){
 		if (!ft_strncmp(cmd->c, "make", 5))
@@ -191,7 +197,8 @@ void exe_sys(t_cmd *cmd)
 			handel_fd(cmd, 0);
 			handel_pipe(cmd, 0);
 		}
-		cmd->data->last_exit_status = execve(cmd->c_path, cmd->op, NULL);
+		// char *envp = "PWD=/Users/mjafari/Desktop/school/github/minishell";
+		cmd->data->last_exit_status = execve(cmd->c_path, cmd->op, cmd->env);
 	}
 		
 	waitpid(pid, NULL, 0);
@@ -200,7 +207,7 @@ void exe_sys(t_cmd *cmd)
 	// 	printf("error in execve");
 }
 
-void exe_remove(void)
+void exe_remove(t_data *data)
 {
 	t_cmd *remove;
 
@@ -209,6 +216,7 @@ void exe_remove(void)
 	remove->op_n = 2;
 	remove->re_n = 0;
 	remove->cmd_n = 1;
+	remove->data = data;
 	
 	remove->op = calloc(2 , sizeof(char *));
 	remove->op[0] = "make";
@@ -236,6 +244,7 @@ void exe_cmd(t_cmd *cmd, int i, char *cmd_buff, char **env)
 {
 		while (i < cmd[0].cmd_n)
 		{
+		cmd[i].data->prev_dir = ft_strjoin(cmd->data->path, "/");
 			// if (!handel_fd(&cmd[i], 0))
 			// 	return ;
 			if (is_builtin(cmd[i].c))
