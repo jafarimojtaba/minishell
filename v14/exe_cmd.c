@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 11:42:56 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/02 19:27:08 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/03 18:18:53 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void exe_builtin(t_cmd *cmd, char **env)
 		ft_cd(cmd);
 		exit(0);
 	}
+	cmd->data->last_exit_status = 0;
 	waitpid(pid, NULL, 0);
 	return;
 
@@ -190,7 +191,7 @@ void exe_sys(t_cmd *cmd)
 			handel_fd(cmd, 0);
 			handel_pipe(cmd, 0);
 		}
-		cmd->exit_status = execve(cmd->c_path, cmd->op, NULL);
+		cmd->data->last_exit_status = execve(cmd->c_path, cmd->op, NULL);
 	}
 		
 	waitpid(pid, NULL, 0);
@@ -244,7 +245,7 @@ void exe_cmd(t_cmd *cmd, int i, char *cmd_buff, char **env)
 			else
 			{
 				printf("\"%s\" is not a command\n", cmd[i].c);
-				cmd[i].exit_status = 127;
+				cmd[i].data->last_exit_status = 127;
 			}
 			// printf("cmd input:%d, cmd output:%d\n", global_fd_in, global_fd_out);
 			i++;

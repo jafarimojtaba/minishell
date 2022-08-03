@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 11:16:20 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/01 20:32:24 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/03 17:36:59 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void cmd_init(t_cmd *cmd, char *cmd_buff, int n, char **env)
 		cmd[i].re_n = 0;
 		cmd[i].heredoc_id = -1;
 		cmd[i].env = env;
-		cmd[i].exit_status = 0;
+		if (i)
+			cmd[i].data = cmd[0].data;
 		i++;
 	}
 }

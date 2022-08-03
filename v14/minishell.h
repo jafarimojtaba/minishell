@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/02 19:44:03 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/03 17:52:36 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <sys/types.h>
+#include <dirent.h>
 
 static int global_fd_in;
 static int global_fd_out;
@@ -73,8 +74,9 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
-	char	path[PATH_MAX];
-	char	prev_dir[PATH_MAX];
+	char	path[500];
+	char	prev_dir[500];
+	int 	last_exit_status;
 }t_data;
 
 // first read number of redirections and malloc for the size of s_red pointer;

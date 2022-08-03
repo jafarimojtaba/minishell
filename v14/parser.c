@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:23:38 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/01 21:11:03 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/03 18:04:00 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,23 @@ void  op_count(t_cmd *cmd, int j, int count)
 
 	c= NULL;
 	c = cmd->c_pre_parse;
-	while (c[j])
+	while (c[j] != '\0')
 	{
 		while (c[j] == ' ')
 			j++;
 		if (c[j] == '\'' || c[j] == '"')
 		{
 			j = find_next_q(c, c[j], j);
-			if (c[j + 1] && c[j + 1] != ' ')
+			if (c[j + 1] != '\0' && c[j + 1] != ' ')
 			{
 				j++;
-				while (c[j] && c[j] != ' ')
+				while (c[j] != '\0' && c[j] != ' ')
 					j++;
 			}
 		}
 		else
 		{
-			while (c[j] != ' ' && c[j])
+			while (c[j] != ' ' && c[j] != '\0')
 				j++;
 			while (c[j] == ' ')
 			j++;
@@ -54,7 +54,7 @@ void op_split(t_cmd *cmd, int i, int j, int start)
 	c = cmd->c_pre_parse;
 	// printf("size =%zu\n", ft_strlen(c));
 	cmd->op = (char **)calloc((cmd->op_n) + 1 , sizeof(char *));
-	while (c[j] && i < (cmd->op_n))
+	while (c[j] != '\0' && i < (cmd->op_n))
 	{
 		while (c[j] == ' ')
 		{
@@ -64,10 +64,10 @@ void op_split(t_cmd *cmd, int i, int j, int start)
 		if (c[j] == '\'' || c[j] == '"')
 		{
 			j = find_next_q(c, c[j], j);
-			if(c[j +1] && c[j + 1] != ' ')
+			if(c[j +1] != '\0' && c[j + 1] != ' ')
 			{
 				j++;
-				while (c[j] && c[j] != ' ')
+				while (c[j] != '\0' && c[j] != ' ')
 					j++;
 				if (c[j] == ' ')
 					j--;
@@ -78,7 +78,7 @@ void op_split(t_cmd *cmd, int i, int j, int start)
 		}
 		else
 		{
-			while (c[j] != ' ' && c[j] && c[j] != '|')
+			while (c[j] != ' ' && c[j] != '\0' && c[j] != '|')
 				j++;
 			cmd->op[i] = ft_substr(c, start, j - start);
 			// printf("op %d form %d =%s#\n", i, cmd->op_n, cmd->op[i]);
@@ -105,9 +105,9 @@ char *remove_start_and_end(char *c, int start, int end)
 
 char *op_space_re(char *c, int i, int start)
 {
-	while (c[i])
+	while (c[i] != '\0')
 	{
-		if (ft_strchr("'\"", c[i]))
+		if (ft_strchr("'\"", c[i] != '\0'))
 		{
 			start = i;
 			i = find_next_near_q(c, c[i], i);

@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/02 19:24:37 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/03 17:56:10 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,13 @@ void print_cmd(t_cmd *cmd, int n)
 	}
 }
 
-void minishell(char *cmd_buff, t_cmd *cmd, char **env)
+void minishell(char *cmd_buff, t_cmd *cmd, t_data *data, char **env)
 {
 	int cmd_n;
 
 	cmd_n = cmd_count(cmd_buff, 0, 1);
 	cmd = (t_cmd *)calloc(cmd_n, sizeof(t_cmd));
+	cmd[0].data = data;
 	cmd_init(cmd, cmd_buff, cmd_n, env);
 	pipe_splitter(cmd, cmd_buff, 0, 0);
 	dollar_with_q(cmd, 0, 0, 0);
@@ -92,10 +93,13 @@ int main(int argc, char **argv, char **env)
 	// struct sigaction sa;
 
 	t_cmd *cmd;
+	t_data *data;
 	char *cmd_buff;
 	int i;
 	int j;
-
+	
+	data = calloc(1, sizeof(t_data));
+	data->last_exit_status = 0;
 	// sa.sa_sigaction = sigintHandler;
 	// sa.sa_flags = SA_SIGINFO;
 	// sigaction(SIGINT, &sa, NULL);
@@ -126,7 +130,7 @@ int main(int argc, char **argv, char **env)
 			free(cmd_buff);
 			break;
 		}
-		minishell(cmd_buff, cmd, env);
+		minishell(cmd_buff, cmd, data, env);
 		// if (cmd)
 		// {
 		// 	free_cmd(cmd, 0);

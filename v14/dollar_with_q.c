@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 19:59:33 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/28 10:28:31 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/03 18:45:34 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ int	dollar_str_env(t_cmd *cmd, int start, int *j, char *first_str)
 	char	*dollar_str;
 
 	(*j)++;
-	dollar_str = ft_substr(cmd->c_pre_parse, start, *j - start + 1);
+	dollar_str = ft_substr(cmd->c_pre_parse, start, *j - start);
 	// printf("dollarstr=%s#\n",dollar_str);
 	temp1 = dollar_str;
-	dollar_str = getenv(dollar_str);
+	if (!ft_strncmp(dollar_str, "?", ft_strlen(dollar_str)))
+		dollar_str = ft_itoa(cmd->data->last_exit_status);
+	else
+		dollar_str = getenv(dollar_str);
 	if (temp1)
 		free(temp1);
 	if (dollar_str)
@@ -31,7 +34,7 @@ int	dollar_str_env(t_cmd *cmd, int start, int *j, char *first_str)
 		free(first_str);
 		// if (dollar_str)
 		// free(dollar_str);
-		temp2 = ft_strjoin(temp1, &cmd->c_pre_parse[*j + 1]);
+		temp2 = ft_strjoin(temp1, &cmd->c_pre_parse[*j]);
 		free(temp1);
 		free(cmd->c_pre_parse);
 		cmd->c_pre_parse = temp2;
@@ -68,14 +71,17 @@ void	dollar_in_next_dq(t_cmd *cmd, int start, int *j, char *first_str)
 	{
 		if (cmd->c_pre_parse[*j] == '$')
 		{
-			first_str = ft_substr(cmd->c_pre_parse, 0, *j);
+			first_str = ft_substr(cmd->c_pre_parse, 0, *(j));
 			(*j)++;
 			start = *j;
 			while (is_not_space_or_dollar(cmd, *j))
 			{
 				dollar_check = dollar_str_env(cmd, start, j, first_str);
 				if (dollar_check)
-					break ;
+				{
+					*j = 0;
+					break;
+				}
 			}
 			if (!dollar_check)
 				no_dollar_var(cmd, *j, first_str);
