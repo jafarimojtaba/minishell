@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/01 20:31:53 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/02 19:44:03 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_red
 	char *str;
 } t_red;
 
+struct s_data;
 typedef struct s_cmd
 {
 	int id;
@@ -67,7 +68,14 @@ typedef struct s_cmd
 	int heredoc_id;
 	char **env;
 	int exit_status;
+	struct s_data *data;
 } t_cmd;
+
+typedef struct s_data
+{
+	char	path[PATH_MAX];
+	char	prev_dir[PATH_MAX];
+}t_data;
 
 // first read number of redirections and malloc for the size of s_red pointer;
 char **split_command(char *cb);
@@ -106,5 +114,6 @@ void handel_pipe(t_cmd *cmd, int i);
 void ft_env(t_cmd *cmd, char **env);
 void ft_pwd(t_cmd *cmd);
 void ft_exit(t_cmd *cmd);
+void ft_cd(t_cmd *cmd);
 
 #endif

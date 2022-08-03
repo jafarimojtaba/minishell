@@ -6,7 +6,7 @@
 #    By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/09 17:02:12 by mjafari           #+#    #+#              #
-#    Updated: 2022/08/01 16:59:53 by mjafari          ###   ########.fr        #
+#    Updated: 2022/08/02 19:25:51 by mjafari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC		= main.c parser.c pipe_splitter.c redirection.c redirection_utils.c\
 
 FLAG	= -lreadline
 
-CC		= gcc
+CC		= clang
 
 SRC_OBJ	= $(SRC:.c=.o)
 

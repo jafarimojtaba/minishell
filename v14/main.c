@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/01 19:05:37 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/02 19:24:37 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,18 @@ void minishell(char *cmd_buff, t_cmd *cmd, char **env)
 	exe_cmd(cmd, 0, cmd_buff, env);
 }
 
-void sigintHandler(int sig_num)
-{
-    // signal(SIGINT, sigintHandler);
-    // printf("\n Cannot be terminated using Ctrl+C \n");
-    // gflag = 1;
-	// rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-	rl_on_new_line();
-	rl_redisplay();
-	// printf("\b\b  \n");
-}
+// void sigintHandler(int sig_num)
+// {
+//     // signal(SIGINT, sigintHandler);
+//     // printf("\n Cannot be terminated using Ctrl+C \n");
+//     // gflag = 1;
+// 	// rl_replace_line("", 0);
+// 	rl_on_new_line();
+// 	rl_redisplay();
+// 	rl_on_new_line();
+// 	rl_redisplay();
+// 	// printf("\b\b  \n");
+// }
 
 int main(int argc, char **argv, char **env)
 {
