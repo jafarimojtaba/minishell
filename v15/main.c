@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/04 18:47:37 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/05 11:09:15 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,13 @@ int main(int argc, char **argv, char **env)
 
 	// printf("path str:%s , path:%s\n", data->path_str, data->path);
 	// signal_check();
+	if (argc || argv)
+		argc =2;
 	data = calloc(1, sizeof(t_data));
 	data_init(data);
 	while (1)
 	{
-		if (argc || argv)
-			exe_remove(data, env);
+		exe_remove(env);
 		// printf("path str:%s , path:%s\n", data->path_str, data->path);
 		cmd_buff = readline("MiniShell$ ");
 		if (ft_strlen(cmd_buff) > 0)

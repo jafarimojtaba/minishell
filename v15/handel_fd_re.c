@@ -39,7 +39,7 @@ int handel_fd(t_cmd *cmd, int i)
 		{
 			if (access(ft_strjoin(cmd->data->prev_dir, red[i].f_name), F_OK))
 			{
-				printf("%s: No such file or directory", red[i].f_name);
+				printf("%s: No such file or directory\n", red[i].f_name);
 				return (0);
 			}
 			else
@@ -47,19 +47,19 @@ int handel_fd(t_cmd *cmd, int i)
 				// puts("is available");
 				// if (cmd->fd_in != 0)
 				// 	close(cmd->fd_in);
-				printf("dir2:%s\n", ft_strjoin(cmd->data->prev_dir, red[i].f_name));
+				// printf("dir2:%s\n", ft_strjoin(cmd->data->prev_dir, red[i].f_name));
 
 				cmd->fd_in = open(ft_strjoin(cmd->data->prev_dir, red[i].f_name), O_RDONLY, 0777);
-				printf("fd=%d\n", cmd->fd_in);
+				// printf("fd=%d\n", cmd->fd_in);
 			}
 		}
 		else if (red[i].type == output_redirection)
 		{
 			// if (cmd->fd_out != 1)
 			// 	close(cmd->fd_out);
-			printf("dir2:%s\n", ft_strjoin(cmd->data->prev_dir, red[i].f_name));
+			// printf("dir2:%s\n", ft_strjoin(cmd->data->prev_dir, red[i].f_name));
 			cmd->fd_out = open(ft_strjoin(cmd->data->prev_dir, red[i].f_name), O_RDWR | O_CREAT | O_TRUNC, 0777);
-			printf("fd=%d\n", cmd->fd_out);
+			// printf("fd=%d\n", cmd->fd_out);
 		}
 		else if (red[i].type == append_redirection)
 		{

@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/04 18:36:53 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/05 11:09:39 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int is_output_append(char *c, int j);
 int is_heredoc(char *c, int j);
 void exe_cmd(t_cmd *cmd, int i, char **env);
 int find_next_near_q(char *c, int q, int i);
-void exe_remove(t_data *data, char **env);
+void exe_remove(char **env);
 
 void ft_echo(t_cmd *cmd, int i);
 int handel_fd(t_cmd *cmd, int i);

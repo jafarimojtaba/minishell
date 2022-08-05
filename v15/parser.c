@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:23:38 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/03 18:04:00 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/05 16:14:31 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void  op_count(t_cmd *cmd, int j, int count)
 				while (c[j] != '\0' && c[j] != ' ')
 					j++;
 			}
+			j++;
 		}
 		else
 		{
@@ -40,11 +41,11 @@ void  op_count(t_cmd *cmd, int j, int count)
 			j++;
 		}
 		count++;
-		j++;
+		// j++;
 	}
 	cmd->op_n = count;
-	if(!ft_strncmp("exit", c, 4))
-		cmd->op_n = 2;
+	// if(!ft_strncmp("exit", c, 4))
+	// 	cmd->op_n = 2;
 }
 
 void op_split(t_cmd *cmd, int i, int j, int start)
@@ -102,17 +103,17 @@ char *remove_start_and_end(char *c, int start, int end)
 	temp2 = ft_strjoin(temp3, temp1);
 	return(temp2);
 }
-
+//seperate cases for single quote and double qoute should be applied
 char *op_space_re(char *c, int i, int start)
 {
 	while (c[i] != '\0')
 	{
-		if (ft_strchr("'\"", c[i] != '\0'))
+		if (ft_strchr("'\"", c[i]) && c[i] != '\0')
 		{
 			start = i;
 			i = find_next_near_q(c, c[i], i);
 			c = remove_start_and_end(c, start, i);
-			i = 0;
+			// i = 0;
 		}
 		i++;
 	}

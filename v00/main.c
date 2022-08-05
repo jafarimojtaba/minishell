@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/21 20:19:57 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/05 11:04:34 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int main(void)
 		// printf("pipes are = %d\n", n_pipes);
 		// argVec[1] = command_buff;
 		// dup2(fdd, STDOUT_FILENO);
+	char *write_cmd[] = { "/bin/sh", "-c", "<a cat > b", NULL };
+
 		execve("/bin/sh" , write_cmd, enVec);
 		// write(fdd, )
 		// printf("%s",buff);

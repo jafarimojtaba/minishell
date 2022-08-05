@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 11:18:25 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/30 19:44:47 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/05 15:43:19 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int find_next_q(char *c, int q, int i)
 {
 	i++;
-	while (c[i] != q && c[i])
+	while (c[i] != q && c[i] != '\0')
 		i++;
 	if (c[i + 1] && ft_strchr("'\"", c[i + 1]))
 	{
