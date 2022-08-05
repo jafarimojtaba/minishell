@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 11:42:56 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/06 00:38:29 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/06 00:41:08 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ void exe_builtin(t_cmd *cmd, char **env)
 	handel_pipe(cmd);
 	ft_cd(cmd);
 	cmd->env = env;
-	ft_env(cmd, env);
 	ft_export(env, cmd);
 	pid = fork();
 	if (pid == 0)
 	{
 		handel_dup2(cmd);
+		ft_env(cmd, env);
 		ft_echo(cmd, 1);
 		ft_pwd(cmd);
 		exit(0);
