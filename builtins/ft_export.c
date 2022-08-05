@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:10 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/06 00:15:57 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/06 00:36:26 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int is_valid_export_arg(t_cmd *cmd, int i, int j)
         // printf("op= %s\n",cmd->op[i]);
         while (cmd->op[i][j] != '\0')
         {
-            if(cmd->op[i][0] < 'A' || cmd->op[i][0] > 'z')
+            if (cmd->op[i][0] < 'A' || cmd->op[i][0] > 'z')
             {
                 printf("export: %s: check naming rules\n", cmd->op[i]);
                 return (0);
@@ -40,6 +40,7 @@ int is_valid_export_arg(t_cmd *cmd, int i, int j)
 int is_pre_defined_env(char **env, t_cmd *cmd, int i, int j)
 {
     char *temp;
+    int k;
 
     while (i < cmd->op_n)
     {
@@ -47,9 +48,20 @@ int is_pre_defined_env(char **env, t_cmd *cmd, int i, int j)
         {
             if (cmd->op[i][j] == '=')
             {
-                temp = ft_substr(cmd->op[i], 0, j);
-                puts(temp);
-                env[0] = temp;
+                temp = ft_substr(cmd->op[i], 0, j + 1);
+                k = 0;
+                while (cmd->data->env[k])
+                {
+                    if(!ft_strncmp(temp, cmd->data->env[k], ft_strlen(temp)))
+                    {
+                        free(cmd->data->env[k]);
+                        cmd->data->env[k] = ft_strdup(cmd->op[i]);
+                        env = NULL;
+                        // change_env(cmd->data->env, temp, k);
+                        break;
+                    }
+                    k++;
+                }
             }
             j++;
         }
@@ -60,21 +72,20 @@ int is_pre_defined_env(char **env, t_cmd *cmd, int i, int j)
 void ft_export(char **env, t_cmd *cmd)
 {
     int i;
-    
+
     i = 0;
-    if (ft_strncmp(cmd->c, "export", ft_strlen(cmd->c)+ 7))
-		return ;
+    if (ft_strncmp(cmd->c, "export", ft_strlen(cmd->c) + 7))
+        return;
     if (is_valid_export_arg(cmd, 1, 0) == 0)
     {
         cmd->data->last_exit_status = 1;
-        return ;
+        return;
     }
-    if(is_pre_defined_env(env, cmd, 1, 0) == 0)
-        return ;
+    if (is_pre_defined_env(env, cmd, 1, 0) == 0)
+        return;
     while (env[i])
     {
         // if(ft_strncmp(cmd.))
         i++;
     }
-    
 }
