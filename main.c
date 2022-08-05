@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/05 11:09:15 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/05 23:56:01 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int main(int argc, char **argv, char **env)
 	if (argc || argv)
 		argc =2;
 	data = calloc(1, sizeof(t_data));
-	data_init(data);
+	data_init(data, env);
 	while (1)
 	{
 		exe_remove(env);

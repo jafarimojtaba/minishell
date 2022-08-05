@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 11:16:20 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/05 11:54:23 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/05 23:55:39 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ void cmd_init(t_cmd *cmd, char *cmd_buff, int n, char **env)
 	}
 }
 
-void data_init(t_data *data)
+void data_init(t_data *data, char **env)
 {
 	data->last_exit_status = 0;
 	data->path_str = getcwd(data->path, 500);
 	data->prev_dir = getcwd(data->path, 500);
+	copy_env(data, env, 0);
 }
 
 int is_q_closed(char *c, int i)

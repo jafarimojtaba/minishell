@@ -1,23 +1,23 @@
-// <f0 echo hi >f1 how >f2 >f3 are you >f4
-// echo hi  how   are you
-//  echo hi  how   are you
-//   echo hi  how   are you
-// <f0 echo hi >f1 how >f2 >f3 are you >f4 |>f7 >f8 grep hi <f9
-// echo hi how are you|grep hi
-// <f0 echo hi >f1 how >f2 >f3 are you  >f4 |>f7 >f8 grep hi <f9 "hh$USER" << mj to
-// "hi from test"|'|"'
-// echo hi | grep how | <<mj cat "$USERj"| also $PAT"$PATH"
-// echo hi >f1"how$USER"
+<f0 echo hi >f1 how >f2 >f3 are you >f4
+echo hi  how   are you
+ echo hi  how   are you
+  echo hi  how   are you
+<f0 echo hi >f1 how >f2 >f3 are you >f4 |>f7 >f8 grep hi <f9
+echo hi how are you|grep hi
+<f0 echo hi >f1 how >f2 >f3 are you  >f4 |>f7 >f8 grep hi <f9 "hh$USER" << mj to
+"hi from test"|'|"'
+echo hi | grep how | <<mj cat "$USERj"| also $PAT"$PATH"
+echo hi >f1"how$USER"
 
-// echo "$USER" hi"$USER"       nhj | sdf dfgh
+echo "$USER" hi"$USER"       nhj | sdf dfgh
 
-// echo "$USER" hi"$USER"       nhj | sdf dfgh
+echo "$USER" hi"$USER"       nhj | sdf dfgh
 
-// MiniShell$ <<mj cat > f1| grep hi
-// dlm=mj#
-// >hkjkjhsv
-// >hi
-// >mj
-// cat: '': No such file or directory
-// hi mj
-// MiniShell$ 
+MiniShell$ <<mj cat > f1| grep hi
+dlm=mj#
+>hkjkjhsv
+>hi
+>mj
+cat: '': No such file or directory
+hi mj
+MiniShell$ 

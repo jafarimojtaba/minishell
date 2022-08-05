@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/05 21:30:39 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/05 23:55:54 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_data
 	char    *path_str;
 	char	*prev_dir;
 	int 	last_exit_status;
+	char	**env;
 }t_data;
 
 typedef struct s_cmd
@@ -81,14 +82,15 @@ void minishell(char *cmd_buff, t_cmd *cmd, t_data *data, char **env);
 
 char **split_command(char *cb);
 int cmd_num(char *cmd);
-void data_init(t_data *data);
+void data_init(t_data *data, char **env);
 
 void signal_check();
 void free_cmd_exit(t_cmd *cmd);
-
+void copy_env(t_data *data, char **env, int i);
 void handel_pipe(t_cmd *cmd);
 int handel_fd(t_cmd *cmd, int i);
 void handel_dup2(t_cmd *cmd);
+void ft_export(char **env, t_cmd *cmd);
 
 // void cmd_fill(t_cmd *cmd_s, char *cmd);
 void cmd_init(t_cmd *cmd, char *cmd_buff, int n, char **env);

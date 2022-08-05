@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 11:42:56 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/05 19:54:04 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/05 22:49:10 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void exe_builtin(t_cmd *cmd, char **env)
 		ft_echo(cmd, 1);
 		ft_env(cmd, env);
 		ft_pwd(cmd);
+		ft_export(env, cmd);
 		exit(0);
 	}
 
