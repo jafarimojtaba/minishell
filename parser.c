@@ -12,11 +12,11 @@
 
 #include "minishell.h"
 
-void  op_count(t_cmd *cmd, int j, int count)
+void op_count(t_cmd *cmd, int j, int count)
 {
 	char *c;
 
-	c= NULL;
+	c = NULL;
 	c = cmd->c_pre_parse;
 	while (c[j] != '\0')
 	{
@@ -36,9 +36,22 @@ void  op_count(t_cmd *cmd, int j, int count)
 		else
 		{
 			while (c[j] != ' ' && c[j] != '\0')
+			{
+				if (c[j] == '\'' || c[j] == '"')
+				{
+					j = find_next_q(c, c[j], j);
+					// if (c[j + 1] != '\0' && c[j + 1] != ' ')
+					// {
+					// 	j++;
+					// 	while (c[j] != '\0' && c[j] != ' ')
+					// 		j++;
+					// }
+				}
 				j++;
-			while (c[j] == ' ')
+			}
 			j++;
+			while (c[j] == ' ')
+				j++;
 		}
 		count++;
 		// j++;
@@ -54,7 +67,7 @@ void op_split(t_cmd *cmd, int i, int j, int start)
 
 	c = cmd->c_pre_parse;
 	// printf("size =%zu\n", ft_strlen(c));
-	cmd->op = (char **)calloc((cmd->op_n) + 1 , sizeof(char *));
+	cmd->op = (char **)calloc((cmd->op_n) + 1, sizeof(char *));
 	while (c[j] != '\0' && i < (cmd->op_n))
 	{
 		while (c[j] == ' ')
@@ -65,7 +78,7 @@ void op_split(t_cmd *cmd, int i, int j, int start)
 		if (c[j] == '\'' || c[j] == '"')
 		{
 			j = find_next_q(c, c[j], j);
-			if(c[j +1] != '\0' && c[j + 1] != ' ')
+			if (c[j + 1] != '\0' && c[j + 1] != ' ')
 			{
 				j++;
 				while (c[j] != '\0' && c[j] != ' ')
@@ -80,7 +93,19 @@ void op_split(t_cmd *cmd, int i, int j, int start)
 		else
 		{
 			while (c[j] != ' ' && c[j] != '\0' && c[j] != '|')
+			{
+				if (c[j] == '\'' || c[j] == '"')
+				{
+					j = find_next_q(c, c[j], j);
+					// if (c[j + 1] != '\0' && c[j + 1] != ' ')
+					// {
+					// 	j++;
+					// 	while (c[j] != '\0' && c[j] != ' ')
+					// 		j++;
+					// }
+				}
 				j++;
+			}
 			cmd->op[i] = ft_substr(c, start, j - start);
 			// printf("op %d form %d =%s#\n", i, cmd->op_n, cmd->op[i]);
 			i++;
@@ -97,14 +122,14 @@ char *remove_start_and_end(char *c, int start, int end)
 	char *temp3;
 
 	temp1 = ft_substr(c, 0, start);
-	temp2 = ft_substr(c, start + 1 , end - start - 1);
+	temp2 = ft_substr(c, start + 1, end - start - 1);
 	temp3 = ft_strjoin(temp1, temp2);
 	temp1 = ft_substr(c, end + 1, ft_strlen(c));
 	temp2 = ft_strjoin(temp3, temp1);
-	return(temp2);
+	return (temp2);
 }
-//seperate cases for single quote and double qoute should be applied
-char *op_space_re(char *c, int i, int start)
+// seperate cases for single quote and double qoute should be applied
+char *op_q_re(char *c, int i, int start)
 {
 	while (c[i] != '\0')
 	{
@@ -117,7 +142,7 @@ char *op_space_re(char *c, int i, int start)
 		}
 		i++;
 	}
-	return(c);
+	return (c);
 }
 
 void ft_args_selector(t_cmd *cmd, int n, int i, int j)
@@ -128,9 +153,9 @@ void ft_args_selector(t_cmd *cmd, int n, int i, int j)
 		op_count(&cmd[i], 0, 0);
 		op_split(&cmd[i], 0, 0, 0);
 		j = 0;
-		while(j < cmd[i].op_n)
+		while (j < cmd[i].op_n)
 		{
-			cmd[i].op[j] = op_space_re(cmd[i].op[j], 0, 0);
+			cmd[i].op[j] = op_q_re(cmd[i].op[j], 0, 0);
 			j++;
 		}
 		i++;
