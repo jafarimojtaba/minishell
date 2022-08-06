@@ -81,6 +81,7 @@ void exe_builtin(t_cmd *cmd)
 	handel_pipe(cmd);
 	ft_cd(cmd);
 	ft_export(cmd, 1);
+	ft_unset(cmd);
 	pid = fork();
 	if (pid == 0)
 	{

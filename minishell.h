@@ -128,5 +128,6 @@ void ft_pwd(t_cmd *cmd);
 void ft_exit(t_cmd *cmd);
 void ft_cd(t_cmd *cmd);
 void handel_dup2(t_cmd *cmd);
+void ft_unset(t_cmd *cmd);
 
 #endif
