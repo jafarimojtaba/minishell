@@ -12,13 +12,12 @@
 
 #include "../minishell.h"
 
-void ft_env(t_cmd *cmd, char **env)
+void ft_env(t_cmd *cmd)
 {
 	int	i;
 	if (ft_strncmp(cmd->c, "env", ft_strlen(cmd->c)+ 4))
 		return ;
 	i = 0;
-	env = NULL;
 	while (cmd->data->env[i])
 	{
 		printf("%s\n", cmd->data->env[i]);

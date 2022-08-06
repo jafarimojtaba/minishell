@@ -14,36 +14,36 @@
 
 int is_valid_export_arg(t_cmd *cmd, int i, int j)
 {
-    while (i < cmd->op_n)
+    int equal_sign;
+
+    equal_sign = 0;
+    // printf("op= %s\n",cmd->op[i]);
+    while (cmd->op[i][j] != '\0')
     {
-        j = 0;
-        // printf("op= %s\n",cmd->op[i]);
-        while (cmd->op[i][j] != '\0')
+        if (cmd->op[i][0] < 'A' || cmd->op[i][0] > 'z')
         {
-            if (cmd->op[i][0] < 'A' || cmd->op[i][0] > 'z')
-            {
-                printf("export: %s: check naming rules\n", cmd->op[i]);
-                return (0);
-            }
-            if (cmd->op[i][j] == ' ')
-            {
-                printf("export: %s: not a valid identifier\n", cmd->op[i]);
-                return (0);
-            }
-            j++;
+            printf("export: %s: check naming rules\n", cmd->op[i]);
+            return (0);
         }
-        i++;
+        if (cmd->op[i][j] == ' ')
+        {
+            printf("export: %s: not a valid identifier\n", cmd->op[i]);
+            return (0);
+        }
+        if (cmd->op[i][j] == '=')
+            equal_sign++;
+        j++;
     }
+    if (equal_sign != 1)
+        return (0);
     return (1);
 }
 
-int is_pre_defined_env(char **env, t_cmd *cmd, int i, int j)
+int is_pre_defined_env(t_cmd *cmd, int i, int j)
 {
     char *temp;
     int k;
 
-    while (i < cmd->op_n)
-    {
         while (cmd->op[i][j] != '\0')
         {
             if (cmd->op[i][j] == '=')
@@ -52,40 +52,53 @@ int is_pre_defined_env(char **env, t_cmd *cmd, int i, int j)
                 k = 0;
                 while (cmd->data->env[k])
                 {
-                    if(!ft_strncmp(temp, cmd->data->env[k], ft_strlen(temp)))
+                    if (!ft_strncmp(temp, cmd->data->env[k], ft_strlen(temp)))
                     {
                         free(cmd->data->env[k]);
                         cmd->data->env[k] = ft_strdup(cmd->op[i]);
-                        env = NULL;
                         // change_env(cmd->data->env, temp, k);
-                        break;
+                        return (1);
                     }
                     k++;
                 }
             }
             j++;
         }
-        i++;
-    }
     return 0;
 }
-void ft_export(char **env, t_cmd *cmd)
-{
-    int i;
 
-    i = 0;
+void add_to_env(t_cmd *cmd, int i, int j, int l)
+{
+    char **temp;
+
+    while (cmd->data->env[l])
+        l++;
+    temp = (char **)malloc((l + 2) * sizeof(char *));
+    temp[l + 1] = NULL;
+    // printf("l+2:%d\n" ,l + 2);
+    while (cmd->data->env[j])
+    {
+        temp[j] = cmd->data->env[j];
+        j++;
+    }
+    temp[j] = ft_strdup(cmd->op[i]);
+    // printf("j+1:%d\n" ,j + 1);
+    free(cmd->data->env);
+    cmd->data->env = temp;
+}
+
+void ft_export(t_cmd *cmd, int i)
+{
+    i = 1;
     if (ft_strncmp(cmd->c, "export", ft_strlen(cmd->c) + 7))
         return;
-    if (is_valid_export_arg(cmd, 1, 0) == 0)
+    while (i < cmd->op_n)
     {
-        cmd->data->last_exit_status = 1;
-        return;
-    }
-    if (is_pre_defined_env(env, cmd, 1, 0) == 0)
-        return;
-    while (env[i])
-    {
-        // if(ft_strncmp(cmd.))
+        if (is_valid_export_arg(cmd, i, 0))
+        {
+            if (is_pre_defined_env(cmd, i, 0) == 0)
+                add_to_env(cmd, i, 0, 0);
+        }
         i++;
     }
 }

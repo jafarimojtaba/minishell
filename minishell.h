@@ -90,7 +90,7 @@ void copy_env(t_data *data, char **env, int i);
 void handel_pipe(t_cmd *cmd);
 int handel_fd(t_cmd *cmd, int i);
 void handel_dup2(t_cmd *cmd);
-void ft_export(char **env, t_cmd *cmd);
+void ft_export(t_cmd *cmd, int i);
 
 // void cmd_fill(t_cmd *cmd_s, char *cmd);
 void cmd_init(t_cmd *cmd, char *cmd_buff, int n, char **env);
@@ -116,14 +116,14 @@ int read_n_re(t_cmd *cmd, int j, int count);
 int is_in_or_out_re(char *c, int j);
 int is_output_append(char *c, int j);
 int is_heredoc(char *c, int j);
-void exe_cmd(t_cmd *cmd, int i, char **env);
+void exe_cmd(t_cmd *cmd, int i);
 int find_next_near_q(char *c, int q, int i);
 void exe_remove(char **env);
 
 void ft_echo(t_cmd *cmd, int i);
 int handel_fd(t_cmd *cmd, int i);
 // void handel_pipe(t_cmd *cmd, int i);
-void ft_env(t_cmd *cmd, char **env);
+void ft_env(t_cmd *cmd);
 void ft_pwd(t_cmd *cmd);
 void ft_exit(t_cmd *cmd);
 void ft_cd(t_cmd *cmd);

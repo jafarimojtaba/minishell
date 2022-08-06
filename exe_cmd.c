@@ -68,7 +68,7 @@ int is_sys(t_cmd *cmd)
 	return (0);
 }
 
-void exe_builtin(t_cmd *cmd, char **env)
+void exe_builtin(t_cmd *cmd)
 {
 	pid_t pid;
 	cmd->data->last_exit_status = 0;
@@ -80,13 +80,12 @@ void exe_builtin(t_cmd *cmd, char **env)
 	}
 	handel_pipe(cmd);
 	ft_cd(cmd);
-	cmd->env = env;
-	ft_export(env, cmd);
+	ft_export(cmd, 1);
 	pid = fork();
 	if (pid == 0)
 	{
 		handel_dup2(cmd);
-		ft_env(cmd, env);
+		ft_env(cmd);
 		ft_echo(cmd, 1);
 		ft_pwd(cmd);
 		exit(0);
@@ -128,13 +127,13 @@ void exe_remove(char **env)
 	waitpid(pid, NULL, 0);
 }
 
-void exe_cmd(t_cmd *cmd, int i, char **env)
+void exe_cmd(t_cmd *cmd, int i)
 {
 	while (i < cmd[0].cmd_n)
 	{
 		cmd[i].data->prev_dir = ft_strjoin(cmd->data->path, "/");
 		if (is_builtin(cmd[i].c))
-			exe_builtin(&cmd[i], env);
+			exe_builtin(&cmd[i]);
 		else if (is_sys(&cmd[i]))
 			exe_sys(&cmd[i]);
 		else
