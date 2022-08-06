@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char *cmd_buff;
+// char *cmd_buff;
 
 void print_cmd(t_cmd *cmd, int n)
 {
@@ -44,6 +44,16 @@ void print_cmd(t_cmd *cmd, int n)
 	}
 }
 
+int not_only_space(char *c, int i, int count)
+{
+	while (c[i] != '\0')
+	{
+		if (c[i] != ' ' && c[i] !='\t')
+			count++;
+		i++;
+	}
+	return(count);
+}
 int main(int argc, char **argv, char **env)
 {
 	char *cmd_buff;
@@ -62,7 +72,7 @@ int main(int argc, char **argv, char **env)
 		exe_remove(env);
 		// printf("path str:%s , path:%s\n", data->path_str, data->path);
 		cmd_buff = readline("MiniShell$ ");
-		if (ft_strlen(cmd_buff) > 0)
+		if (ft_strlen(cmd_buff) > 0 && not_only_space(cmd_buff, 0, 0))
 			add_history(cmd_buff);
 		else
 			continue;
