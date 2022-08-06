@@ -116,3 +116,5 @@ void	dollar_with_q(t_cmd *cmd, int i, int j, int start)
 		i++;
 	}
 }
+//echo mjafari hi"$USER"       nhj
+//001234567891123456789212345678931
