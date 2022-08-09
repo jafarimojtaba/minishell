@@ -6,12 +6,32 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 19:59:33 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/09 07:56:30 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/09 13:16:42 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+char *ft_getenv(char *str, t_cmd *cmd)
+{
+	char *temp = NULL;
+	int i = 0;
+	int j = 0;
+	while (cmd->data->env[i])
+	{	
+		j = 0;
+		while (cmd->data->env[i][j] != '\0' &&  cmd->data->env[i][j] != '=')
+			j++;
+		temp = ft_substr(cmd->data->env[i], 0, j);
+		if (!ft_strncmp(str, temp, ft_strlen(temp) + ft_strlen(str)))
+		{
+			temp = ft_strdup(&cmd->data->env[i][j + 1]);
+			return(temp);
+		}
+		i++;
+	}
+	return(NULL);
+}
 int	dollar_str_env(t_cmd *cmd, int start, int *j, char *first_str)
 {
 	char	*temp1;
@@ -25,7 +45,7 @@ int	dollar_str_env(t_cmd *cmd, int start, int *j, char *first_str)
 	if (!ft_strncmp(dollar_str, "?", ft_strlen(dollar_str)))
 		dollar_str = ft_itoa(cmd->data->last_exit_status);
 	else
-		dollar_str = getenv(dollar_str);
+		dollar_str = ft_getenv(dollar_str, cmd);
 	if (temp1)
 		free(temp1);
 	if (dollar_str)

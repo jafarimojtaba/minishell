@@ -19,3 +19,6 @@ echo "$USER" hi"$USER"       nhj | sdf dfgh
 echo -n hi"how are" you    j
 echo "$USER" hi"$USER"       nhj$USER"$USER""$USER"$USER
 echo "$USER" hi"$USER"       nhj$USER"$USER""$USER"$USER"$USER""$USER$PATH"
+
+export ab=cho
+e$ab hi
