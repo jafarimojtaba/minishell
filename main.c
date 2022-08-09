@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/09 08:00:47 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/09 18:39:36 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 
 // char *cmd_buff;
 
-
-
 int not_only_space(char *c, int i, int count)
 {
 	while (c[i] != '\0')
 	{
-		if (c[i] != ' ' && c[i] !='\t')
+		if (c[i] != ' ' && c[i] != '\t')
 			count++;
 		i++;
 	}
-	return(count);
+	return (count);
 }
 int main(int argc, char **argv, char **env)
 {
@@ -34,9 +32,9 @@ int main(int argc, char **argv, char **env)
 	int cmd_n;
 
 	// printf("path str:%s , path:%s\n", data->path_str, data->path);
-	// signal_check();
+	signal_check();
 	if (argc || argv)
-		argc =2;
+		argc = 2;
 	data = calloc(1, sizeof(t_data));
 	data_init(data, env);
 	while (1)
