@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/05 23:56:01 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/09 08:00:47 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,7 @@
 
 // char *cmd_buff;
 
-void print_cmd(t_cmd *cmd, int n)
-{
-	int i = 0;
-	int j;
-	printf("in print cmd%d", n);
-	while (i < n)
-	{
-		// printf("PIPE_before = %d, PIPE_after = %d PP_CMD : %s$\n",commands[i].pipe_flag_before, commands[i].pipe_flag_after, commands[i].c_pre_parse);
-		puts("------------------------------------------------");
-		printf("CMD_PP:%s#\n", cmd[i].c_pre_parse);
-		printf("CMD:%s#\n", cmd[i].c);
-		puts("");
-		j = 0;
-		while (j < cmd[i].op_n)
-		{
-			printf("op %d=%s#\n", j, cmd[i].op[j]);
-			j++;
-		}
-		puts("");
-		j = 0;
-		while (j < cmd[i].re_n)
-		{
-			printf("re %d=\ttype=%d\tfname=%s\tstr=%s#\n", cmd[i].re[j].id, cmd[i].re[j].type, cmd[i].re[j].f_name, cmd[i].re[j].str);
-			j++;
-		}
-		puts("");
-		i++;
-	}
-}
+
 
 int not_only_space(char *c, int i, int count)
 {

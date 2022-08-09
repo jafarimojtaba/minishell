@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:24:41 by mjafari           #+#    #+#             */
-/*   Updated: 2021/05/24 15:05:59 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/09 08:15:20 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i] != '\0')
 	{
 		i++;

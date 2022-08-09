@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/05 23:55:54 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/09 08:59:36 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void minishell(char *cmd_buff, t_cmd *cmd, t_data *data, char **env);
 char **split_command(char *cb);
 int cmd_num(char *cmd);
 void data_init(t_data *data, char **env);
-
+char *remove_start_and_end(char *c, int start, int end);
+char *op_q_re(char *c, int i, int start);
 void signal_check();
 void free_cmd_exit(t_cmd *cmd);
 void copy_env(t_data *data, char **env, int i);
