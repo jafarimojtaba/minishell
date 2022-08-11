@@ -6,15 +6,15 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:07 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/11 10:54:44 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/11 12:07:02 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int is_valid_unset_arg(t_cmd *cmd, int i, int j)
+int	is_valid_unset_arg(t_cmd *cmd, int i, int j)
 {
-	int equal_sign;
+	int	equal_sign;
 
 	equal_sign = 0;
 	while (cmd->op[i][j] != '\0')
@@ -38,9 +38,9 @@ int is_valid_unset_arg(t_cmd *cmd, int i, int j)
 	return (1);
 }
 
-int is_available_env(t_cmd *cmd, int i, int j)
+int	is_available_env(t_cmd *cmd, int i, int j)
 {
-	int k;
+	int	k;
 
 	k = 0;
 	while (cmd->data->env[k])
@@ -51,7 +51,7 @@ int is_available_env(t_cmd *cmd, int i, int j)
 		if ((int)ft_strlen(cmd->op[i]) != j)
 		{
 			k++;
-			continue;
+			continue ;
 		}
 		if (!ft_strncmp(cmd->op[i], cmd->data->env[k], j))
 		{
@@ -62,10 +62,10 @@ int is_available_env(t_cmd *cmd, int i, int j)
 	return (-1);
 }
 
-void remove_from_env(t_data *data, int k, int l, int j)
+void	remove_from_env(t_data *data, int k, int l, int j)
 {
-	char **temp;
-	int i;
+	char	**temp;
+	int		i;
 
 	i = 0;
 	while (data->env[l])
@@ -87,14 +87,14 @@ void remove_from_env(t_data *data, int k, int l, int j)
 	data->env = temp;
 }
 
-void ft_unset(t_cmd *cmd)
+void	ft_unset(t_cmd *cmd)
 {
-	int i;
-	int k;
+	int	i;
+	int	k;
 
 	i = 1;
 	if (ft_strncmp(cmd->c, "unset", ft_strlen(cmd->c) + 6))
-		return;
+		return ;
 	while (i < cmd->op_n)
 	{
 		if (is_valid_unset_arg(cmd, i, 0))

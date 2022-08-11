@@ -13,7 +13,7 @@ void sigintHandler(int signum)
 	else if (signum == SIGQUIT)
 	{
 		printf("\b\b  \b\b");
-		// exit(1);
+		exit(1);
 	}
 	else if (signum == SIGSTOP)
 	{
@@ -21,8 +21,10 @@ void sigintHandler(int signum)
 	}
 }
 
-void signal_check()
+void	signal_check(int argc, char **argv)
 {
+	if (argc || argv)
+		argc = 2;
 	signal(SIGINT, sigintHandler);
 	signal(SIGQUIT, sigintHandler);
 	signal(SIGSTOP, sigintHandler);

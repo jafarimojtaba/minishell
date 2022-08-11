@@ -6,89 +6,22 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 11:42:56 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/10 22:16:09 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/11 19:24:58 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_builtin(char *str)
+void	exe_builtin(t_cmd *cmd)
 {
-	if (!ft_strncmp(str, "cd", ft_strlen(str) + 3) ||
-		!ft_strncmp(str, "echo", ft_strlen(str) + 5) ||
-		!ft_strncmp(str, "pwd", ft_strlen(str) + 4) ||
-		!ft_strncmp(str, "export", ft_strlen(str) + 7) ||
-		!ft_strncmp(str, "unset", ft_strlen(str) + 6) ||
-		!ft_strncmp(str, "env", ft_strlen(str) + 4) ||
-		!ft_strncmp(str, "exit", ft_strlen(str) + 5))
-		return (1);
-	return (0);
-}
+	pid_t	pid;
 
-int is_sys(t_cmd *cmd)
-{
-	char *str;
-	int i = 0;
-	char **env_var;
-	char *tmp1;
-	char *tmp2;
-
-	if (!access(cmd->c, R_OK))
-	{
-		cmd->c_path = ft_strdup(cmd->c);
-		return 1;
-	}
-	str = cmd->c;
-	env_var = ft_split(getenv("PATH"), ':');
-	while (env_var[i])
-	{
-		tmp1 = ft_strjoin(env_var[i], "/");
-		tmp2 = ft_strjoin(tmp1, str);
-		free(tmp1);
-		if (!access(tmp2, R_OK))
-		{
-			// free(tmp1);
-			// free(env_var);
-			cmd->c_path = tmp2;
-			i = 0;
-			while (env_var[i])
-			{
-				free(env_var[i]);
-				i++;
-			}
-			free(env_var[i]);
-			// free(env_var[i]);
-			free(env_var);
-			return (1);
-		}
-		else
-		{
-			// free(tmp1);
-			free(tmp2);
-		}
-		i++;
-	}
-	i = 0;
-	while (env_var[i])
-	{
-		free(env_var[i]);
-		i++;
-	}
-	free(env_var[i]);
-	// free(env_var[i]);
-	free(env_var);
-	return (0);
-}
-
-void exe_builtin(t_cmd *cmd)
-{
-	pid_t pid;
 	cmd->data->last_exit_status = 0;
 	ft_exit(cmd);
 	if (!handel_fd(cmd, 0))
 	{
 		cmd->data->last_exit_status = 1;
-		return;
+		return ;
 	}
 	handel_pipe(cmd);
 	ft_cd(cmd);
@@ -103,59 +36,65 @@ void exe_builtin(t_cmd *cmd)
 		ft_pwd(cmd);
 		exit(0);
 	}
-
 	waitpid(pid, NULL, 0);
-	return;
-	// printf("\"%s\" is a builtin command\n", cmd->c);
+	return ;
 }
 
-void exe_sys(t_cmd *cmd)
+void	exe_sys(t_cmd *cmd)
 {
+	pid_t	pid;
+
 	if (!handel_fd(cmd, 0))
 	{
 		cmd->data->last_exit_status = 1;
-		return;
+		return ;
 	}
 	handel_pipe(cmd);
-	pid_t pid = fork();
+	pid = fork();
 	if (pid == 0)
 	{
 		handel_dup2(cmd);
 		execve(cmd->c_path, cmd->op, cmd->data->env);
 	}
 	waitpid(pid, &cmd->data->last_exit_status, 0);
-	return;
+	return ;
 }
 
-void exe_remove(char **env)
+void	exe_remove(char **env)
 {
-	int pid;
+	int		pid;
+	char	*remove_cmd[4];
 
 	pid = fork();
 	if (pid == 0)
 	{
-		char *remove_cmd[] = {"/bin/sh", "-c", "rm -f mini_temp*", NULL};
+		remove_cmd[0] = "/bin/sh";
+		remove_cmd[1] = "-c";
+		remove_cmd[2] = "rm -f mini_temp*";
+		remove_cmd[3] = NULL;
 		execve("/bin/sh", remove_cmd, env);
 	}
 	waitpid(pid, NULL, 0);
 }
 
-void exe_cmd(t_cmd *cmd, int i)
+void	exe_cmd(t_cmd *cmd, int i)
 {
-	// char *temp;
 	while (i < cmd->data->cmd_n)
 	{
-		// temp = cmd[i].data->prev_dir;
-		if (is_builtin(cmd[i].c))
+		if (!ft_strlen(cmd[i].c))
+		{
+			printf("Empty command\n");
+			cmd[i].data->last_exit_status = 127;
+		}
+		else if (is_builtin(cmd[i].c))
 			exe_builtin(&cmd[i]);
-		else if (is_sys(&cmd[i]))
+		else if (is_sys(&cmd[i], 0))
 			exe_sys(&cmd[i]);
 		else
 		{
 			printf("\"%s\" is not a command\n", cmd[i].c);
 			cmd[i].data->last_exit_status = 127;
 		}
-		// printf("cmd input:%d, cmd output:%d\n", global_fd_in, global_fd_out);
 		i++;
 	}
 }

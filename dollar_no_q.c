@@ -6,22 +6,22 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 20:37:12 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/10 12:42:45 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/11 23:17:20 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// echo "hi | ||" | | you know you are a pie "|" | << hi | to you
-
 void	end_of_dollar(t_cmd *cmd, int start, int *j, char *first_str)
 {
 	int	dollar_check;
 
+	dollar_check = 0;
 	first_str = ft_substr(cmd->c_pre_parse, 0, *j);
 	(*j)++;
 	start = *j;
-	while (cmd->c_pre_parse[*j] != '\0' && !ft_strchr("$ <>'\"", cmd->c_pre_parse[*j]))
+	while (*j < (int)ft_strlen(cmd->c_pre_parse) \
+	&& !ft_strchr("$ <>'\"", cmd->c_pre_parse[*j]))
 	{
 		dollar_check = dollar_str_env(cmd, start, j, first_str);
 		if (dollar_check)
@@ -43,16 +43,16 @@ void	dollar_no_q(t_cmd *cmd, int i, int j, int start)
 		{
 			if (cmd[i].c_pre_parse[j] == '\'' || cmd[i].c_pre_parse[j] == '"')
 			{
-				j = find_next_near_q(cmd[i].c_pre_parse, cmd[i].c_pre_parse[j], j);
+				j = find_next_near_q(cmd[i].c_pre_parse, \
+					cmd[i].c_pre_parse[j], j);
 				if (!j)
-				break;
-				
+					break ;
 			}
 			else if (cmd[i].c_pre_parse[j] == '$')
 			{
 				end_of_dollar(&cmd[i], start, &j, first_str);
 				j = 0;
-					continue ;
+				continue ;
 			}
 			j++;
 		}

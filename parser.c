@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:23:38 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/11 10:30:02 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/11 20:33:14 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,6 @@ void ft_args_selector(t_cmd *cmd, int n, int i, int j)
 	char *temp;
 	while (i < n)
 	{
-		// cmd[i].op = ft_split(cmd[i].c_pre_parse, ' ');
 		op_count(&cmd[i], 0, 0);
 		op_split(&cmd[i], 0, 0, 0);
 		j = 0;

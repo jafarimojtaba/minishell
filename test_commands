@@ -23,3 +23,5 @@ echo "$USER" hi"$USER"       nhj$USER"$USER""$USER"$USER"$USER""$USER$PATH"
 export ab=cho
 e$ab hi
  <f4 cat <<mj hi >f1 how >f2 >f3 are you >f4
+
+ echo "hi | ||" | | you know you are a pie "|" | << hi | to you
