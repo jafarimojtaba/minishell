@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 18:48:00 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/28 11:00:21 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/11 11:04:05 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ char	*ft_new_read(char *dlm, char *ret, int l)
 {
 	char	*rl;
 	char	*temp;
+	char	*temp2 = NULL;
 
 	rl = ft_strjoin(dlm, "hi");
-	printf("dlm=%s#\n", dlm);
+	// printf("dlm=%s#\n", dlm);
 	while (ft_strncmp(dlm, rl, ft_strlen(rl) + 1) != 0)
 	{
 		if (rl && !l)
@@ -34,10 +35,11 @@ char	*ft_new_read(char *dlm, char *ret, int l)
 			ret = ft_strjoin(ret, "\n");
 			if (temp)
 				free(temp);
-			// if (rl)
-			// 	free(rl);
 			l++;
 		}
+		if (temp2)
+			free(temp2);
+		temp2 = rl;
 	}
 	if (rl)
 		free(rl);

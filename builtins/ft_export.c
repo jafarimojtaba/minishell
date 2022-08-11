@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:10 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/06 00:36:26 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/11 10:30:54 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,35 @@ int is_valid_export_arg(t_cmd *cmd, int i, int j)
 
 int is_pre_defined_env(t_cmd *cmd, int i, int j)
 {
-    char *temp;
+    char *temp = NULL;
     int k;
 
-        while (cmd->op[i][j] != '\0')
+    while (cmd->op[i][j] != '\0')
+    {
+        if (cmd->op[i][j] == '=')
         {
-            if (cmd->op[i][j] == '=')
+            temp = ft_substr(cmd->op[i], 0, j + 1);
+            k = 0;
+            while (cmd->data->env[k])
             {
-                temp = ft_substr(cmd->op[i], 0, j + 1);
-                k = 0;
-                while (cmd->data->env[k])
+                if (!ft_strncmp(temp, cmd->data->env[k], ft_strlen(temp)))
                 {
-                    if (!ft_strncmp(temp, cmd->data->env[k], ft_strlen(temp)))
-                    {
-                        free(cmd->data->env[k]);
-                        cmd->data->env[k] = ft_strdup(cmd->op[i]);
-                        // change_env(cmd->data->env, temp, k);
-                        return (1);
-                    }
-                    k++;
+                    free(cmd->data->env[k]);
+                    cmd->data->env[k] = ft_strdup(cmd->op[i]);
+                    // change_env(cmd->data->env, temp, k);
+                    free(temp);
+                    return (1);
                 }
+                k++;
             }
-            j++;
         }
+        if (temp)
+        {
+            free(temp);
+            temp =NULL;
+        }
+        j++;
+    }
     return 0;
 }
 

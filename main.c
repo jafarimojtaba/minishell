@@ -6,13 +6,11 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/09 18:39:36 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/11 10:39:22 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// char *cmd_buff;
 
 int not_only_space(char *c, int i, int count)
 {
@@ -24,23 +22,20 @@ int not_only_space(char *c, int i, int count)
 	}
 	return (count);
 }
+
 int main(int argc, char **argv, char **env)
 {
-	char *cmd_buff;
+	char *cmd_buff = NULL;
 	t_cmd *cmd;
 	t_data *data;
-	int cmd_n;
 
-	// printf("path str:%s , path:%s\n", data->path_str, data->path);
 	signal_check();
 	if (argc || argv)
 		argc = 2;
-	data = calloc(1, sizeof(t_data));
-	data_init(data, env);
+	data = malloc(sizeof(t_data));
+	data_init(data, env, cmd_buff);
 	while (1)
 	{
-		exe_remove(env);
-		// printf("path str:%s , path:%s\n", data->path_str, data->path);
 		cmd_buff = readline("MiniShell$ ");
 		if (ft_strlen(cmd_buff) > 0 && not_only_space(cmd_buff, 0, 0))
 			add_history(cmd_buff);
@@ -51,10 +46,8 @@ int main(int argc, char **argv, char **env)
 			printf("Please check your input for closed Quotes!\n");
 			continue;
 		}
-		cmd_n = cmd_count(cmd_buff, 0, 1);
-		cmd = (t_cmd *)calloc(cmd_n, sizeof(t_cmd));
-		cmd->cmd_n = cmd_n;
-		minishell(cmd_buff, cmd, data, env);
+		cmd = (t_cmd *)malloc(cmd_count(cmd_buff, 0, 1, data) * sizeof(t_cmd));
+		minishell(cmd_buff, cmd, data);
 	}
 	return (0);
 }

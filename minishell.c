@@ -30,18 +30,19 @@ void print_cmd(t_cmd *cmd, int n)
 	}
 }
 
-void minishell(char *cmd_buff, t_cmd *cmd, t_data *data, char **env)
+void minishell(char *cmd_buff, t_cmd *cmd, t_data *data)
 {
-
-	cmd[0].data = data;
-	cmd_init(cmd, cmd_buff, cmd[0].cmd_n, env);
+	data->cmd_buff = cmd_buff;
+	cmd_init(cmd, data);
 	pipe_splitter(cmd, cmd_buff, 0, 0);
 	dollar_no_q(cmd, 0, 0, 0);
 	dollar_with_q(cmd, 0, 0, 0);
 	redirection(cmd, 0);
-	cmd_c(cmd, cmd[0].cmd_n, 0, 0);
-	ft_args_selector(cmd, cmd[0].cmd_n, 0, 0);
+	cmd_c(cmd, cmd->data->cmd_n, 0, 0);
+	ft_args_selector(cmd, cmd->data->cmd_n, 0, 0);
 	// print_cmd(cmd, cmd[0].cmd_n);
 	exe_cmd(cmd, 0);
 	data->last_exit_status %= 255;
+	exe_remove(data->env);
+	free_cmd_exit(cmd, 0);
 }

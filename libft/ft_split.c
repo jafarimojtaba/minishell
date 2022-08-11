@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 23:38:50 by mjafari           #+#    #+#             */
-/*   Updated: 2021/06/08 11:09:12 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/10 15:06:19 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_counter(const char *s, int c)
 		else
 		{
 			count++;
-			while (s[i] && s[i] != c)
+			while (s[i] != '\0' && s[i] != c)
 				i++;
 		}
 	}
@@ -40,7 +40,7 @@ static int	ft_end(const char *s, int k, int c)
 	i = 0;
 	if (!(s[k]))
 		return (0);
-	while (s[k])
+	while (s[k] != '\0')
 	{
 		if (s[k++] == c)
 			return (i);
@@ -71,6 +71,7 @@ static void	ft_putarr(char **new_array, char const *s, char c, int count)
 			j += end;
 		}
 	}
+	new_array[i] = NULL;
 }
 
 char	**ft_split(char const *s, char c)

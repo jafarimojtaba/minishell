@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:45:13 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/01 19:19:12 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/10 19:41:12 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void ft_echo(t_cmd *cmd, int i)
 		if (i < cmd->op_n)
 			printf(" ");
 	}
-	if (ft_strncmp("-n", cmd->op[1], 4))
-		printf("\n") ;
+	if (cmd->op_n > 1)
+		if (ft_strncmp("-n", cmd->op[1], 4))
+			printf("\n") ;
 }

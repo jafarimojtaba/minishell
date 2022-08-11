@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:06:47 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/05 15:46:39 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/10 12:55:08 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,23 @@
 
 int	pipe_splitter_p2(t_cmd *cmd, int *i, int *start, int *end)
 {
-	if (cmd->c_buf[*i] == '\'' || cmd->c_buf[*i] == '"')
+	if (cmd->data->cmd_buff[*i] == '\'' || cmd->data->cmd_buff[*i] == '"')
 	{
-		*end = find_next_q(cmd->c_buf, cmd->c_buf[*i], *i);
+		*end = find_next_q(cmd->data->cmd_buff, cmd->data->cmd_buff[*i], *i);
 		*i = *end;
 	}
-	else if (cmd->c_buf[*i] == '|')
+	else if (cmd->data->cmd_buff[*i] == '|')
 	{
 		*end = *i - 1;
-		if (cmd->c_buf[*i + 1] == ' ' || cmd->c_buf[*i + 1] == '|')
+		if (cmd->data->cmd_buff[*i + 1] == ' ' || cmd->data->cmd_buff[*i + 1] == '|')
 		{
-			while (cmd->c_buf[*i] == ' ' || cmd->c_buf[*i] == '|')
+			while (cmd->data->cmd_buff[*i] == ' ' || cmd->data->cmd_buff[*i] == '|')
 				(*i)++;
 			(*i)--;
 		}
-		while (cmd->c_buf[*end] == ' ')
+		while (cmd->data->cmd_buff[*end] == ' ')
 			(*end)--;
-		cmd->c_pre_parse = ft_substr(cmd->c_buf, *start, *end - *start + 1);
-		// printf("prepars=%s#\n",cmd->c_pre_parse);
+		cmd->c_pre_parse = ft_substr(cmd->data->cmd_buff, *start, *end - *start + 1);
 		cmd->pipe_flag_after = 1;
 		*start = *i + 1;
 		return (1);
@@ -57,7 +56,7 @@ void	pipe_splitter(t_cmd *cmd, char *c, int i, int j)
 		i++;
 	}
 	end = i;
-	if (j < cmd[0].cmd_n)
+	if (j < cmd->data->cmd_n)
 	{
 		cmd[j].c_pre_parse = ft_substr(c, start, end - start + 1);
 		if (j > 0)

@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:07 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/01 18:47:08 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/11 10:54:44 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,24 @@ int is_available_env(t_cmd *cmd, int i, int j)
 {
 	int k;
 
-	while (cmd->op[i][j] != '\0')
+	k = 0;
+	while (cmd->data->env[k])
 	{
-			k = 0;
-			while (cmd->data->env[k])
-			{
-				if (!ft_strncmp(cmd->op[i], cmd->data->env[k], ft_strlen(cmd->op[i])))
-				{
-					return (k);
-				}
-				k++;
-			}
+		j = 0;
+		while (cmd->data->env[k][j] != '=')
+			j++;
+		if ((int)ft_strlen(cmd->op[i]) != j)
+		{
+			k++;
+			continue;
+		}
+		if (!ft_strncmp(cmd->op[i], cmd->data->env[k], j))
+		{
+			return (k);
+		}
+		k++;
 	}
-	return 0;
+	return (-1);
 }
 
 void remove_from_env(t_data *data, int k, int l, int j)
@@ -95,7 +100,7 @@ void ft_unset(t_cmd *cmd)
 		if (is_valid_unset_arg(cmd, i, 0))
 		{
 			k = is_available_env(cmd, i, 0);
-			if (k)
+			if (k != -1)
 				remove_from_env(cmd->data, k, 0, 0);
 		}
 		i++;

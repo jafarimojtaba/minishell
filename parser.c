@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:23:38 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/09 09:27:32 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/11 10:30:02 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ void op_split(t_cmd *cmd, int i, int j, int start)
 
 	c = cmd->c_pre_parse;
 	// printf("size =%zu\n", ft_strlen(c));
-	cmd->op = (char **)calloc((cmd->op_n) + 1, sizeof(char *));
-	while (c[j] != '\0' && i < (cmd->op_n))
+	cmd->op = (char **)malloc((cmd->op_n + 1) * sizeof(char *));
+	cmd->op[cmd->op_n] = NULL;
+	while (j < (int)ft_strlen(c) && i < (cmd->op_n))
 	{
 		while (c[j] == ' ')
 		{
@@ -126,16 +127,22 @@ char *remove_start_and_end(char *c, int start, int end)
 	temp2 = ft_substr(c, start + 1, end - start - 1);
 	// printf("temp2 = %s\n", temp2);
 	temp3 = ft_strjoin(temp1, temp2);
+	free(temp1);
+	free(temp2);
 	// printf("temp3 = %s\n", temp3);
 	temp1 = ft_substr(c, end + 1, ft_strlen(c));
 	// printf("temp1 = %s\n", temp1);
 	temp2 = ft_strjoin(temp3, temp1);
+	free(temp1);
+	free(temp3);
 	// printf("temp2 = %s\n", temp2);
 	return (temp2);
 }
 // seperate cases for single quote and double qoute should be applied
 char *op_q_re(char *c, int i, int start)
 {
+	char *temp;
+
 	while (i < (int)ft_strlen(c))
 	{
 		if (i <  (int)ft_strlen(c) && ft_strchr("'\"", c[i]))
@@ -144,7 +151,9 @@ char *op_q_re(char *c, int i, int start)
 			i = find_next_near_q(c, c[i], i);
 			if (!i)
 				break;
+			temp = c;
 			c = remove_start_and_end(c, start, i);
+			free(temp);
 			i = 0;
 		}
 		i++;
@@ -154,6 +163,7 @@ char *op_q_re(char *c, int i, int start)
 
 void ft_args_selector(t_cmd *cmd, int n, int i, int j)
 {
+	char *temp;
 	while (i < n)
 	{
 		// cmd[i].op = ft_split(cmd[i].c_pre_parse, ' ');
@@ -162,8 +172,8 @@ void ft_args_selector(t_cmd *cmd, int n, int i, int j)
 		j = 0;
 		while (j < cmd[i].op_n)
 		{
+			temp = cmd[i].op[j];
 			cmd[i].op[j] = op_q_re(cmd[i].op[j], 0, 0);
-			// puts(cmd[i].op[j]);
 			j++;
 		}
 		i++;

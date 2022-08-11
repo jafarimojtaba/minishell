@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 00:13:48 by mjafari           #+#    #+#             */
-/*   Updated: 2022/07/28 10:20:11 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/10 22:05:25 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int		i;
-	int		j;
 	char	*new_str;
+	char	*str1;
+	char	*str2;
 
-	if (!s1 || !s2)
+	str1 = (char *)s1;
+	str2 = (char *)s2;
+	if (!str1 || !str2)
 		return (0);
-	i = ft_strlen(s1);
-	j = ft_strlen(s2);
-	new_str = (char *)malloc(i + j + 1);
+	new_str = (char *)malloc(ft_strlen(str1) + ft_strlen(str2) + 1);
 	if (!new_str)
 		return (0);
-	new_str[i + j] = '\0';
-	ft_memmove(new_str, s1, i);
-	ft_memmove(&new_str[i], s2, j);
+	new_str[ft_strlen(str1) + ft_strlen(str2)] = '\0';
+	ft_memmove(new_str, str1, ft_strlen(str1));
+	ft_memmove(&new_str[ft_strlen(str1)], str2, ft_strlen(str2));
 	return (new_str);
 }

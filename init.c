@@ -6,42 +6,49 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 11:16:20 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/05 23:55:39 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/11 10:38:22 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void cmd_init(t_cmd *cmd, char *cmd_buff, int n, char **env)
+void cmd_init(t_cmd *cmd, t_data *data)
 {
 	int i;
+	char *temp;
 
 	i = 0;
-	while (i < n)
+	while (i < data->cmd_n)
 	{
 		cmd[i].id = i;
-		cmd[i].c_buf = cmd_buff;
-		cmd[i].cmd_n = n;
+		cmd[i].c_pre_parse = NULL;
+		cmd[i].c = NULL;
+		cmd[i].c_path = NULL;
 		cmd[i].op_n = 0;
+		cmd[i].op = NULL;
 		cmd[i].pipe_flag_before = -1;
 		cmd[i].pipe_flag_after = -1;
-		cmd[i].pipe_f_name = ft_strjoin("mini_temp_pipe_", ft_itoa(i));
+		temp = ft_itoa(i);
+		cmd[i].pipe_f_name = ft_strjoin("mini_temp_pipe_", temp);
+		free(temp);
 		cmd[i].fd_in = 0;
 		cmd[i].fd_out = 1;
 		cmd[i].re_n = 0;
+		cmd[i].re = NULL;
 		cmd[i].heredoc_id = -1;
-		cmd[i].env = env;
-		if (i)
-			cmd[i].data = cmd[0].data;
+		cmd[i].data = data;
 		i++;
 	}
 }
 
-void data_init(t_data *data, char **env)
+void data_init(t_data *data, char **env, char *cmd_buff)
 {
+	char *temp;
+	data->cmd_buff = cmd_buff;
 	data->last_exit_status = 0;
-	data->path_str = getcwd(data->path, 500);
-	data->prev_dir = getcwd(data->path, 500);
+	temp = getcwd(data->path, 500);
+	data->prev_dir = ft_strdup(temp);
+	data->path_str = ft_strjoin(temp, "/");
 	copy_env(data, env, 0);
 }
 
@@ -60,7 +67,7 @@ int is_q_closed(char *c, int i)
 	return(1);
 }
 
-int	cmd_count(char *c, int i, int count)
+int	cmd_count(char *c, int i, int count, t_data *data)
 {
 	// printf("size = %zu, c in counter=%s\n", ft_strlen(c), &c[i]);
 	while (c[i])
@@ -78,5 +85,6 @@ int	cmd_count(char *c, int i, int count)
 		}
 		i++;
 	}
+	data->cmd_n = count;
 	return (count);
 }

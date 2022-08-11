@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 11:42:56 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/06 00:41:08 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/10 22:16:09 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,38 +33,50 @@ int is_sys(t_cmd *cmd)
 	char *tmp1;
 	char *tmp2;
 
-	str = cmd->c;
-	env_var = ft_split(getenv("PATH"), ':');
-
 	if (!access(cmd->c, R_OK))
 	{
-		cmd->c_path = cmd->c;
+		cmd->c_path = ft_strdup(cmd->c);
 		return 1;
 	}
+	str = cmd->c;
+	env_var = ft_split(getenv("PATH"), ':');
 	while (env_var[i])
 	{
 		tmp1 = ft_strjoin(env_var[i], "/");
 		tmp2 = ft_strjoin(tmp1, str);
+		free(tmp1);
 		if (!access(tmp2, R_OK))
 		{
 			// free(tmp1);
 			// free(env_var);
 			cmd->c_path = tmp2;
+			i = 0;
+			while (env_var[i])
+			{
+				free(env_var[i]);
+				i++;
+			}
+			free(env_var[i]);
+			// free(env_var[i]);
+			free(env_var);
 			return (1);
 		}
-		// else
-		// {
-		// 	free(tmp1);
-		// 	free(tmp2);
-		// 	free(env_var);
-		// }
+		else
+		{
+			// free(tmp1);
+			free(tmp2);
+		}
 		i++;
 	}
-	// while (env_var[i])
-	// {
-	// 	printf ("%s\n", env_var[i]);
-	// 	i ++;
-	// }
+	i = 0;
+	while (env_var[i])
+	{
+		free(env_var[i]);
+		i++;
+	}
+	free(env_var[i]);
+	// free(env_var[i]);
+	free(env_var);
 	return (0);
 }
 
@@ -109,7 +121,7 @@ void exe_sys(t_cmd *cmd)
 	if (pid == 0)
 	{
 		handel_dup2(cmd);
-		execve(cmd->c_path, cmd->op, cmd->env);
+		execve(cmd->c_path, cmd->op, cmd->data->env);
 	}
 	waitpid(pid, &cmd->data->last_exit_status, 0);
 	return;
@@ -130,9 +142,10 @@ void exe_remove(char **env)
 
 void exe_cmd(t_cmd *cmd, int i)
 {
-	while (i < cmd[0].cmd_n)
+	// char *temp;
+	while (i < cmd->data->cmd_n)
 	{
-		cmd[i].data->prev_dir = ft_strjoin(cmd->data->path, "/");
+		// temp = cmd[i].data->prev_dir;
 		if (is_builtin(cmd[i].c))
 			exe_builtin(&cmd[i]);
 		else if (is_sys(&cmd[i]))
