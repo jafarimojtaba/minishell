@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:06:47 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/10 12:55:08 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 12:44:42 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,25 @@ int	pipe_splitter_p2(t_cmd *cmd, int *i, int *start, int *end)
 	else if (cmd->data->cmd_buff[*i] == '|')
 	{
 		*end = *i - 1;
-		if (cmd->data->cmd_buff[*i + 1] == ' ' || cmd->data->cmd_buff[*i + 1] == '|')
+		if (cmd->data->cmd_buff[*i + 1] == ' ' || \
+		cmd->data->cmd_buff[*i + 1] == '|')
 		{
-			while (cmd->data->cmd_buff[*i] == ' ' || cmd->data->cmd_buff[*i] == '|')
+			while (cmd->data->cmd_buff[*i] == ' ' || \
+			cmd->data->cmd_buff[*i] == '|')
 				(*i)++;
 			(*i)--;
 		}
 		while (cmd->data->cmd_buff[*end] == ' ')
 			(*end)--;
-		cmd->c_pre_parse = ft_substr(cmd->data->cmd_buff, *start, *end - *start + 1);
+		cmd->c_pre_parse = ft_substr(cmd->data->cmd_buff, \
+		*start, *end - *start + 1);
 		cmd->pipe_flag_after = 1;
 		*start = *i + 1;
 		return (1);
 	}
 	return (0);
 }
-// echo hi how are you | grep cd" to lft" | "wc -c"
+
 void	pipe_splitter(t_cmd *cmd, char *c, int i, int j)
 {
 	int	start;

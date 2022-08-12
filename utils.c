@@ -6,13 +6,13 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 11:18:25 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/09 09:13:12 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 12:55:10 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int find_next_q(char *c, int q, int i)
+int	find_next_q(char *c, int q, int i)
 {
 	i++;
 	while (c[i] != q && c[i] != '\0')
@@ -30,7 +30,7 @@ int find_next_q(char *c, int q, int i)
 		return (0);
 }
 
-int find_next_near_q(char *c, int q, int i)
+int	find_next_near_q(char *c, int q, int i)
 {
 	i++;
 	while (c[i] != q && c[i])
@@ -41,10 +41,10 @@ int find_next_near_q(char *c, int q, int i)
 		return (0);
 }
 
-char *remove_f_cmd_pre(char *cmd, int start, int end)
+char	*remove_f_cmd_pre(char *cmd, int start, int end)
 {
-	char *tmp;
-	char *tmp1;
+	char	*tmp;
+	char	*tmp1;
 
 	tmp = ft_substr(cmd, 0, start + 1);
 	tmp1 = ft_substr(cmd, end + 1, ft_strlen(cmd) + 1);
@@ -60,7 +60,7 @@ char *remove_f_cmd_pre(char *cmd, int start, int end)
 	return (tmp);
 }
 
-void free_re(t_red *red, int i)
+void	free_re(t_red *red, int i)
 {
 	while (i < red->red_n)
 	{
@@ -69,5 +69,4 @@ void free_re(t_red *red, int i)
 			free(red->str);
 		i++;
 	}
-	
 }

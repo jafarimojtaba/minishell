@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 12:58:18 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/11 19:57:53 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 12:56:11 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,3 @@ void	minishell(char *cmd_buff, t_cmd *cmd, t_data *data)
 	exe_remove(data->env);
 	free_cmd_exit(cmd, 0);
 }
- 

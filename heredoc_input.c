@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 18:48:00 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/11 23:26:02 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 12:56:01 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,3 @@ void	heredoc_str(t_cmd *cmd)
 	free(cmd_temp);
 	free(data_temp);
 }
- 

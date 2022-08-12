@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/12 12:56:40 by mjafari           #+#    #+#             */
+/*   Updated: 2022/08/12 12:59:05 by mjafari          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void sigintHandler(int signum)
+void	siginthandler(int signum)
 {
 	if (signum == SIGINT)
 	{
@@ -25,7 +37,7 @@ void	signal_check(int argc, char **argv)
 {
 	if (argc || argv)
 		argc = 2;
-	signal(SIGINT, sigintHandler);
-	signal(SIGQUIT, sigintHandler);
-	signal(SIGSTOP, sigintHandler);
+	signal(SIGINT, siginthandler);
+	signal(SIGQUIT, siginthandler);
+	signal(SIGSTOP, siginthandler);
 }

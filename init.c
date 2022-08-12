@@ -6,16 +6,16 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 11:16:20 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/11 10:38:22 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 11:52:57 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void cmd_init(t_cmd *cmd, t_data *data)
+void	cmd_init(t_cmd *cmd, t_data *data)
 {
-	int i;
-	char *temp;
+	int		i;
+	char	*temp;
 
 	i = 0;
 	while (i < data->cmd_n)
@@ -41,9 +41,10 @@ void cmd_init(t_cmd *cmd, t_data *data)
 	}
 }
 
-void data_init(t_data *data, char **env, char *cmd_buff)
+void	data_init(t_data *data, char **env, char *cmd_buff)
 {
-	char *temp;
+	char	*temp;
+
 	data->cmd_buff = cmd_buff;
 	data->last_exit_status = 0;
 	temp = getcwd(data->path, 500);
@@ -52,7 +53,7 @@ void data_init(t_data *data, char **env, char *cmd_buff)
 	copy_env(data, env, 0);
 }
 
-int is_q_closed(char *c, int i)
+int	is_q_closed(char *c, int i)
 {
 	while (c[i])
 	{
@@ -60,16 +61,15 @@ int is_q_closed(char *c, int i)
 		{
 			i = find_next_q(c, c[i], i);
 			if (!i)
-				return(0);
+				return (0);
 		}
 		i++;
 	}
-	return(1);
+	return (1);
 }
 
 int	cmd_count(char *c, int i, int count, t_data *data)
 {
-	// printf("size = %zu, c in counter=%s\n", ft_strlen(c), &c[i]);
 	while (c[i])
 	{
 		if (c[i] == '\'' || c[i] == '"')
@@ -81,7 +81,7 @@ int	cmd_count(char *c, int i, int count, t_data *data)
 				i++;
 			if (c[i])
 				count++;
-			continue;
+			continue ;
 		}
 		i++;
 	}

@@ -6,12 +6,11 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 18:46:43 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/11 19:21:38 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 12:56:28 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	is_builtin(char *str)
 {

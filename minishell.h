@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/11 19:04:35 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 12:53:59 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ void	pipe_splitter(t_cmd *t_cmd, char *cmd, int i, int j);
 void	ft_args_selector(t_cmd *cmd, int n, int i, int j);
 char	*op_q_re(char *c, int i, int start);
 char	*remove_start_and_end(char *c, int start, int end);
+void	op_count(t_cmd *cmd, int j, int count);
+void	op_split(t_cmd *cmd, int i, int j, int start);
 
 void	redirection(t_cmd *cmd, int i);
 int		read_n_re(t_cmd *cmd, int j, int count);
@@ -109,6 +111,10 @@ int		is_in_or_out_re(char *c, int j);
 int		is_output_append(char *c, int j);
 char	*find_file_name(char *c, int *j);
 char	*remove_f_cmd_pre(char *cmd, int start, int end);
+void	update_heredoc_re_vars(t_cmd *cmd, int *id, int *j, int start);
+void	update_in_out_re_vars(t_cmd *cmd, int *id, int *j, int start);
+void	update_append_re_vars(t_cmd *cmd, int *id, int *j, int start);
+void	init_cmd_re(t_cmd *cmd, int i, int j, int id);
 
 int		is_heredoc(char *c, int j);
 void	heredoc_input(t_cmd *cmd, int i, int j, int start);

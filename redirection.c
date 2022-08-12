@@ -6,17 +6,17 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 19:57:21 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/11 10:19:03 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 12:51:46 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *find_file_name(char *c, int *j)
+char	*find_file_name(char *c, int *j)
 {
-	int start;
-	int end;
-	char *temp;
+	int		start;
+	int		end;
+	char	*temp;
 
 	while (c[*j] == ' ')
 		(*j)++;
@@ -29,7 +29,7 @@ char *find_file_name(char *c, int *j)
 	return (temp);
 }
 
-void update_append_re_vars(t_cmd *cmd, int *id, int *j, int start)
+void	update_append_re_vars(t_cmd *cmd, int *id, int *j, int start)
 {
 	cmd->re[*id].id = *id;
 	cmd->re[*id].type = append_redirection;
@@ -39,7 +39,7 @@ void update_append_re_vars(t_cmd *cmd, int *id, int *j, int start)
 	*j = -1;
 }
 
-void update_in_out_re_vars(t_cmd *cmd, int *id, int *j, int start)
+void	update_in_out_re_vars(t_cmd *cmd, int *id, int *j, int start)
 {
 	cmd->re[*id].id = *id;
 	cmd->re[*id].type = output_redirection;
@@ -51,9 +51,10 @@ void update_in_out_re_vars(t_cmd *cmd, int *id, int *j, int start)
 	*j = -1;
 }
 
-void update_heredoc_re_vars(t_cmd *cmd, int *id, int *j, int start)
+void	update_heredoc_re_vars(t_cmd *cmd, int *id, int *j, int start)
 {
-	char *temp;
+	char	*temp;
+
 	cmd->re[*id].id = *id;
 	cmd->re[*id].red_n = cmd->re_n;
 	cmd->re[*id].type = heredoc_redirection;
@@ -68,44 +69,10 @@ void update_heredoc_re_vars(t_cmd *cmd, int *id, int *j, int start)
 	*j = -1;
 }
 
-void init_cmd_re(t_cmd *cmd, int i, int j, int id)
+void	redirection(t_cmd *cmd, int i)
 {
-	int start;
+	int	j;
 
-	while (i < cmd->re_n)
-	{
-		id = 0;
-		while (cmd->c_pre_parse[j])
-		{
-			if (cmd->c_pre_parse[j] == '\'' || cmd->c_pre_parse[j] == '"')
-				j = find_next_q(cmd->c_pre_parse, cmd->c_pre_parse[j], j);
-			else if (is_output_append(cmd->c_pre_parse, j))
-			{
-				start = j - 1;
-				j += 2;
-				update_append_re_vars(cmd, &id, &j, start);
-			}
-			else if (is_heredoc(cmd->c_pre_parse, j))
-			{
-				start = j - 1;
-				j += 2;
-				update_heredoc_re_vars(cmd, &id, &j, start);
-			}
-			else if (is_in_or_out_re(cmd->c_pre_parse, j))
-			{
-				start = j - 1;
-				j++;
-				update_in_out_re_vars(cmd, &id, &j, start);
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-void redirection(t_cmd *cmd, int i)
-{
-	int j;
 	while (i < cmd->data->cmd_n)
 	{
 		cmd[i].re_n = read_n_re(&cmd[i], 0, 0);
@@ -119,13 +86,7 @@ void redirection(t_cmd *cmd, int i)
 				cmd[i].re[j].str = NULL;
 				j++;
 			}
-			
 			init_cmd_re(&cmd[i], 0, 0, 0);
-			// for (size_t j = 0; j < cmd[i].re_n; j++)
-			// {
-			// 	printf("id =%d\ttype =%d\tfile_name=%s\tstr=%s\n",
-			// 		   cmd[i].re[j].id, cmd[i].re[j].type, cmd[i].re[j].f_name, cmd[i].re[j].str);
-			// }
 		}
 		i++;
 	}
