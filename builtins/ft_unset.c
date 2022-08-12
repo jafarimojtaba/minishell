@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:07 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/11 12:07:02 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 13:17:21 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_valid_unset_arg(t_cmd *cmd, int i, int j)
 	int	equal_sign;
 
 	equal_sign = 0;
-	while (cmd->op[i][j] != '\0')
+	while (j < (int)ft_strlen(cmd->op[i]))
 	{
 		if (cmd->op[i][0] < 'A' || cmd->op[i][0] > 'z')
 		{

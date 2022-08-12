@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 12:39:36 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/12 12:41:01 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 13:19:48 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	op_count_p2(char *c, int *j)
 {
-	while (c[*j] != ' ' && c[*j] != '\0')
+	while (*j < (int)ft_strlen(c) && c[*j] != ' ')
 	{
 		if (c[*j] == '\'' || c[*j] == '"')
 			*j = find_next_q(c, c[*j], *j);
@@ -30,7 +30,7 @@ void	op_count(t_cmd *cmd, int j, int count)
 
 	c = NULL;
 	c = cmd->c_pre_parse;
-	while (c[j] != '\0')
+	while (j < (int)ft_strlen(c))
 	{
 		while (c[j] == ' ')
 			j++;
@@ -40,7 +40,7 @@ void	op_count(t_cmd *cmd, int j, int count)
 			if (c[j + 1] != '\0' && c[j + 1] != ' ')
 			{
 				j++;
-				while (c[j] != '\0' && c[j] != ' ')
+				while (j < (int)ft_strlen(c) && c[j] != ' ')
 					j++;
 			}
 			j++;
@@ -58,7 +58,7 @@ void	op_split_p2(char *c, int *j)
 	if (c[*j + 1] != '\0' && c[*j + 1] != ' ')
 	{
 		(*j)++;
-		while (c[*j] != '\0' && c[*j] != ' ')
+		while (*j < (int)ft_strlen(c) && c[*j] != ' ')
 			(*j)++;
 		if (c[*j] == ' ')
 			(*j)--;
@@ -67,7 +67,7 @@ void	op_split_p2(char *c, int *j)
 
 void	op_split_p3(char *c, int *j)
 {
-	while (c[*j] != ' ' && c[*j] != '\0' && c[*j] != '|')
+	while (c[*j] != ' ' && *j < (int)ft_strlen(c) && c[*j] != '|')
 	{
 		if (c[*j] == '\'' || c[*j] == '"')
 			*j = find_next_q(c, c[*j], *j);

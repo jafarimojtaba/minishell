@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 19:59:33 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/11 23:29:51 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 13:23:11 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char	*ft_getenv(char *str, t_cmd *cmd)
 	while (cmd->data->env[i])
 	{
 		j = 0;
-		while (cmd->data->env[i][j] != '\0' && cmd->data->env[i][j] != '=')
+		while (j < (int)ft_strlen(cmd->data->env[i]) && \
+		cmd->data->env[i][j] != '=')
 			j++;
 		temp = ft_substr(cmd->data->env[i], 0, j);
 		if (!ft_strncmp(str, temp, ft_strlen(temp) + ft_strlen(str)))
@@ -49,7 +50,7 @@ void	dollar_in_next_dq(t_cmd *cmd, int start, int *j, char *first_str)
 {
 	int	dollar_check;
 
-	while (cmd->c_pre_parse[*j] != '\0' && cmd->c_pre_parse[*j] != '"')
+	while (*j < (int)ft_strlen(cmd->c_pre_parse) && cmd->c_pre_parse[*j] != '"')
 	{
 		if (cmd->c_pre_parse[*j] == '$')
 		{

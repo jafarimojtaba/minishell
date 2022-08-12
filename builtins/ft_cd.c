@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:46:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/11 12:08:22 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 13:16:18 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	change_env_path(t_data *data, char *c, int j)
 	char	*temp;
 	int		k;
 
-	while (c[j] != '\0')
+	while (j < (int)ft_strlen(c))
 	{
 		if (c[j] == '=')
 		{

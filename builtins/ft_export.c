@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:10 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/11 12:08:38 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 13:17:14 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_valid_export_arg(t_cmd *cmd, int i, int j)
 	int	equal_sign;
 
 	equal_sign = 0;
-	while (cmd->op[i][j] != '\0')
+	while (j < (int)ft_strlen(cmd->op[i]))
 	{
 		if (cmd->op[i][0] < 'A' || cmd->op[i][0] > 'z')
 		{
@@ -71,7 +71,7 @@ int	is_pre_defined_env(t_cmd *cmd, int i, int j)
 	char	*temp;
 
 	temp = NULL;
-	while (cmd->op[i][j] != '\0')
+	while (j < (int)ft_strlen(cmd->op[i]))
 	{
 		if (is_pre_defined_env_p2(cmd, i, j, temp))
 			return (1);

@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 18:46:43 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/12 12:56:28 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 14:38:36 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	is_sys_p2(char **env_var, char *str, t_cmd *cmd, int i)
 int	is_sys(t_cmd *cmd, int i)
 {
 	char	*str;
+	char	*temp;
 	char	**env_var;
 
 	if (!access(cmd->c, R_OK))
@@ -61,7 +62,11 @@ int	is_sys(t_cmd *cmd, int i)
 		return (1);
 	}
 	str = cmd->c;
-	env_var = ft_split(getenv("PATH"), ':');
+	temp = ft_getenv("PATH", cmd);
+	if (!temp)
+		return(0);
+	env_var = ft_split(temp, ':');
+	free(temp);
 	if (is_sys_p2(env_var, str, cmd, i))
 		return (1);
 	free_double_p((void **)env_var);

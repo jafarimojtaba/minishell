@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 19:57:21 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/12 12:51:46 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 13:21:21 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*find_file_name(char *c, int *j)
 	while (c[*j] == ' ')
 		(*j)++;
 	start = *j;
-	while (c[*j] != '\0' && !ft_strchr("< >|", c[*j]))
+	while (*j < (int)ft_strlen(c) && !ft_strchr("< >|", c[*j]))
 		(*j)++;
 	end = *j;
 	temp = ft_substr(c, start, end - start);

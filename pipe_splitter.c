@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:06:47 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/12 12:44:42 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 13:22:42 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	pipe_splitter(t_cmd *cmd, char *c, int i, int j)
 	end = 0;
 	while (c[start] == ' ')
 		start++;
-	while (c[i] != '\0')
+	while (i < (int)ft_strlen(c))
 	{
 		if (j > 0)
 			cmd[j].pipe_flag_before = 1;

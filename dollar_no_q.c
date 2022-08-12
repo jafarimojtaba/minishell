@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 20:37:12 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/11 23:17:20 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 13:07:54 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	dollar_no_q(t_cmd *cmd, int i, int j, int start)
 	while (i < cmd->data->cmd_n)
 	{
 		j = 0;
-		while (cmd[i].c_pre_parse[j] != '\0')
+		while (j < (int)ft_strlen(cmd[i].c_pre_parse))
 		{
 			if (cmd[i].c_pre_parse[j] == '\'' || cmd[i].c_pre_parse[j] == '"')
 			{

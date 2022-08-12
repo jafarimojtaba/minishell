@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:38:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/12 12:58:30 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 13:09:29 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	read_n_re(t_cmd *cmd, int j, int count)
 	char	*c;
 
 	c = cmd->c_pre_parse;
-	while (c[j])
+	while (j < (int)ft_strlen(c))
 	{
 		if (c[j] == '\'' || c[j] == '"')
 		{

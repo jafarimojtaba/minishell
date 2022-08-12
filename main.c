@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/11 23:40:42 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 13:20:49 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	not_only_space(char *c, int i, int count)
 {
-	while (c[i] != '\0')
+	while (i < (int)ft_strlen(c))
 	{
 		if (c[i] != ' ' && c[i] != '\t')
 			count++;
