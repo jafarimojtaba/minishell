@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/12 12:53:59 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/13 11:01:31 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		is_q_closed(char *c, int i);
 int		find_next_q(char *c, int q, int i);
 int		find_next_near_q(char *c, int q, int i);
 
-void	minishell(char *cmd_buff, t_cmd *cmd, t_data *data);
+void	minishell(char **cmd_buff, t_cmd *cmd, t_data *data);
 void	exe_remove(char **env);
 
 int		cmd_count(char *c, int i, int count, t_data *data);
@@ -139,5 +139,6 @@ void	ft_unset(t_cmd *cmd);
 void	free_cmd_exit(t_cmd *cmd, int end);
 void	free_cmd(t_cmd *cmd, int i);
 void	free_double_p(void **p);
+void	free_data(t_data *cmd);
 
 #endif

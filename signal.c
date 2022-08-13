@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 12:56:40 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/12 12:59:05 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 22:02:16 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,7 @@ void	siginthandler(int signum)
 		rl_clear_history();
 	}
 	else if (signum == SIGQUIT)
-	{
 		printf("\b\b  \b\b");
-		exit(1);
-	}
-	else if (signum == SIGSTOP)
-	{
-		exit(1);
-	}
 }
 
 void	signal_check(int argc, char **argv)
@@ -39,5 +32,4 @@ void	signal_check(int argc, char **argv)
 		argc = 2;
 	signal(SIGINT, siginthandler);
 	signal(SIGQUIT, siginthandler);
-	signal(SIGSTOP, siginthandler);
 }

@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 18:46:43 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/12 14:38:36 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 22:08:47 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	is_sys(t_cmd *cmd, int i)
 	str = cmd->c;
 	temp = ft_getenv("PATH", cmd);
 	if (!temp)
-		return(0);
+		return (0);
 	env_var = ft_split(temp, ':');
 	free(temp);
 	if (is_sys_p2(env_var, str, cmd, i))

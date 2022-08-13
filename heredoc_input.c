@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 18:48:00 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/12 12:56:01 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/13 09:00:13 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ void	ft_new_read_p2(char **temp, char **ret, int *l, char **rl)
 	(*l)++;
 }
 
+int	did_free(char **temp2)
+{
+	if (*temp2)
+		free(*temp2);
+	return (1);
+}
+
 char	*ft_new_read(char *dlm, char *ret, int l)
 {
 	char	*rl;
@@ -38,7 +45,9 @@ char	*ft_new_read(char *dlm, char *ret, int l)
 	{
 		if (rl && !l)
 			free(rl);
-		rl = readline(">");
+		rl = readline("");
+		if (!rl && did_free(&temp2))
+			break ;
 		if (ft_strncmp(dlm, rl, ft_strlen(rl) + 1) != 0)
 			ft_new_read_p2(&temp, &ret, &l, &rl);
 		if (temp2)

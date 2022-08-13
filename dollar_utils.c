@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 18:02:31 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/12 14:16:50 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/13 09:53:57 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,28 @@ void	no_dollar_var(t_cmd *cmd, int j, char *first_str)
 void	copy_env(t_data *data, char **env, int i)
 {
 	char	**env_dup;
+	char	*temp;
 	char	buf[500];
 
 	while (env[i])
 		i++;
-	env_dup = (char **)malloc((i + 2) * sizeof(char *));
+	temp = getenv("OLDPWD");
+	if (temp)
+	{
+		env_dup = (char **)malloc((i + 1) * sizeof(char *));
+		env_dup[i] = NULL;
+	}
+	else
+	{
+		env_dup = (char **)malloc((i + 2) * sizeof(char *));
+		env_dup[i] = ft_strjoin("OLDPWD=", getcwd(buf, 500));
+		env_dup[i + 1] = NULL;
+	}
 	i = 0;
 	while (env[i])
 	{
 		env_dup[i] = ft_strdup(env[i]);
 		i++;
 	}
-	env_dup[i] = ft_strjoin("OLDPWD=", getcwd(buf, 500));
-	env_dup[i + 1] = NULL;
 	data->env = env_dup;
 }

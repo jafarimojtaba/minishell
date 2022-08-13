@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:44:35 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/12 13:20:49 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/13 11:06:04 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,23 @@ int	not_only_space(char *c, int i, int count)
 	return (count);
 }
 
+int	check_readline(char **cmd_buff, t_data *data)
+{
+	if (!*cmd_buff)
+	{
+		free_data(data);
+		printf("\n");
+		exit(1);
+	}
+	if (ft_strlen(*cmd_buff) > 0 && not_only_space(*cmd_buff, 0, 0))
+	{
+		add_history(*cmd_buff);
+		return (1);
+	}
+	else
+		return (0);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*cmd_buff;
@@ -36,9 +53,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		cmd_buff = readline("MiniShell$ ");
-		if (ft_strlen(cmd_buff) > 0 && not_only_space(cmd_buff, 0, 0))
-			add_history(cmd_buff);
-		else
+		if (!check_readline(&cmd_buff, data))
 			continue ;
 		if (!is_q_closed(cmd_buff, 0))
 		{
@@ -47,7 +62,7 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		}
 		cmd = (t_cmd *)malloc(cmd_count(cmd_buff, 0, 1, data) * sizeof(t_cmd));
-		minishell(cmd_buff, cmd, data);
+		minishell(&cmd_buff, cmd, data);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 19:12:09 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/11 19:28:18 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/12 21:13:05 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,18 @@ void	free_cmd(t_cmd *cmd, int i)
 	free(cmd->data->cmd_buff);
 }
 
-void	free_data(t_cmd *cmd)
+void	free_data(t_data *data)
 {
 	int	j;
 
 	j = 0;
-	while (cmd->data->env[j])
-		free(cmd->data->env[j++]);
-	free(cmd->data->env[j]);
-	free(cmd->data->env);
-	free(cmd->data->prev_dir);
-	free(cmd->data->path_str);
-	free(cmd->data);
+	while (data->env[j])
+		free(data->env[j++]);
+	free(data->env[j]);
+	free(data->env);
+	free(data->prev_dir);
+	free(data->path_str);
+	free(data);
 }
 
 void	free_cmd_exit(t_cmd *cmd, int end)
@@ -80,7 +80,7 @@ void	free_cmd_exit(t_cmd *cmd, int end)
 	{
 		free_cmd(cmd, 0);
 		if (end)
-			free_data(cmd);
+			free_data(cmd->data);
 		free(cmd);
 	}
 }

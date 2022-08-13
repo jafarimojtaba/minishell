@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 12:58:18 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/12 12:56:11 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/13 13:32:43 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ void print_cmd(t_cmd *cmd, int n)
 }
 */
 
-void	minishell(char *cmd_buff, t_cmd *cmd, t_data *data)
+void	minishell(char **cmd_buff, t_cmd *cmd, t_data *data)
 {
-	data->cmd_buff = cmd_buff;
+	data->cmd_buff = *cmd_buff;
 	cmd_init(cmd, data);
-	pipe_splitter(cmd, cmd_buff, 0, 0);
+	pipe_splitter(cmd, *cmd_buff, 0, 0);
 	dollar_no_q(cmd, 0, 0, 0);
 	dollar_with_q(cmd, 0, 0, 0);
 	redirection(cmd, 0);
