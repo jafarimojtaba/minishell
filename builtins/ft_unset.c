@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:07 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/12 13:17:21 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/15 19:03:41 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	ft_unset(t_cmd *cmd)
 	i = 1;
 	if (ft_strncmp(cmd->c, "unset", ft_strlen(cmd->c) + 6))
 		return ;
+	cmd->data->last_exit_status = 0;
 	while (i < cmd->op_n)
 	{
 		if (is_valid_unset_arg(cmd, i, 0))
@@ -103,6 +104,8 @@ void	ft_unset(t_cmd *cmd)
 			if (k != -1)
 				remove_from_env(cmd->data, k, 0, 0);
 		}
+		else
+			cmd->data->last_exit_status = 1;
 		i++;
 	}
 }

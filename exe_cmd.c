@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 11:42:56 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/13 13:31:10 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/15 23:39:14 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,14 @@ void	exe_builtin(t_cmd *cmd)
 
 int	special_cat(t_cmd *cmd)
 {
-	if (cmd->fd_in == 0 && cmd->pipe_flag_before == -1)
-	{
-		cmd->pipe_flag_after = -1;
-		if (cmd->id < cmd->data->cmd_n - 1)
-			cmd[1].pipe_flag_before = -1;
-		return (1);
-	}
+	if (cmd->data->cmd_n - cmd->id > 1)
+		if (cmd->fd_in == 0 && cmd->pipe_flag_before == -1)
+		{
+			cmd->pipe_flag_after = -1;
+			if (cmd->id < cmd->data->cmd_n - 1)
+				cmd[1].pipe_flag_before = -1;
+			return (1);
+		}
 	return (0);
 }
 
@@ -68,12 +69,14 @@ void	exe_sys(t_cmd *cmd)
 		return ;
 	}
 	pid = fork();
+	signal_check_child();
 	if (pid == 0)
 	{
 		handel_dup2(cmd);
 		execve(cmd->c_path, cmd->op, cmd->data->env);
 	}
 	waitpid(pid, &cmd->data->last_exit_status, 0);
+	signal_check(1, cmd->data->env);
 	return ;
 }
 
@@ -100,13 +103,18 @@ void	exe_cmd(t_cmd *cmd, int i)
 	{
 		if (!ft_strlen(cmd[i].c))
 		{
-			printf("Empty command\n");
+			printf("");
 			cmd[i].data->last_exit_status = 127;
 		}
 		else if (is_builtin(cmd[i].c))
 			exe_builtin(&cmd[i]);
 		else if (is_sys(&cmd[i], 0))
 			exe_sys(&cmd[i]);
+		else if (!ft_strncmp("<<", cmd[i].c, ft_strlen(cmd[i].c)))
+		{
+			printf("syntax error near unexpected token `newline'\n");
+			cmd[i].data->last_exit_status = 2;
+		}
 		else
 		{
 			printf("\"%s\" is not a command\n", cmd[i].c);

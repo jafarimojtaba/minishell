@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 18:47:10 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/12 13:17:14 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/15 20:53:50 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,20 @@ void	ft_export(t_cmd *cmd, int i)
 	i = 1;
 	if (ft_strncmp(cmd->c, "export", ft_strlen(cmd->c) + 7))
 		return ;
+	cmd->data->last_exit_status = 0;
+	if (cmd ->op_n == 1 && print_export(cmd, 0, 0))
+		return ;
 	while (i < cmd->op_n)
 	{
 		if (is_valid_export_arg(cmd, i, 0))
 		{
 			if (is_pre_defined_env(cmd, i, 0) == 0)
 				add_to_env(cmd, i, 0, 0);
+			else
+				cmd->data->last_exit_status = 1;
 		}
+		else
+			cmd->data->last_exit_status = 1;
 		i++;
 	}
 }

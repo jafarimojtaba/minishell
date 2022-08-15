@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 11:16:20 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/12 11:52:57 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/15 23:15:11 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	data_init(t_data *data, char **env, char *cmd_buff)
 	char	*temp;
 
 	data->cmd_buff = cmd_buff;
+	data->p_pid = getpid();
 	data->last_exit_status = 0;
 	temp = getcwd(data->path, 500);
 	data->prev_dir = ft_strdup(temp);
