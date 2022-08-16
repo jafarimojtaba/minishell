@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 11:42:56 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/15 23:39:14 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/16 17:15:22 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,16 @@ void	exe_builtin(t_cmd *cmd)
 
 int	special_cat(t_cmd *cmd)
 {
-	if (cmd->data->cmd_n - cmd->id > 1)
+	if (cmd->data->cmd_n - cmd->id > 1 && cmd->op_n == 1)
+	{
 		if (cmd->fd_in == 0 && cmd->pipe_flag_before == -1)
 		{
 			cmd->pipe_flag_after = -1;
 			if (cmd->id < cmd->data->cmd_n - 1)
 				cmd[1].pipe_flag_before = -1;
 			return (1);
-		}
+		}	
+	}
 	return (0);
 }
 

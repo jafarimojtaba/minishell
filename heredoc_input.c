@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 18:48:00 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/13 09:00:13 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/16 14:19:04 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ void	ft_new_read_p2(char **temp, char **ret, int *l, char **rl)
 	(*l)++;
 }
 
-int	did_free(char **temp2)
+int	did_free(char **temp2, char *dlm)
 {
+	printf("warning: here-document delimited by \
+	end-of-file (wanted `%s')\n", dlm);
 	if (*temp2)
 		free(*temp2);
 	return (1);
@@ -45,8 +47,8 @@ char	*ft_new_read(char *dlm, char *ret, int l)
 	{
 		if (rl && !l)
 			free(rl);
-		rl = readline("");
-		if (!rl && did_free(&temp2))
+		rl = readline(">");
+		if (!rl && did_free(&temp2, dlm))
 			break ;
 		if (ft_strncmp(dlm, rl, ft_strlen(rl) + 1) != 0)
 			ft_new_read_p2(&temp, &ret, &l, &rl);

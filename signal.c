@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 12:56:40 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/15 23:44:24 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/16 13:53:29 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	siginthandler_child(int signum)
 		printf("\n");
 }
 
-void	signal_check_child()
+void	signal_check_child(void)
 {
 	signal(SIGINT, siginthandler_child);
 	signal(SIGQUIT, siginthandler_child);

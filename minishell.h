@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:48:15 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/15 23:14:46 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/16 13:53:39 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_cmd
 }	t_cmd;
 
 void	signal_check(int argc, char **argv);
-void	signal_check_child();
+void	signal_check_child(void);
 
 void	data_init(t_data *data, char **env, char *cmd_buff);
 void	copy_env(t_data *data, char **env, int i);

@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:06:56 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/15 20:53:35 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/16 13:55:46 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 char	**creat_temp(t_cmd *cmd, int i)
 {
-	char **temp;
+	char	**temp;
+
 	while (cmd->data->env[i])
 		i++;
 	temp = (char **)malloc((i + 1) * sizeof(char *));
@@ -37,7 +38,7 @@ void	check_smaller_str(char **temp, int i, int j, int k)
 		if (temp[i][j] == temp[k][j])
 		{
 			j++;
-			continue;
+			continue ;
 		}
 		if (temp[i][j] < temp[k][j])
 		{
@@ -45,7 +46,7 @@ void	check_smaller_str(char **temp, int i, int j, int k)
 			temp[k] = temp[i];
 			temp[i] = str;
 		}
-		break;
+		break ;
 		j++;
 	}
 }
@@ -73,7 +74,7 @@ int	print_export(t_cmd *cmd, int i, int k)
 			if (k == i)
 			{
 				k++;
-				continue;
+				continue ;
 			}
 			check_smaller_str(temp, i, 0, k);
 			k++;
@@ -82,5 +83,5 @@ int	print_export(t_cmd *cmd, int i, int k)
 	}
 	print_temp(temp, 0);
 	free_double_p((void **)temp);
-	return(1);
+	return (1);
 }
