@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 22:58:26 by mjafari           #+#    #+#             */
-/*   Updated: 2021/05/31 13:27:11 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/17 16:04:45 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	i = 0;
 	if (n == 0)
 		return (0);
-	while (i < n && s11[i] == s22[i] && s11[i] && s22[i])
+	while (s11[i] != '\0' && s22[i] != '\0' && \
+	i < n && s11[i] == s22[i])
 		i++;
 	if (i == n)
 		return (0);

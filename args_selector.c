@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:23:38 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/16 16:58:54 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/17 16:05:58 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_args_selector(t_cmd *cmd, int n, int i, int j)
 	{
 		op_count(&cmd[i], 0, 0);
 		op_split(&cmd[i], 0, 0, 0);
-		if (ft_strncmp(cmd[i].c, "echo", 10))
+		if (cmd[i].c && ft_strncmp(cmd[i].c, "echo", 10))
 		{
 			j = 0;
 			while (j < cmd[i].op_n)

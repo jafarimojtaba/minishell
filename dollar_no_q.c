@@ -6,7 +6,7 @@
 /*   By: mjafari <mjafari@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 20:37:12 by mjafari           #+#    #+#             */
-/*   Updated: 2022/08/12 13:07:54 by mjafari          ###   ########.fr       */
+/*   Updated: 2022/08/17 15:59:47 by mjafari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	end_of_dollar(t_cmd *cmd, int start, int *j, char *first_str)
 
 	dollar_check = 0;
 	first_str = ft_substr(cmd->c_pre_parse, 0, *j);
-	(*j)++;
+	if (*j < (int)ft_strlen(cmd->c_pre_parse))
+		(*j)++;
 	start = *j;
 	while (*j < (int)ft_strlen(cmd->c_pre_parse) \
 	&& !ft_strchr("$ <>'\"", cmd->c_pre_parse[*j]))
